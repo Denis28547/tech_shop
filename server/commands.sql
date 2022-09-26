@@ -17,6 +17,7 @@ CREATE TABLE "post"(
 	CONSTRAINT fk_user
 		FOREIGN KEY(user_id)
 			REFERENCES "user"(id)
+<<<<<<< HEAD
 );
 
 -----------------------------------------------------
@@ -48,3 +49,6 @@ CREATE TABLE "cart" (
 	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES "user"(id)
 );
+=======
+);
+>>>>>>> e3fae0ba60737c7d0a776cf4c0c3dc2ca70b9ff2
