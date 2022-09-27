@@ -17,7 +17,6 @@ CREATE TABLE "post"(
 	CONSTRAINT fk_user
 		FOREIGN KEY(user_id)
 			REFERENCES "user"(id)
-<<<<<<< HEAD
 );
 
 -----------------------------------------------------
@@ -35,9 +34,9 @@ CREATE DATABASE tech_shop
 
 CREATE TABLE "user" (
 	id SERIAL PRIMARY KEY,
-	username VARCHAR(255),
-	email VARCHAR(255) UNIQUE,
-	password TEXT,
+	username VARCHAR(255) NOT NULL,
+	email VARCHAR(255) UNIQUE NOT NULL,
+	password TEXT NOT NULL,
 	role VARCHAR(255) DEFAULT 'USER'
 );
 
@@ -47,8 +46,5 @@ DROP TABLE "user";
 
 CREATE TABLE "cart" (
 	id SERIAL PRIMARY KEY,
-	user_id INT REFERENCES "user"(id)
+	user_id INT REFERENCES "user"(id) NOT NULL
 );
-=======
-);
->>>>>>> e3fae0ba60737c7d0a776cf4c0c3dc2ca70b9ff2
