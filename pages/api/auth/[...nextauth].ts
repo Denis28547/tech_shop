@@ -3,17 +3,11 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
 
-// interface ServerPostResponse {
-
-// }
-
 export const authOptions = {
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-      // clientId: process.env.GITHUB_ID!,
-      // clientSecret: process.env.GITHUB_SECRET!,
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
     }),
     CredentialProvider({
       name: "credentials",
