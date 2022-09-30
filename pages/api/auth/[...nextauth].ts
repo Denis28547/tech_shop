@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import SequelizeAdapter from "@next-auth/sequelize-adapter";
 
 export const authOptions = {
   providers: [
@@ -38,5 +39,9 @@ export const authOptions = {
       },
     }),
   ],
+  jwt: {
+    maxAge: 30,
+  },
+  // adapter: SequelizeAdapter(sequelize),
 };
 export default NextAuth(authOptions);

@@ -1,47 +1,53 @@
-"use strict";
+import { DataTypes, Sequelize } from "sequelize";
 
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
-const process = require("process");
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.json")[env];
-const db = {};
-
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
-}
-
-fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-    );
-  })
-  .forEach((file) => {
-    const model = require(path.join(__dirname, file))(
-      sequelize,
-      Sequelize.DataTypes
-    );
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+const sequelize = new Sequelize({
+  username: "postgres",
+  password: "2562",
+  database: "tech_shop",
+  host: "127.0.0.1",
+  dialect: "postgres",
 });
 
-db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
+// CREATE TABLE "user" (
+// 	id SERIAL PRIMARY KEY,
+// 	username VARCHAR(255) NOT NULL,
+// 	email VARCHAR(255) UNIQUE NOT NULL,
+// 	password TEXT NOT NULL,
+// 	role VARCHAR(255) DEFAULT 'USER'
+// );
 
-module.exports = db;
+const User = sequelize.define(
+  "user",
+  {
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "USER",
+    },
+  },
+  {
+    freezeTableName: true,
+    timestamps: false,
+  }
+);
+
+User.sync({ force: true });
+
+export default sequelize;
