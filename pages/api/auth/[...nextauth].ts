@@ -2,9 +2,14 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
-import SequelizeAdapter from "@next-auth/sequelize-adapter";
+import SequelizeAdapter, { models } from "@next-auth/sequelize-adapter";
+import sequelize from "../../../models/index.js";
+
+sequelize.sync();
 
 export const authOptions = {
+  adapter: SequelizeAdapter(sequelize),
+
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
@@ -39,9 +44,12 @@ export const authOptions = {
       },
     }),
   ],
-  jwt: {
-    maxAge: 30,
-  },
   // adapter: SequelizeAdapter(sequelize),
+  session: {
+    strategy: "jwt",
+    maxAge: 1 * 24 * 60 * 60,
+  },
 };
+//@ts-ignore
+
 export default NextAuth(authOptions);
