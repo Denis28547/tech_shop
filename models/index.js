@@ -16,38 +16,98 @@ const sequelize = new Sequelize({
 // 	role VARCHAR(255) DEFAULT 'USER'
 // );
 
+// const User = sequelize.define(
+//   "user",
+//   {
+//     user_id: {
+//       type: DataTypes.INTEGER,
+//       primaryKey: true,
+//       autoIncrement: true,
+//     },
+//     username: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//     email: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//       unique: true,
+//     },
+//     password: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//     role: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//       defaultValue: "USER",
+//     },
+//   },
+//   {
+//     freezeTableName: true,
+//     timestamps: false,
+//   }
+// );
+
+// User.sync({ force: true });
+
+// export { User };
+
 const User = sequelize.define(
   "user",
   {
-    user_id: {
-      type: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
-    username: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
-    role: {
+    image: {
       type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "USER",
+      // allowNull: false,
+    },
+    email_verified: {
+      type: DataTypes.DATE,
     },
   },
   {
-    freezeTableName: true,
+    // freezeTableName: true,
     timestamps: false,
   }
 );
 
-User.sync({ force: true });
+// const Account = sequelize.define("account", {
+//   user_id:{
+//     type: DataTypes.STRING,
 
+//   },
+//   type: {
+//     type: DataTypes.STRING,
+//   },
+//   provider: {
+//     type: DataTypes.STRING,
+//   },
+//   provider_account_id: {
+//     type: DataTypes.STRING,
+//   },
+//   refresh_token:{}
+
+// },
+// {
+//   timestamps: false,
+// })
+
+export { User };
 export default sequelize;

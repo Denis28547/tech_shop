@@ -4,13 +4,13 @@ import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 
 interface User {
-  username: string;
+  name: string;
   email: string;
   password: string;
 }
 
 const defaultState: User = {
-  username: "",
+  name: "",
   email: "",
   password: "",
 };
@@ -45,10 +45,10 @@ const SignUp: NextPage = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>Username</label>
+        <label>Name</label>
         <input
-          value={userInfo.username}
-          name="username"
+          value={userInfo.name}
+          name="name"
           onChange={(e) => handleChange(e)}
         />
         <label>Email</label>
