@@ -13,7 +13,7 @@ const Home: NextPage = () => {
       <h1>{session.data?.user?.email}</h1>
       <h1>{session.data?.user?.name}</h1>
       <button onClick={() => signIn()}>SIGN IN</button>
-      <button onClick={() => signOut()}>SIGN OUT</button>
+      {session.data && <button onClick={() => signOut()}>SIGN OUT</button>}
       {!session.data && (
         <button onClick={() => router.push("/signup")}>SIGN UP</button>
       )}

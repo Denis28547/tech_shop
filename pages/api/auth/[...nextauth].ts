@@ -2,8 +2,8 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
-import SequelizeAdapter, { models } from "@next-auth/sequelize-adapter";
-import sequelize from "../../../models/index.js";
+import SequelizeAdapter from "@next-auth/sequelize-adapter";
+import sequelize from "../../../models";
 
 sequelize.sync();
 
@@ -15,6 +15,7 @@ export const authOptions = {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
+
     CredentialProvider({
       name: "credentials",
       credentials: {
@@ -30,6 +31,8 @@ export const authOptions = {
           "http://localhost:3000/api/signin",
           credentials
         );
+
+        console.log(credentials);
 
         const user = res.data;
 

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import type { NextPage } from "next";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
@@ -34,12 +34,15 @@ const SignUp: NextPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:3000/api/signup",
-      userInfo
-    );
-    // console.log(response);
-    alert(response.data.message);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/signup",
+        userInfo
+      );
+      alert(response.data.message);
+    } catch (error: any) {
+      alert(error?.response?.data?.message);
+    }
   };
 
   return (

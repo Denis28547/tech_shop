@@ -1,4 +1,4 @@
-import { DataTypes, Sequelize } from "sequelize";
+import { DataTypes, Sequelize, Model } from "sequelize";
 
 const sequelize = new Sequelize({
   username: "postgres",
@@ -52,8 +52,16 @@ const sequelize = new Sequelize({
 // User.sync({ force: true });
 
 // export { User };
+interface IUser extends Model {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  image: string | null;
+  email_verified: boolean | null;
+}
 
-const User = sequelize.define(
+const User = sequelize.define<IUser>(
   "user",
   {
     id: {
