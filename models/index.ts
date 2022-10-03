@@ -1,4 +1,5 @@
-import { DataTypes, Sequelize, Model } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
+import { IItem, IUser } from "./models_type";
 
 const sequelize = new Sequelize({
   username: "postgres",
@@ -8,60 +9,7 @@ const sequelize = new Sequelize({
   dialect: "postgres",
 });
 
-// CREATE TABLE "user" (
-// 	id SERIAL PRIMARY KEY,
-// 	username VARCHAR(255) NOT NULL,
-// 	email VARCHAR(255) UNIQUE NOT NULL,
-// 	password TEXT NOT NULL,
-// 	role VARCHAR(255) DEFAULT 'USER'
-// );
-
-// const User = sequelize.define(
-//   "user",
-//   {
-//     user_id: {
-//       type: DataTypes.INTEGER,
-//       primaryKey: true,
-//       autoIncrement: true,
-//     },
-//     username: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//     email: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//       unique: true,
-//     },
-//     password: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//     role: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//       defaultValue: "USER",
-//     },
-//   },
-//   {
-//     freezeTableName: true,
-//     timestamps: false,
-//   }
-// );
-
-// User.sync({ force: true });
-
-// export { User };
-interface IUser extends Model {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  image: string | null;
-  email_verified: boolean | null;
-}
-
-const User = sequelize.define<IUser>(
+export const User = sequelize.define<IUser>(
   "user",
   {
     id: {
@@ -80,42 +28,134 @@ const User = sequelize.define<IUser>(
     },
     password: {
       type: DataTypes.STRING,
-      // allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
-      // allowNull: false,
     },
     email_verified: {
       type: DataTypes.DATE,
     },
   },
   {
-    // freezeTableName: true,
     timestamps: false,
   }
 );
 
-// const Account = sequelize.define("account", {
-//   user_id:{
-//     type: DataTypes.STRING,
+export const Cart = sequelize.define(
+  "cart",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-//   },
-//   type: {
-//     type: DataTypes.STRING,
-//   },
-//   provider: {
-//     type: DataTypes.STRING,
-//   },
-//   provider_account_id: {
-//     type: DataTypes.STRING,
-//   },
-//   refresh_token:{}
+export const CartItem = sequelize.define(
+  "cart_item",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+  },
+  {
+    freezeTableName: true,
+    timestamps: false,
+  }
+);
 
-// },
-// {
-//   timestamps: false,
-// })
+export const Type = sequelize.define(
+  "type",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-export { User };
+export const Brand = sequelize.define(
+  "brand",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+export const Rating = sequelize.define(
+  "rating",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    rate: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+export const Item = sequelize.define<IItem>(
+  "item",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      // allowNull: false //! IMAGE NULL IS ENABLED
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+Cart.belongsTo(User, { foreignKey: "user_id" });
+User.hasOne(Cart, { foreignKey: "user_id" });
+// cartitem to item and cart
+// rating userid and itemid
+
 export default sequelize;

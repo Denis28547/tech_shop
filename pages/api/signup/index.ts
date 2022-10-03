@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { User } from "../../../models";
+import { Cart, User } from "../../../models";
 const bcrypt = require("bcrypt");
 
 export default async function handler(
@@ -31,11 +31,15 @@ export default async function handler(
           Number(process.env.PASS_SALT)
         );
 
-        await User.create({
+        const user = await User.create({
           name,
           email,
           password: hashedPass,
         });
+
+        const createdUser = user.toJSON();
+
+        await Cart.create({ user_id: createdUser.id });
 
         res.status(201).json({ message: "successfully created" });
       } catch (error: any) {

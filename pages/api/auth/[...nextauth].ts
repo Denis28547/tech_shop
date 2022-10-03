@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import SequelizeAdapter from "@next-auth/sequelize-adapter";
-import sequelize from "../../../models";
+import sequelize, { Cart } from "../../../models";
 
 sequelize.sync();
 
@@ -14,7 +14,7 @@ export const authOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
-    }),
+    }), //! ADD GOOGLE PROVIDER
 
     CredentialProvider({
       name: "credentials",
@@ -32,12 +32,9 @@ export const authOptions = {
           credentials
         );
 
-        console.log(credentials);
-
         const user = res.data;
 
         if (res.data.status === 400) {
-          console.log(res.data);
           return null;
         }
 
@@ -47,10 +44,25 @@ export const authOptions = {
       },
     }),
   ],
-  // adapter: SequelizeAdapter(sequelize),
+
   session: {
     strategy: "jwt",
-    maxAge: 1 * 24 * 60 * 60,
+    maxAge: 24 * 60 * 60,
+  },
+
+  events: {
+    // async signIn({ user }) {
+    //   console.log(user);
+    //   const user_id = user?.id;
+
+    //   const cartExists = await Cart.findOne({ where: { user_id } });
+
+    //   if (!cartExists) await Cart.create({ user_id });
+    // },
+    async createUser({ user }) {
+      const user_id = user?.id;
+      await Cart.create({ user_id });
+    },
   },
 };
 //@ts-ignore
