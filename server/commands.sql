@@ -48,3 +48,7 @@ CREATE TABLE "cart" (
 	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES "user"(id) NOT NULL
 );
+
+
+DROP SCHEMA public CASCADE; -- for dropping all tables 
+CREATE SCHEMA public;
