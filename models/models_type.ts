@@ -7,6 +7,7 @@ export interface IUser extends Model {
   password: string;
   image: string | null;
   email_verified: boolean | null;
+  role: string;
 }
 
 export interface IItem extends Model {

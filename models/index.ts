@@ -25,6 +25,9 @@ export const User = sequelize.define<IUser>(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
@@ -34,6 +37,10 @@ export const User = sequelize.define<IUser>(
     },
     email_verified: {
       type: DataTypes.DATE,
+    },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: "USER",
     },
   },
   {
@@ -63,6 +70,7 @@ export const CartItem = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    //quantity
   },
   {
     freezeTableName: true,
@@ -153,9 +161,22 @@ export const Item = sequelize.define<IItem>(
   }
 );
 
-Cart.belongsTo(User, { foreignKey: "user_id" });
-User.hasOne(Cart, { foreignKey: "user_id" });
-// cartitem to item and cart
-// rating userid and itemid
+User.hasOne(Cart, { foreignKey: "user_id", onDelete: "CASCADE" });
+Cart.belongsTo(User, { foreignKey: "user_id", onDelete: "CASCADE" });
+
+User.hasMany(Rating, { foreignKey: "rating_id" });
+Rating.belongsTo(User, { foreignKey: "rating_id" });
+
+Cart.belongsToMany(Item, { through: CartItem, foreignKey: "cart_id" });
+Item.belongsToMany(Cart, { through: CartItem, foreignKey: "item_id" });
+
+Type.hasMany(Item, { foreignKey: "type_id" });
+Item.belongsTo(Type, { foreignKey: "type_id" });
+
+Brand.hasMany(Item, { foreignKey: "brand_id" });
+Item.belongsTo(Brand, { foreignKey: "brand_id" });
+
+Item.hasMany(Rating, { foreignKey: "rating_id" });
+Rating.belongsTo(Item, { foreignKey: "rating_id" });
 
 export default sequelize;
