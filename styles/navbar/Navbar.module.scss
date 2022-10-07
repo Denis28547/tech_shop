@@ -1,80 +1,26 @@
 @import "/styles/named_variables.scss";
 
-.navbar {
+@mixin flex_display {
   display: flex;
   align-items: center;
-  // padding: 20px 90px;
-  // padding: 20px 4%;
-  height: 64px;
+}
+
+@mixin flex_container_evenly {
+  flex-grow: 1;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.navbar {
+  @include flex_display;
+  height: 70px;
   background-color: $base-color;
+  color: $secondary-color;
+  font-weight: 600;
   > * {
     // selecting all direct children of .navbar
-    display: flex;
-    align-items: center;
-  }
-
-  .left_container {
-    // flex-grow: 1;
-    // justify-content: space-evenly;
-    // align-items: center;
-    // height: 100%;
-
-    .logo_container {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .catalogue_container {
-      display: flex;
-      align-items: center;
-      background-color: rgba(255, 255, 255, 0.163);
-      border-radius: 8px;
-      padding: 0px 10px;
-      cursor: pointer;
-    }
-  }
-
-  .middle_container {
-    border: 1px solid black;
-    border-radius: 5px;
-    overflow: hidden;
-
-    flex-grow: 4;
-    height: 44px;
-
-    .searchfield {
-      width: 100%;
-      border: none;
-      background-color: transparent;
-      height: 100%;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    .search_button {
-      width: fit-content;
-      padding: 10px;
-      height: 100%;
-      border: none;
-      background-color: black;
-      color: white;
-    }
-  }
-
-  .right_container {
-    // flex-grow: 2;
-    // justify-content: space-evenly;
-    // align-items: center;
-    // height: 100%;
-
-    .change_theme_container {
-      display: flex;
-      background-color: rgba(255, 255, 255, 0.163);
-      border-radius: 40%;
-    }
+    @include flex_display;
+    @include flex_container_evenly;
   }
 
   @media only screen and (max-width: 800px) {
@@ -110,26 +56,80 @@
   }
 }
 
-.icon {
-  width: 40px;
-  height: 40px;
-  color: black;
-  cursor: pointer;
+.left_container {
+  .logo_container {
+    @include flex_display;
+    cursor: pointer;
+    gap: 8px;
+    font-size: 1.4rem;
+  }
+
+  .catalogue_container {
+    @include flex_display;
+    background-color: rgba($secondary-color, 0.25);
+    border-radius: 8px;
+    padding: 0px 14px;
+    cursor: pointer;
+  }
 }
 
-.flex_container {
-  flex-grow: 1;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
+.middle_container {
+  border-radius: 5px;
+  // overflow: hidden;
+
+  flex-grow: 4;
+  height: 44px;
+  background-color: $secondary-color;
+
+  .find_icon {
+    color: $base_color;
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .searchfield {
+    width: 100%;
+    border: none;
+    background-color: inherit;
+    height: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    padding: 0 18px;
+    height: 100%;
+    border: none;
+    background-color: rgba($base-color, 0.9);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: white;
+  }
+}
+
+.right_container {
+  .change_theme_container {
+    @include flex_display;
+    background-color: rgba($secondary-color, 0.25);
+    border-radius: 36px;
+  }
+}
+
+.icon {
+  width: 36px;
+  height: 36px;
+  color: $secondary-color;
+  cursor: pointer;
 }
 
 .burger {
   display: none;
   width: 34px;
-  // border: 3px solid black;
   height: 3px;
-  background-color: black;
+  background-color: $secondary-color;
   position: relative;
 
   &::before,
@@ -143,11 +143,9 @@
 
   &::before {
     bottom: 8px;
-    // left: 1px;
   }
 
   &::after {
     top: 8px;
-    // right: 1px;
   }
 }
