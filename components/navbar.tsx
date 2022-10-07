@@ -16,7 +16,7 @@ import Image from "next/image";
 const Navbar: NextPage = () => {
   return (
     <nav className={styles.navbar}>
-      <div className={`${styles.left_container}  ${styles.flex_container}`}>
+      <div className={styles.left_container}>
         <Link href="/">
           <div className={styles.logo_container}>
             <Image
@@ -26,21 +26,21 @@ const Navbar: NextPage = () => {
               height="50"
               layout="fixed"
             />
-            <p className={styles.logo_name}>Shopname</p>
+            <p className={styles.logo_name}>TechShop</p>
           </div>
         </Link>
         <Link href="/shop">
           <div className={styles.catalogue_container}>
             <ShopIcon className={styles.icon} />
-            <p>Shop</p>
+            <p>Items</p>
           </div>
         </Link>
       </div>
 
       <div className={styles.middle_container}>
-        <SearchIcon className={styles.icon} />
+        <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
         <input placeholder="SEARCHFIELD" className={styles.searchfield} />
-        <button className={styles.search_button}>FIND</button>
+        <button>FIND</button>
       </div>
 
       <div className={`${styles.right_container} ${styles.flex_container}`}>
@@ -57,14 +57,10 @@ const Navbar: NextPage = () => {
           <ProfileIcon className={styles.icon} />
         </Link>
 
-        <BurgerIcon />
+        <span className={styles.burger}></span>
       </div>
     </nav>
   );
-};
-
-const BurgerIcon = () => {
-  return <div className={styles.burger}></div>;
 };
 
 export default Navbar;
