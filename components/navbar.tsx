@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import styles from "../styles/navbar/Navbar.module.scss";
 import Link from "next/link";
+import { useState } from "react";
 
 import Logo from "../public/assets/icons/logo_black/100.png";
 import SearchIcon from "../public/assets/navbarIcons/SearchIcon";
@@ -14,6 +15,8 @@ import Image from "next/image";
 // import styles from "../styles/Home.module.css";
 
 const Navbar: NextPage = () => {
+  const [theme, setTheme] = useState(true); //night
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.left_container}>
@@ -45,8 +48,9 @@ const Navbar: NextPage = () => {
 
       <div className={`${styles.right_container} ${styles.flex_container}`}>
         <div className={styles.change_theme_container}>
-          <NightIcon className={styles.icon} />
-          <DayIcon className={styles.icon} />
+          <NightIcon className={`${styles.icon} ${styles.night_icon}`} />
+          <span className={styles.theme_bubble} />
+          <DayIcon className={`${styles.icon} ${styles.day_icon}`} />
         </div>
 
         <Link href="/cart">
