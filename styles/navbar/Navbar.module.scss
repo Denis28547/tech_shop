@@ -1,4 +1,4 @@
-@import "/styles/named_variables.scss";
+@use "/styles/variables/colors" as *;
 
 @mixin flex_display {
   display: flex;
@@ -56,42 +56,47 @@
   }
 }
 
-.left_container {
-  .logo_container {
-    @include flex_display;
-    cursor: pointer;
-    gap: 8px;
-    font-size: 1.4rem;
-  }
-
-  .catalogue_container {
-    @include flex_display;
-    background-color: rgba($secondary-color, 0.25);
-    border-radius: 8px;
-    padding: 0px 14px;
-    cursor: pointer;
-  }
+// .left_container {
+.logo_container {
+  @include flex_display;
+  cursor: pointer;
+  gap: 8px;
+  font-size: 1.4rem;
 }
 
+.catalogue_container {
+  @include flex_display;
+  background-color: $third-color;
+  border-radius: 8px;
+  padding: 0px 14px;
+  cursor: pointer;
+}
+// }
+
 .middle_container {
-  border-radius: 5px;
-  // overflow: hidden;
+  border-radius: 6px;
+  overflow: hidden;
 
   flex-grow: 4;
   height: 44px;
-  background-color: $secondary-color;
+
+  .find_icon_container {
+    height: 100%;
+    padding-left: 6px;
+    background-color: $secondary-color;
+  }
 
   .find_icon {
     color: $base_color;
-    margin: 0 5px;
     width: 30px;
-    height: 30px;
+    height: 100%;
   }
 
   .searchfield {
+    padding-left: 6px;
     width: 100%;
     border: none;
-    background-color: inherit;
+    background-color: $secondary-color;
     height: 100%;
 
     &:focus {
@@ -100,11 +105,10 @@
   }
 
   button {
-    outline: none;
     padding: 0 20px;
     height: 100%;
     border: none;
-    background-color: rgba($base-color, 0.9);
+    background-color: $third-color;
     font-weight: 500;
     font-size: 0.9rem;
     color: white;
@@ -119,11 +123,25 @@
 }
 
 .change_theme_container {
+  position: relative;
   @include flex_display;
-  background-color: rgba($secondary-color, 0.25);
+  background-color: $third-color;
   border-radius: 36px;
   overflow: hidden;
   cursor: pointer;
+}
+
+.checkbox {
+  position: absolute;
+  // width: 100%;
+  // height: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  // opacity: 0;
+  visibility: hidden;
 }
 
 .theme_bubble {
@@ -135,23 +153,34 @@
   transition: all 0.2s ease-in-out;
 }
 
+.icon_container {
+  width: 36px;
+  height: 36px;
+  @include flex_display;
+  justify-content: center;
+}
+
 .day_icon {
+  width: 28px;
+  height: 28px;
   transition: all 0.2s ease-in-out;
   transform: translateX(0);
 }
 
 .night_icon {
+  width: 26px;
+  height: 26px;
   transition: all 0.2s ease-in-out;
   transform: translateX(-100%);
 }
 
-.change_theme_container:active {
+.checkbox:checked {
   .day_icon {
     transform: translateX(100%);
   }
 
   .night_icon {
-    transform: translateX(0);
+    transform: translateX(100%);
   }
 
   .theme_bubble {
@@ -159,9 +188,18 @@
   }
 }
 
-// .day_icon:hover {
-// transform: translateX(100%);
-// display: none;
+// .change_theme_container:active {
+//   .day_icon {
+//     transform: translateX(100%);
+//   }
+
+//   .night_icon {
+//     transform: translateX(0);
+//   }
+
+//   .theme_bubble {
+//     transform: translateX(100%);
+//   }
 // }
 
 .burger {

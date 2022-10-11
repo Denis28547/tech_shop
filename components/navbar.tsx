@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import styles from "../styles/navbar/Navbar.module.scss";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Logo from "../public/assets/icons/logo_black/100.png";
 import SearchIcon from "../public/assets/navbarIcons/SearchIcon";
@@ -15,10 +15,20 @@ import Image from "next/image";
 // import styles from "../styles/Home.module.css";
 
 const Navbar: NextPage = () => {
-  const [theme, setTheme] = useState(true); //night
+  const [theme, setTheme] = useState("dark"); //change to dark
+  const nextTheme = theme === "light" ? "dark" : "light";
+
+  useEffect(() => {
+    document.body.dataset.theme = theme;
+  }, [theme]);
+
+  const handleClick = () => {
+    setTheme(nextTheme);
+  };
 
   return (
     <nav className={styles.navbar}>
+      {/* <button onClick={handleClick}>THEME</button> */}
       <div className={styles.left_container}>
         <Link href="/">
           <div className={styles.logo_container}>
@@ -41,16 +51,23 @@ const Navbar: NextPage = () => {
       </div>
 
       <div className={styles.middle_container}>
-        <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
+        <div className={styles.find_icon_container}>
+          <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
+        </div>
         <input placeholder="SEARCHFIELD" className={styles.searchfield} />
         <button>FIND</button>
       </div>
 
       <div className={`${styles.right_container} ${styles.flex_container}`}>
         <div className={styles.change_theme_container}>
-          <NightIcon className={`${styles.icon} ${styles.night_icon}`} />
+          <div className={styles.icon_container}>
+            <NightIcon className={`${styles.icon} ${styles.night_icon}`} />
+          </div>
           <span className={styles.theme_bubble} />
-          <DayIcon className={`${styles.icon} ${styles.day_icon}`} />
+          <div className={styles.icon_container}>
+            <DayIcon className={`${styles.icon} ${styles.day_icon}`} />
+          </div>
+          <input type="checkbox" className={styles.checkbox} checked={true} />
         </div>
 
         <Link href="/cart">
