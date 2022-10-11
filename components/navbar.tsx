@@ -16,6 +16,7 @@ import Image from "next/image";
 
 const Navbar: NextPage = () => {
   const [theme, setTheme] = useState("dark"); //change to dark
+  const [isChecked, setChecked] = useState(true);
   const nextTheme = theme === "light" ? "dark" : "light";
 
   useEffect(() => {
@@ -59,7 +60,11 @@ const Navbar: NextPage = () => {
       </div>
 
       <div className={`${styles.right_container} ${styles.flex_container}`}>
-        <div className={styles.change_theme_container}>
+        <div
+          className={styles.change_theme_container}
+          theme-={theme}
+          onClick={handleClick}
+        >
           <div className={styles.icon_container}>
             <NightIcon className={`${styles.icon} ${styles.night_icon}`} />
           </div>
@@ -67,9 +72,7 @@ const Navbar: NextPage = () => {
           <div className={styles.icon_container}>
             <DayIcon className={`${styles.icon} ${styles.day_icon}`} />
           </div>
-          <input type="checkbox" className={styles.checkbox} checked={true} />
         </div>
-
         <Link href="/cart">
           <CartIcon className={styles.icon} />
         </Link>
