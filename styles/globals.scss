@@ -35,8 +35,9 @@ button {
 }
 
 body[data-theme="light"] {
-  --base-color: deeppink;
-  --secondary-color: white;
+  --base-color: #eeeeee;
+  --secondary-color: #222831;
+  --third-color: #393e46;
 }
 
 body[data-theme="dark"] {
