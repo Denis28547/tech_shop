@@ -11,12 +11,15 @@
   height: 100%;
 }
 
+$background-transition: background-color 0.2s;
+
 .navbar {
   @include flex_display;
   height: 70px;
-  background-color: $base-color;
-  color: $secondary-color;
+  background-color: $navbar-main;
+  color: $text-color;
   font-weight: 600;
+  border-bottom: 1px solid $border-color;
   > * {
     // selecting all direct children of .navbar
     @include flex_display;
@@ -56,7 +59,6 @@
   }
 }
 
-// .left_container {
 .logo_container {
   @include flex_display;
   cursor: pointer;
@@ -64,30 +66,38 @@
   font-size: 1.4rem;
 }
 
+.logo_icon {
+  width: 50px;
+  height: 50px;
+}
+
 .catalogue_container {
   @include flex_display;
-  background-color: $third-color;
+  background-color: $clickable-color;
   border-radius: 8px;
   padding: 0px 14px;
   cursor: pointer;
+  transition: $background-transition;
+
+  &:hover {
+    background-color: $clickable-hover-color;
+  }
 }
-// }
 
 .middle_container {
   border-radius: 6px;
   overflow: hidden;
-
   flex-grow: 4;
   height: 44px;
 
   .find_icon_container {
     height: 100%;
     padding-left: 6px;
-    background-color: $secondary-color;
+    background-color: $navbar-secondary;
   }
 
   .find_icon {
-    color: $base_color;
+    color: $third-color;
     width: 30px;
     height: 100%;
   }
@@ -95,46 +105,50 @@
   .searchfield {
     padding-left: 6px;
     width: 100%;
-    border: none;
-    background-color: $secondary-color;
+    background-color: $navbar-secondary;
     height: 100%;
-
-    &:focus {
-      outline: none;
-    }
+    font-size: 1.07rem;
   }
 
   button {
     padding: 0 20px;
     height: 100%;
-    border: none;
-    background-color: $third-color;
-    font-weight: 500;
+    background-color: $clickable-color;
+    color: $text-color;
     font-size: 0.9rem;
-    color: white;
+    transition: $background-transition;
+
+    &:hover {
+      background-color: $clickable-hover-color;
+    }
   }
 }
 
 .icon {
   width: 36px;
   height: 36px;
-  color: $secondary-color;
+  color: $text-color;
   cursor: pointer;
 }
 
 .change_theme_container {
-  position: relative;
   @include flex_display;
-  background-color: $third-color;
+  position: relative;
+  background-color: $clickable-color;
   border-radius: 36px;
   overflow: hidden;
   cursor: pointer;
   width: 72px;
   height: 36px;
+  transition: $background-transition;
+
+  &:hover {
+    background-color: $clickable-hover-color;
+  }
 }
 
 .theme_bubble {
-  background-color: $secondary-color;
+  background-color: $text-color;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -163,7 +177,7 @@
   transform: translateX(-100%);
 }
 
-.change_theme_container[theme-="dark"] {
+.change_theme_container[data-theme="dark"] {
   .day_icon {
     transform: translateX(100%);
   }
@@ -181,7 +195,7 @@
   display: none;
   width: 34px;
   height: 3px;
-  background-color: $secondary-color;
+  background-color: $text-color;
   position: relative;
 
   &::before,
