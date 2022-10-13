@@ -8,7 +8,6 @@
 @mixin flex_container_evenly {
   flex-grow: 1;
   justify-content: space-evenly;
-  height: 100%;
 }
 
 $background-transition: background-color 0.2s;
@@ -20,6 +19,7 @@ $background-transition: background-color 0.2s;
   color: $text-color;
   font-weight: 600;
   border-bottom: 1px solid $border-color;
+  position: relative;
   > * {
     // selecting all direct children of .navbar
     @include flex_display;
@@ -27,28 +27,15 @@ $background-transition: background-color 0.2s;
   }
 
   @media only screen and (max-width: 800px) {
-    .icon {
+    .icon,
+    .logo_name,
+    .catalogue_container,
+    .change_theme_container {
       display: none;
-    }
-
-    .logo_name {
-      display: none;
-    }
-
-    .left_container {
-      .catalogue_container {
-        display: none;
-      }
     }
 
     .middle_container {
       button {
-        display: none;
-      }
-    }
-
-    .right_container {
-      .change_theme_container {
         display: none;
       }
     }
@@ -75,7 +62,7 @@ $background-transition: background-color 0.2s;
   @include flex_display;
   background-color: $clickable-color;
   border-radius: 8px;
-  padding: 0px 14px;
+  padding: 5px 14px;
   cursor: pointer;
   transition: $background-transition;
 
@@ -102,8 +89,8 @@ $background-transition: background-color 0.2s;
     height: 100%;
   }
 
-  .searchfield {
-    padding-left: 6px;
+  input {
+    padding: 0 6px;
     width: 100%;
     background-color: $navbar-secondary;
     height: 100%;
@@ -135,11 +122,11 @@ $background-transition: background-color 0.2s;
   @include flex_display;
   position: relative;
   background-color: $clickable-color;
-  border-radius: 36px;
   overflow: hidden;
   cursor: pointer;
   width: 72px;
   height: 36px;
+  border-radius: 36px;
   transition: $background-transition;
 
   &:hover {
@@ -214,4 +201,52 @@ $background-transition: background-color 0.2s;
   &::after {
     top: 8px;
   }
+}
+
+.auth_container {
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px 40px;
+  background-color: $navbar-main;
+  top: calc(100% + 10px);
+  right: 10px;
+  border: 2px solid $border-color;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  gap: 16px;
+
+  hr {
+    border: 0.5px solid $border-color;
+    width: calc(100% + 20px);
+  }
+
+  a {
+    transition: $background-transition;
+    border-radius: 10px;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+
+    &:hover {
+      background-color: $clickable-hover-color;
+    }
+  }
+}
+
+.profile_container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: $background-transition;
+  border-radius: 10px;
+  padding: 5px;
+
+  &:hover {
+    background-color: $clickable-hover-color;
+  }
+}
+
+.profile_info {
+  padding-left: 8px;
 }

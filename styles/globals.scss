@@ -20,7 +20,12 @@ a {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6,
+hr,
+p {
   margin: 0;
 }
 
@@ -37,6 +42,10 @@ input {
 button {
   padding: 0;
   border: 0;
+}
+
+a {
+  cursor: pointer;
 }
 
 body[data-theme="light"] {
