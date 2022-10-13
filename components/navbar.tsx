@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import LogoIcon from "../public/assets/navbarIcons/Logo_WhiteIcon";
 import SearchIcon from "../public/assets/navbarIcons/SearchIcon";
@@ -12,10 +12,15 @@ import NightIcon from "../public/assets/navbarIcons/NightIcon";
 import DayIcon from "../public/assets/navbarIcons/DayIcon";
 
 import styles from "../styles/navbar/Navbar.module.scss";
+import Image from "next/image";
 
 const Navbar: NextPage = () => {
   const [theme, setTheme] = useState("light"); //change to dark
+  const [authContainer, setAuthContainer] = useState(false);
   const nextTheme = theme === "light" ? "dark" : "light";
+
+  const session = useSession();
+  console.log(session);
 
   useEffect(() => {
     document.body.dataset.theme = theme;
@@ -52,7 +57,7 @@ const Navbar: NextPage = () => {
         <div className={styles.find_icon_container}>
           <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
         </div>
-        <input placeholder="Find" className={styles.searchfield} />
+        <input placeholder="Search" />
         <button>FIND</button>
       </div>
 
@@ -70,20 +75,55 @@ const Navbar: NextPage = () => {
             <DayIcon className={`${styles.icon} ${styles.day_icon}`} />
           </div>
         </div>
-        <Link href="/cart">
-          <>
-            <CartIcon className={styles.icon} />
-          </>
-        </Link>
 
-        <Link href="profile">
-          <>
-            <ProfileIcon className={styles.icon} />
-          </>
-        </Link>
+        <CartIcon className={styles.icon} />
+
+        <ProfileIcon
+          className={styles.icon}
+          onClick={() => setAuthContainer((prevState) => !prevState)}
+        />
 
         <span className={styles.burger}></span>
       </div>
+
+      {authContainer && (
+        <div className={styles.auth_container}>
+          {session.status === "authenticated" ? (
+            <>
+              <Link href="profile">
+                <div className={styles.profile_container}>
+                  {session.data?.user?.image ? (
+                    <Image
+                      alt="user icon"
+                      src={session.data.user.image}
+                      width={50}
+                      height={50}
+                      style={{ borderRadius: "50%" }}
+                    />
+                  ) : (
+                    <ProfileIcon //! MAKE PLACEHOLDER FOR AVATAR
+                      className={styles.icon}
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  )}
+                  <div className={styles.profile_info}>
+                    <h4>{session.data?.user?.name}</h4>
+                    <h6>{session.data?.user?.email}</h6>
+                  </div>
+                </div>
+              </Link>
+              <hr />
+              <a onClick={() => signOut()}>Sign out</a>
+            </>
+          ) : (
+            <>
+              <a onClick={() => signIn()}>Sign In</a>
+              <hr />
+              <Link href="/signup">Register</Link>
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 };

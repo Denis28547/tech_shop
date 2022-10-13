@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import { signIn, signOut, useSession } from "next-auth/react";
+import styles from "../styles/test.module.scss";
 
 const Home: NextPage = () => {
   const session = useSession();
