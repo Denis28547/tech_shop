@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "../styles/test.module.scss";
+import { useState } from "react";
 
 const Home: NextPage = () => {
   const session = useSession();

@@ -1,7 +1,9 @@
-import { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+
+import Modal from "./Modal";
+import Auth from "./Auth";
 
 import LogoIcon from "../public/assets/navbarIcons/Logo_WhiteIcon";
 import SearchIcon from "../public/assets/navbarIcons/SearchIcon";
@@ -14,13 +16,18 @@ import DayIcon from "../public/assets/navbarIcons/DayIcon";
 import styles from "../styles/navbar/Navbar.module.scss";
 import Image from "next/image";
 
-const Navbar: NextPage = () => {
+const Navbar = () => {
   const [theme, setTheme] = useState("light"); //change to dark
   const [authContainer, setAuthContainer] = useState(false);
   const nextTheme = theme === "light" ? "dark" : "light";
 
+  //!
+  const [modalActive, setModalActive] = useState(false);
+  const modalHandler = () => setModalActive(!modalActive);
+  //!
+
   const session = useSession();
-  console.log(session);
+  console.log("navbar");
 
   useEffect(() => {
     document.body.dataset.theme = theme;
@@ -38,6 +45,10 @@ const Navbar: NextPage = () => {
 
   return (
     <nav className={styles.navbar}>
+      <Modal active={modalActive} setActive={modalHandler}>
+        <Auth />
+      </Modal>
+      <button onClick={modalHandler}>OPE</button>
       <div className={styles.left_container}>
         <Link href="/">
           <div className={styles.logo_container}>
@@ -83,7 +94,7 @@ const Navbar: NextPage = () => {
           onClick={() => setAuthContainer((prevState) => !prevState)}
         />
 
-        <span className={styles.burger}></span>
+        <span className={styles.burger} />
       </div>
 
       {authContainer && (

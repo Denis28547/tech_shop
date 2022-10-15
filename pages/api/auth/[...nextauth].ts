@@ -51,20 +51,17 @@ export const authOptions = {
   },
 
   events: {
-    // async signIn({ user }) {
-    //   console.log(user);
-    //   const user_id = user?.id;
-
-    //   const cartExists = await Cart.findOne({ where: { user_id } });
-
-    //   if (!cartExists) await Cart.create({ user_id });
-    // },
+    //@ts-ignore
     async createUser({ user }) {
       const user_id = user?.id;
       await Cart.create({ user_id });
     },
   },
-};
-//@ts-ignore
 
+  pages: {
+    signIn: "/signin",
+  },
+};
+
+//@ts-ignore
 export default NextAuth(authOptions);
