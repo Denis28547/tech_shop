@@ -1,7 +1,5 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { ChangeEvent, useState } from "react";
-import { useRouter } from "next/router";
-import styles from "../styles/Auth.module.scss";
 
 interface User {
   name: string;
@@ -15,9 +13,8 @@ const defaultState: User = {
   password: "",
 };
 
-const Auth = () => {
+const Register = () => {
   const [userInfo, setUserInfo] = useState(defaultState);
-  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -47,7 +44,7 @@ const Auth = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className={styles.form_container}>
+      <form onSubmit={handleSubmit}>
         <label>Name</label>
         <input
           value={userInfo.name}
@@ -73,4 +70,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Register;
