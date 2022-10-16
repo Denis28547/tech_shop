@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
 import styles from "../styles/Modal.module.scss";
 
 interface IModal {
@@ -8,8 +9,7 @@ interface IModal {
 }
 
 const Modal = ({ active, setActive, children }: IModal) => {
-  // const router = useRouter();
-  // console.log(router);
+  console.log("modal");
   return (
     <div
       className={`${styles.modal} ${active ? styles.active : ""}`}
