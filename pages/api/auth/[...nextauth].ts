@@ -26,7 +26,7 @@ export const authOptions = {
         },
         password: { label: "password", type: "text" },
       },
-      authorize: async (credentials) => {
+      authorize: async (credentials, req) => {
         const res = await axios.post(
           "http://localhost:3000/api/signin",
           credentials

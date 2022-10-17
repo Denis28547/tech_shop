@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 
+import styles from "../../styles/auth/Form.module.scss";
+
 interface User {
   name: string;
   email: string;

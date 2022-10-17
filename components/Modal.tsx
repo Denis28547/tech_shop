@@ -9,7 +9,6 @@ interface IModal {
 }
 
 const Modal = ({ active, setActive, children }: IModal) => {
-  console.log("modal");
   return (
     <div
       className={`${styles.modal} ${active ? styles.active : ""}`}
