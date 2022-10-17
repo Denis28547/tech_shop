@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -21,6 +21,12 @@ const ProfileComponent = () => {
       ? setAuthContainer((prevState) => !prevState)
       : modalHandler();
   };
+
+  useEffect(() => {
+    modalActive === true
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "scroll");
+  }, [modalActive]);
 
   return (
     <>

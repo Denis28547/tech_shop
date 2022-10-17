@@ -19,7 +19,8 @@ $background-transition: background-color 0.2s;
   color: $text-color;
   font-weight: 600;
   border-bottom: 1px solid $border-color;
-  position: relative;
+  position: sticky;
+  top: 0;
   > * {
     // selecting all direct children of .navbar
     @include flex_display;
