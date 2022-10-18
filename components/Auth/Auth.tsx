@@ -10,7 +10,12 @@ import GithubIcon from "../../public/assets/authIcons/GithubIcon";
 import styles from "../../styles/Auth.module.scss";
 import { signIn } from "next-auth/react";
 
-const Auth = () => {
+interface IAuth {
+  modalActive: boolean;
+  modalHandler: () => void;
+}
+
+const Auth = ({ modalActive, modalHandler }: IAuth) => {
   const [currentPage, setCurrentPage] = useState("login");
 
   const handleChangePage = () =>
@@ -21,7 +26,12 @@ const Auth = () => {
       <h2 className={styles.page_name}>{currentPage}</h2>
       <hr />
 
-      <Form currentPage={currentPage} handleChangePage={handleChangePage} />
+      <Form
+        currentPage={currentPage}
+        handleChangePage={handleChangePage}
+        modalActive={modalActive}
+        modalHandler={modalHandler}
+      />
 
       <div className={styles.or_container}>
         <span>or</span>
