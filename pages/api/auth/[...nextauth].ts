@@ -1,13 +1,18 @@
 import NextAuth, { DefaultSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import SequelizeAdapter from "@next-auth/sequelize-adapter";
 import sequelize, { Cart } from "../../../models";
 
 sequelize.sync();
 
 export const authOptions = {
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60,
+  },
+
   adapter: SequelizeAdapter(sequelize),
 
   providers: [
@@ -26,29 +31,24 @@ export const authOptions = {
         },
         password: { label: "password", type: "text" },
       },
-      authorize: async (credentials, req) => {
-        const res = await axios.post(
-          "http://localhost:3000/api/signin",
-          credentials
-        );
+      authorize: async (credentials) => {
+        try {
+          const res = await axios.post(
+            "http://localhost:3000/api/signin",
+            credentials
+          );
 
-        const user = res.data;
+          const user = res.data;
 
-        if (res.data.status === 400) {
-          return null;
-        }
-
-        if (res.status === 200) {
-          return user;
+          if (res.status === 200) {
+            return user;
+          }
+        } catch (error: any) {
+          throw new Error(error.response?.data?.message);
         }
       },
     }),
   ],
-
-  session: {
-    strategy: "jwt",
-    maxAge: 24 * 60 * 60,
-  },
 
   events: {
     //@ts-ignore
@@ -59,7 +59,8 @@ export const authOptions = {
   },
 
   pages: {
-    // signIn: "/signin",
+    signIn: "/",
+    error: "/",
   },
 };
 

@@ -62,6 +62,9 @@ body[data-theme="light"] {
   --text-color: #121212;
   --color-modal: 18, 18, 18;
   --border-color: #c5c4c4;
+  --accent-color: #2c78c8;
+  --accent-hover-color: #1c65db;
+  --error-color: #b94242;
 }
 
 body[data-theme="dark"] {
@@ -75,6 +78,9 @@ body[data-theme="dark"] {
   --text-color: #eeeeee;
   --color-modal: 238, 238, 238;
   --border-color: #2a2828;
+  --accent-color: #2c78c8;
+  --accent-hover-color: #1c65db;
+  --error-color: #b94242;
 }
 
 /* @media (prefers-color-scheme: dark) {

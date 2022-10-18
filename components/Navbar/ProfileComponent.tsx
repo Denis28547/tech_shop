@@ -36,7 +36,7 @@ const ProfileComponent = () => {
       />
 
       <Modal active={modalActive} setActive={modalHandler}>
-        <Auth />
+        <Auth modalActive={modalActive} modalHandler={modalHandler} />
       </Modal>
 
       {authContainer && (

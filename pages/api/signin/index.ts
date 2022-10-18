@@ -2,9 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { User } from "../../../models";
 const bcrypt = require("bcrypt");
 
-import db from "../../../utils/db";
-import { getToken } from "next-auth/jwt";
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -17,12 +14,12 @@ export default async function handler(
         const { email, password } = req.body;
 
         if (!email || !password)
-          return res.json({ message: "Please enter all fields", status: 400 });
+          return res.status(400).json({ message: "Please enter all fields" });
 
         const user = await User.findOne({ where: { email } });
 
         if (!user)
-          return res.json({ message: "No user with such email", status: 400 });
+          return res.status(400).json({ message: "No user with such email" });
 
         const isPassValid = await bcrypt.compareSync(
           password,
@@ -31,7 +28,7 @@ export default async function handler(
         );
 
         if (!isPassValid)
-          return res.json({ message: "Wrong password", status: 400 });
+          return res.status(400).json({ message: "Wrong password" });
 
         res.status(200).json(user);
       } catch (error: any) {

@@ -13,33 +13,61 @@ import axios from "axios";
 interface IForm {
   currentPage: string;
   handleChangePage: () => void;
+  modalActive: boolean;
+  modalHandler: () => void;
 }
 
-const Form = ({ currentPage, handleChangePage }: IForm) => {
+const Form = ({
+  currentPage,
+  handleChangePage,
+  modalActive,
+  modalHandler,
+}: IForm) => {
+  const [responseError, setResponseError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const clearFields = () => {
+    if (usernameRef.current) usernameRef.current.value = "";
+    if (emailRef.current) emailRef.current.value = "";
+    if (passwordRef.current) passwordRef.current.value = "";
+  };
+
   useEffect(() => {
-    let inputEl = document.getElementById("password") as HTMLInputElement;
-    if (showPassword) {
-      inputEl.type = "text";
-    } else {
-      inputEl.type = "password";
+    if (passwordRef.current) {
+      if (showPassword) {
+        passwordRef.current.type = "text";
+      } else {
+        passwordRef.current.type = "password";
+      }
     }
   }, [showPassword]);
+
+  useEffect(() => {
+    clearFields();
+    setShowPassword(false);
+  }, [modalActive]);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (currentPage === "login") {
-      const userInfo = {
-        email: emailRef?.current?.value,
-        password: passwordRef?.current?.value,
-      };
-
       try {
-        signIn("credentials", userInfo);
+        const res = await signIn("credentials", {
+          email: emailRef?.current?.value,
+          password: passwordRef?.current?.value,
+          redirect: false,
+        });
+
+        if (res?.status === 200) {
+          modalHandler();
+        }
+
+        if (res?.error) {
+          setResponseError(res.error);
+        }
+        console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -66,12 +94,15 @@ const Form = ({ currentPage, handleChangePage }: IForm) => {
 
   return (
     <form className={styles.login_container} onSubmit={handleSubmit}>
+      {responseError && (
+        <span className={styles.res_error}>{responseError}</span>
+      )}
       {currentPage === "register" && (
         <>
           <label htmlFor="username">Username</label>
           <div className={styles.input_container}>
             <ProfileIcon style={{ marginLeft: "5px" }} />
-            <input id="username" type="text" ref={usernameRef} />
+            <input id="username" type="text" ref={usernameRef} required />
           </div>
         </>
       )}
@@ -79,13 +110,19 @@ const Form = ({ currentPage, handleChangePage }: IForm) => {
       <label htmlFor="email">Email</label>
       <div className={styles.input_container}>
         <EmailIcon style={{ marginLeft: "5px" }} />
-        <input id="email" type="email" ref={emailRef} />
+        <input
+          id="email"
+          type="email"
+          ref={emailRef}
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+          required
+        />
       </div>
 
       <label htmlFor="password">Password</label>
       <div className={styles.input_container}>
         <PasswordIcon style={{ marginLeft: "5px" }} />
-        <input id="password" type="password" ref={passwordRef} />
+        <input id="password" type="password" ref={passwordRef} required />
         {!showPassword ? (
           <CloseEyeIcon
             style={{ marginRight: "15px" }}
