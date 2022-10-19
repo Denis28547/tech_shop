@@ -40,6 +40,10 @@ export const authOptions = {
 
           const user = res.data;
 
+          if (res.status === 500) {
+            console.log(res.data.message);
+          }
+
           if (res.status === 200) {
             return user;
           }

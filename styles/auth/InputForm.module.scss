@@ -1,0 +1,63 @@
+@use "/styles/variables" as *;
+
+.input_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid $border-color;
+  // border: 2px solid $error-color;
+  border-radius: 5px;
+  height: 50px;
+  width: 100%;
+  transition: 0.2s;
+
+  &:has(> input:required) {
+    border: 2px solid $error-color;
+  }
+
+  input {
+    background-color: transparent;
+    padding: 0 5px;
+    font-size: 1.05rem;
+    height: 100%;
+    flex-grow: 1;
+
+    &:invalid {
+      background-color: #ffffff;
+      border: 5px solid black;
+    }
+  }
+}
+
+// .input_style {
+//   height: 50px;
+//   border-radius: 5px;
+//   background-color: transparent;
+//   padding: 0 5px;
+//   font-size: 1.05rem;
+//   flex-grow: 1;
+//   border: 2px solid $border-color;
+//   position: relative;
+
+//   &:invalid {
+//     border: 2px solid $error-color;
+//   }
+// }
+
+.input_error {
+  // border: 2px solid $error-color;
+  // background-color: #f43c3d33;
+  // display: none;
+  border-radius: 5px;
+  padding: 3px;
+  overflow: wrap;
+  max-width: 304px;
+  // text-align: center;
+  color: $error-color;
+}
+
+//   &:invalid {
+//     color: $error-color;
+//   }
+// }

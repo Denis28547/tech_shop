@@ -80,7 +80,14 @@ body[data-theme="dark"] {
   --border-color: #2a2828;
   --accent-color: #2c78c8;
   --accent-hover-color: #1c65db;
-  --error-color: #b94242;
+  --error-color: #f43c3d;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+  -webkit-text-fill-color: var(--text-color);
+  -webkit-box-shadow: inset 0 0 0 32px var(--base-color);
 }
 
 /* @media (prefers-color-scheme: dark) {
