@@ -4,11 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import ProfileIcon from "../../public/assets/authIcons/ProfileIcon";
 import EmailIcon from "../../public/assets/authIcons/EmailIcon";
 import PasswordIcon from "../../public/assets/authIcons/PasswordIcon";
-import OpenEyeIcon from "../../public/assets/authIcons/OpenEyeIcon";
-import CloseEyeIcon from "../../public/assets/authIcons/CloseEyeIcon";
+// import OpenEyeIcon from "../../public/assets/authIcons/OpenEyeIcon";
+// import CloseEyeIcon from "../../public/assets/authIcons/CloseEyeIcon";
 
 import styles from "../../styles/auth/Form.module.scss";
 import axios from "axios";
+import InputForm from "./InputForm";
 
 interface IForm {
   currentPage: string;
@@ -25,6 +26,7 @@ const Form = ({
 }: IForm) => {
   const [responseError, setResponseError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const formRef = useRef(null);
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -48,15 +50,32 @@ const Form = ({
   useEffect(() => {
     clearFields();
     setShowPassword(false);
+    setResponseError("");
   }, [modalActive]);
+
+  interface inputEls {
+    target: Array<HTMLInputElement>;
+  }
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    const target = e.target as typeof e.target & {
+      username: { value: string };
+      email: { value: string };
+      password: { value: string };
+    };
+
+    let username;
+    if (target.username) username = target.username.value;
+    const email = target.email.value;
+    const password = target.password.value;
+
     if (currentPage === "login") {
       try {
         const res = await signIn("credentials", {
-          email: emailRef?.current?.value,
-          password: passwordRef?.current?.value,
+          email,
+          password,
           redirect: false,
         });
 
@@ -67,16 +86,15 @@ const Form = ({
         if (res?.error) {
           setResponseError(res.error);
         }
-        console.log(res);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     } else {
       try {
         const userInfo = {
-          name: usernameRef?.current?.value,
-          email: emailRef?.current?.value,
-          password: passwordRef?.current?.value,
+          name: username,
+          email,
+          password,
         };
 
         const response = await axios.post(
@@ -93,21 +111,43 @@ const Form = ({
   };
 
   return (
-    <form className={styles.login_container} onSubmit={handleSubmit}>
+    <form
+      className={styles.login_container}
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       {responseError && (
         <span className={styles.res_error}>{responseError}</span>
       )}
+
       {currentPage === "register" && (
         <>
-          <label htmlFor="username">Username</label>
+          <InputForm
+            type="text"
+            label="Username"
+            id="username"
+            modalActive={modalActive}
+            errorMessage=" No white spaces, max length is 15No white spaces, max length is 15"
+            icon={<ProfileIcon style={{ marginLeft: "5px" }} />}
+          />
+          {/* <label htmlFor="username">Username</label>
+          <span>No white spaces, max length is 15</span>
           <div className={styles.input_container}>
             <ProfileIcon style={{ marginLeft: "5px" }} />
-            <input id="username" type="text" ref={usernameRef} required />
-          </div>
+            <input
+              id="username"
+              type="text"
+              ref={usernameRef}
+              pattern="/^\S+$/"
+              maxLength={15}
+              onBlur={handleChangeDirty}
+              required
+            />
+          </div> */}
         </>
       )}
 
-      <label htmlFor="email">Email</label>
+      {/* <label htmlFor="email">Email</label>
       <div className={styles.input_container}>
         <EmailIcon style={{ marginLeft: "5px" }} />
         <input
@@ -117,9 +157,27 @@ const Form = ({
           pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
           required
         />
-      </div>
+      </div> */}
+      <InputForm
+        type="email"
+        label="Email"
+        id="email"
+        modalActive={modalActive}
+        errorMessage="something is wrong"
+        icon={<EmailIcon style={{ marginLeft: "5px" }} />}
+      />
 
-      <label htmlFor="password">Password</label>
+      {/* <div className={styles.input_container}> */}
+      <InputForm
+        type="password"
+        label="Password"
+        id="password"
+        modalActive={modalActive}
+        errorMessage="something is wrong"
+        icon={<PasswordIcon style={{ marginLeft: "5px" }} />}
+      />
+      {/* </div> */}
+      {/* <label htmlFor="password">Password</label>
       <div className={styles.input_container}>
         <PasswordIcon style={{ marginLeft: "5px" }} />
         <input id="password" type="password" ref={passwordRef} required />
@@ -134,7 +192,7 @@ const Form = ({
             onClick={() => setShowPassword(!showPassword)}
           />
         )}
-      </div>
+      </div> */}
 
       <button>Sign {currentPage === "register" ? "up" : "in"}</button>
     </form>
