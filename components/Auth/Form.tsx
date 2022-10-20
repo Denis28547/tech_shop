@@ -126,8 +126,10 @@ const Form = ({
             type="text"
             label="Username"
             id="username"
+            pattern="^[A-Za-z]{3,16}$"
             modalActive={modalActive}
             errorMessage=" No white spaces, max length is 15No white spaces, max length is 15"
+            maxLength={15}
             icon={<ProfileIcon style={{ marginLeft: "5px" }} />}
           />
           {/* <label htmlFor="username">Username</label>
@@ -162,8 +164,10 @@ const Form = ({
         type="email"
         label="Email"
         id="email"
+        pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/"
         modalActive={modalActive}
         errorMessage="something is wrong"
+        maxLength={15}
         icon={<EmailIcon style={{ marginLeft: "5px" }} />}
       />
 
@@ -172,8 +176,10 @@ const Form = ({
         type="password"
         label="Password"
         id="password"
+        pattern="^[A-Za-z]{3,16}$"
         modalActive={modalActive}
         errorMessage="something is wrong"
+        maxLength={15}
         icon={<PasswordIcon style={{ marginLeft: "5px" }} />}
       />
       {/* </div> */}
