@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import ProfileIcon from "../../public/assets/authIcons/ProfileIcon";
 import EmailIcon from "../../public/assets/authIcons/EmailIcon";
 import PasswordIcon from "../../public/assets/authIcons/PasswordIcon";
-// import OpenEyeIcon from "../../public/assets/authIcons/OpenEyeIcon";
-// import CloseEyeIcon from "../../public/assets/authIcons/CloseEyeIcon";
 
 import styles from "../../styles/auth/Form.module.scss";
 import axios from "axios";
@@ -18,47 +16,23 @@ interface IForm {
   modalHandler: () => void;
 }
 
+const defaultRes = {
+  success: false,
+  message: "",
+};
+
 const Form = ({
   currentPage,
   handleChangePage,
   modalActive,
   modalHandler,
 }: IForm) => {
-  const [responseError, setResponseError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const formRef = useRef(null);
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-
-  const clearFields = () => {
-    if (usernameRef.current) usernameRef.current.value = "";
-    if (emailRef.current) emailRef.current.value = "";
-    if (passwordRef.current) passwordRef.current.value = "";
-  };
-
-  useEffect(() => {
-    if (passwordRef.current) {
-      if (showPassword) {
-        passwordRef.current.type = "text";
-      } else {
-        passwordRef.current.type = "password";
-      }
-    }
-  }, [showPassword]);
-
-  useEffect(() => {
-    clearFields();
-    setShowPassword(false);
-    setResponseError("");
-  }, [modalActive]);
-
-  interface inputEls {
-    target: Array<HTMLInputElement>;
-  }
+  const [response, setResponse] = useState(defaultRes);
+  const [disableButton, setDisableButton] = useState(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setDisableButton(true);
 
     const target = e.target as typeof e.target & {
       username: { value: string };
@@ -72,22 +46,19 @@ const Form = ({
     const password = target.password.value;
 
     if (currentPage === "login") {
-      try {
-        const res = await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        });
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-        if (res?.status === 200) {
-          modalHandler();
-        }
+      if (res?.status === 200) {
+        modalHandler();
+      }
 
-        if (res?.error) {
-          setResponseError(res.error);
-        }
-      } catch (error) {
-        // console.log(error);
+      if (res?.error) {
+        setResponse({ success: false, message: res.error });
+        setDisableButton(false);
       }
     } else {
       try {
@@ -102,22 +73,38 @@ const Form = ({
           userInfo
         );
 
+        setDisableButton(false);
+        setResponse({
+          success: true,
+          message: `${response.data.message}, now log in`,
+        });
         handleChangePage();
-        alert(response.data.message);
       } catch (error: any) {
-        alert(error?.response?.data?.message);
+        setDisableButton(false);
+        setResponse({
+          success: false,
+          message: error?.response?.data?.message,
+        });
       }
     }
   };
 
+  useEffect(() => {
+    if (!modalActive) {
+      setResponse(defaultRes);
+    }
+  }, [modalActive]);
+
   return (
-    <form
-      className={styles.login_container}
-      onSubmit={handleSubmit}
-      ref={formRef}
-    >
-      {responseError && (
-        <span className={styles.res_error}>{responseError}</span>
+    <form className={styles.login_container} onSubmit={handleSubmit}>
+      {response.message && (
+        <span
+          className={`${styles.res_error} ${
+            response.success ? styles.res_success : ""
+          }`}
+        >
+          {response.message}
+        </span>
       )}
 
       {currentPage === "register" && (
@@ -126,81 +113,43 @@ const Form = ({
             type="text"
             label="Username"
             id="username"
-            pattern="^[A-Za-z]{3,16}$"
+            pattern="^[A-Za-z1-9]{3,16}$"
+            minLength={6}
+            maxLength={60}
             modalActive={modalActive}
-            errorMessage=" No white spaces, max length is 15No white spaces, max length is 15"
-            maxLength={15}
+            errorMessage="*Invalid username (no white spaces, no special characters, min length is 6, max length is 60)"
             icon={<ProfileIcon style={{ marginLeft: "5px" }} />}
           />
-          {/* <label htmlFor="username">Username</label>
-          <span>No white spaces, max length is 15</span>
-          <div className={styles.input_container}>
-            <ProfileIcon style={{ marginLeft: "5px" }} />
-            <input
-              id="username"
-              type="text"
-              ref={usernameRef}
-              pattern="/^\S+$/"
-              maxLength={15}
-              onBlur={handleChangeDirty}
-              required
-            />
-          </div> */}
         </>
       )}
 
-      {/* <label htmlFor="email">Email</label>
-      <div className={styles.input_container}>
-        <EmailIcon style={{ marginLeft: "5px" }} />
-        <input
-          id="email"
-          type="email"
-          ref={emailRef}
-          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-          required
-        />
-      </div> */}
       <InputForm
         type="email"
         label="Email"
         id="email"
-        pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/"
+        pattern={undefined}
+        minLength={6}
+        maxLength={32}
         modalActive={modalActive}
-        errorMessage="something is wrong"
-        maxLength={15}
+        errorMessage="*Invalid email (min length is 6, max length is 32)"
         icon={<EmailIcon style={{ marginLeft: "5px" }} />}
       />
 
-      {/* <div className={styles.input_container}> */}
       <InputForm
         type="password"
         label="Password"
         id="password"
-        pattern="^[A-Za-z]{3,16}$"
+        pattern="^[-a-zA-Z0-9!@#$%^&*()\.+_]+$"
+        minLength={6}
+        maxLength={60}
         modalActive={modalActive}
-        errorMessage="something is wrong"
-        maxLength={15}
+        errorMessage="*Invalid password (no white spaces, min length is 6, max length is 60)"
         icon={<PasswordIcon style={{ marginLeft: "5px" }} />}
       />
-      {/* </div> */}
-      {/* <label htmlFor="password">Password</label>
-      <div className={styles.input_container}>
-        <PasswordIcon style={{ marginLeft: "5px" }} />
-        <input id="password" type="password" ref={passwordRef} required />
-        {!showPassword ? (
-          <CloseEyeIcon
-            style={{ marginRight: "15px" }}
-            onClick={() => setShowPassword(!showPassword)}
-          />
-        ) : (
-          <OpenEyeIcon
-            style={{ marginRight: "15px" }}
-            onClick={() => setShowPassword(!showPassword)}
-          />
-        )}
-      </div> */}
 
-      <button>Sign {currentPage === "register" ? "up" : "in"}</button>
+      <button disabled={disableButton}>
+        Sign {currentPage === "register" ? "up" : "in"}
+      </button>
     </form>
   );
 };

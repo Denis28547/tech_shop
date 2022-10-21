@@ -18,11 +18,11 @@ export const User = sequelize.define<IUser>(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING, //! MAKE MAX LENGTH OF THINGS 30 OR SMTH
+      type: DataTypes.STRING(32), //! MAKE MAX LENGTH OF THINGS 30 OR SMTH
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(60),
       allowNull: false,
       unique: true,
       validate: {

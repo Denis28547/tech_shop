@@ -9,13 +9,12 @@ interface IInputForm {
   type: string;
   label: string;
   id: string;
-  pattern: string;
+  pattern: string | undefined;
+  minLength: number;
+  maxLength: number;
   modalActive: boolean;
   errorMessage: string;
-  maxLength: number;
   icon: React.ReactNode;
-  // secondIcon: React.ReactNode | null;
-  // thirdIcon: React.ReactNode | null;
 }
 
 const InputForm = ({
@@ -23,13 +22,12 @@ const InputForm = ({
   label,
   id,
   pattern,
+  minLength,
+  maxLength,
   modalActive,
   errorMessage,
-  maxLength,
   icon,
-}: // secondIcon,
-// thirdIcon,
-IInputForm) => {
+}: IInputForm) => {
   const [inputValue, setInputValue] = useState("");
   const [isDirty, setIsDirty] = useState(false);
   const [isValid, setIsValid] = useState(true);
@@ -37,21 +35,10 @@ IInputForm) => {
 
   if (id === "password" && showPassword) type = "text";
 
-  const handleShowPassword = (e: React.SyntheticEvent) => {
-    e.stopPropagation();
-    setShowPassword(!showPassword);
-  };
-
-  const handleChange = (e) => {
-    console.log(e.target.checkValidity());
-    if (e.target.checkValidity()) setIsValid(true);
-    setInputValue(e.target.value);
-  };
-
-  const setDirty = (e: React.SyntheticEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checkValidity()) setIsValid(true);
     else setIsValid(false);
-    setIsDirty(true);
+    setInputValue(e.target.value);
   };
 
   const returnInvalidStyle = () => {
@@ -64,17 +51,15 @@ IInputForm) => {
       if (showPassword) {
         return (
           <CloseEyeIcon
-            onClick={handleShowPassword}
-            // onClick={(e) => e.stopPropagation()}
+            onClick={() => setShowPassword(!showPassword)}
             style={{ marginRight: "15px" }}
           />
         );
       } else {
         return (
           <OpenEyeIcon
-            onClick={handleShowPassword}
-            // onClick={(e) => e.stopPropagation()}
-            style={{ position: "absolute", right: "15px" }}
+            onClick={() => setShowPassword(!showPassword)}
+            style={{ marginRight: "15px" }}
           />
         );
       }
@@ -86,6 +71,7 @@ IInputForm) => {
       setInputValue("");
       setIsDirty(false);
       setIsValid(true);
+      setShowPassword(false);
     }
   }, [modalActive]);
 
@@ -95,20 +81,17 @@ IInputForm) => {
       <div className={`${styles.input_container} ${returnInvalidStyle()}`}>
         {icon}
         <input
-          // className={styles.input_style}
           type={type}
           id={id}
           value={inputValue}
           onChange={handleChange}
-          onBlur={setDirty}
-          // pattern="/^([A-z])*[^\s]\1*$/"
-          // pattern={pattern}
-          minLength={2}
-          maxLength={200}
-          // focused={isDirty.lname.toString()}
+          onBlur={() => setIsDirty(true)}
+          pattern={pattern}
+          minLength={minLength}
+          maxLength={maxLength}
           required
-          // focused="true"
         />
+        {renderElement()}
       </div>
 
       {isDirty && !isValid ? (

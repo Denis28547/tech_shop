@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 
 import Form from "./Form";
-import Register from "./Register";
 
 import GoogleIcon from "../../public/assets/authIcons/GoogleIcon";
 import GithubIcon from "../../public/assets/authIcons/GithubIcon";
