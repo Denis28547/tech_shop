@@ -12,29 +12,16 @@
     padding: 15px;
     text-align: center;
     color: #eeeeee;
+    max-width: 304px;
+    overflow: hidden;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
-  .input_container {
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: 2px solid $border-color;
-    border-radius: 5px;
-    height: 50px;
-    width: 100%;
-    transition: 0.2s;
-
-    input {
-      background-color: transparent;
-      padding: 0 5px;
-      font-size: 1.05rem;
-      height: 100%;
-      flex-grow: 1;
-
-      &:invalid {
-        // color: $error-color;
-      }
-    }
+  .res_success {
+    background-color: $success-color;
   }
 
   button {
@@ -49,6 +36,11 @@
 
     &:hover {
       background-color: $accent-hover-color;
+    }
+
+    &:disabled {
+      background-color: $accent-color-disabled;
+      cursor: not-allowed;
     }
   }
 }

@@ -64,7 +64,9 @@ body[data-theme="light"] {
   --border-color: #c5c4c4;
   --accent-color: #2c78c8;
   --accent-hover-color: #1c65db;
-  --error-color: #b94242;
+  --accent-color-disabled: #92abc6;
+  --error-color: #ff0001;
+  --success-color: #2e9939;
 }
 
 body[data-theme="dark"] {
@@ -80,7 +82,9 @@ body[data-theme="dark"] {
   --border-color: #2a2828;
   --accent-color: #2c78c8;
   --accent-hover-color: #1c65db;
+  --accent-color-disabled: #92abc6;
   --error-color: #f43c3d;
+  --success-color: #2e9939;
 }
 
 input:-webkit-autofill,
