@@ -1,9 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import Modal from "../Modal";
-import Auth from "../Auth/Auth";
-
 import LogoIcon from "../../public/assets/navbarIcons/Logo_WhiteIcon";
 import SearchIcon from "../../public/assets/navbarIcons/SearchIcon";
 import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
