@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { User } from "../../../models";
 const bcrypt = require("bcrypt");
+
+import { User } from "../../../models";
 
 export default async function handler(
   req: NextApiRequest,

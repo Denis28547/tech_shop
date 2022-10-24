@@ -6,8 +6,9 @@ export interface IUser extends Model {
   email: string;
   password: string;
   image: string | null;
-  email_verified: boolean | null;
   role: string;
+  activationLink: string;
+  isActivated: boolean;
 }
 
 export interface IItem extends Model {

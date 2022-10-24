@@ -35,12 +35,16 @@ export const User = sequelize.define<IUser>(
     image: {
       type: DataTypes.STRING,
     },
-    email_verified: {
-      type: DataTypes.DATE,
-    },
     role: {
       type: DataTypes.STRING,
       defaultValue: "USER",
+    },
+    activationLink: {
+      type: DataTypes.STRING,
+    },
+    isActivated: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
