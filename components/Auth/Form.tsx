@@ -76,7 +76,7 @@ const Form = ({
         setDisableButton(false);
         setResponse({
           success: true,
-          message: `${response.data.message}, now log in`,
+          message: `${response.data.message}, check your email (${email}) to verify account`,
         });
         handleChangePage();
       } catch (error: any) {

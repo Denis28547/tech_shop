@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Cart, User } from "../../../models";
 const bcrypt = require("bcrypt");
+import { v4 as uuidv4 } from "uuid";
+import nodemailer from "nodemailer";
+
+import { Cart, User } from "../../../models";
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,13 +38,14 @@ export default async function handler(
           name,
           email,
           password: hashedPass,
+          activationLink: uuidv4(),
         });
 
         const createdUser = user.toJSON();
 
         await Cart.create({ user_id: createdUser.id });
 
-        res.status(201).json({ message: "successfully created" });
+        res.status(201).json({ message: "your account has been created" });
       } catch (error: any) {
         console.log(error);
         res.status(400).json(error);
