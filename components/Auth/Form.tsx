@@ -95,6 +95,12 @@ const Form = ({
     }
   }, [modalActive]);
 
+  useEffect(() => {
+    if (!response.success) {
+      setResponse(defaultRes);
+    }
+  }, [currentPage]);
+
   return (
     <form className={styles.login_container} onSubmit={handleSubmit}>
       {response.message && (
@@ -113,7 +119,7 @@ const Form = ({
             type="text"
             label="Username"
             id="username"
-            pattern="^[A-Za-z1-9]{3,16}$"
+            pattern="^[A-Za-z0-9]{3,16}$"
             minLength={6}
             maxLength={60}
             modalActive={modalActive}

@@ -22,6 +22,11 @@ export default async function handler(
         if (!user)
           return res.status(400).json({ message: "No user with such email" });
 
+        if (!user.isActivated)
+          return res
+            .status(400)
+            .json({ message: "Please activate your account" });
+
         const isPassValid = await bcrypt.compareSync(
           password,
           user.password,

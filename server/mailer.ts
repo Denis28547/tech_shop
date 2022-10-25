@@ -9,13 +9,13 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-const sendActivationMail = async () => {
+const sendActivationMail = async (email: string, link: string) => {
   await transporter.sendMail({
     from: "TechShop",
-    to: "den220903@gmail.com",
-    subject: "Hello ✔",
+    to: email,
+    subject: "Verification",
     text: "Hello world?",
-    html: "<b>Hello world?</b>",
+    html: `<b>To verify your account please click this link: <a href=${link}>Link<a/></b>`,
   });
 };
 

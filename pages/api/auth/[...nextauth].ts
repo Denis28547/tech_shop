@@ -23,14 +23,7 @@ export const authOptions = {
 
     CredentialProvider({
       name: "credentials",
-      credentials: {
-        email: {
-          label: "email",
-          type: "email",
-          placeholder: "email@example.com",
-        },
-        password: { label: "password", type: "text" },
-      },
+      credentials: {},
       authorize: async (credentials) => {
         try {
           const res = await axios.post(
@@ -38,14 +31,8 @@ export const authOptions = {
             credentials
           );
 
-          const user = res.data;
-
-          if (res.status === 500) {
-            console.log(res.data.message);
-          }
-
           if (res.status === 200) {
-            return user;
+            return res.data;
           }
         } catch (error: any) {
           throw new Error(error.response?.data?.message);
@@ -60,11 +47,6 @@ export const authOptions = {
       const user_id = user?.id;
       await Cart.create({ user_id });
     },
-  },
-
-  pages: {
-    signIn: "/",
-    error: "/",
   },
 };
 
