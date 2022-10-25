@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 const bcrypt = require("bcrypt");
 import { v4 as uuidv4 } from "uuid";
-import nodemailer from "nodemailer";
+import { sendActivationMail } from "../../../server/mailer";
 
 import { Cart, User } from "../../../models";
 
@@ -42,8 +42,10 @@ export default async function handler(
         });
 
         const createdUser = user.toJSON();
+        const activationUrl = `${process.env.NEXTAUTH_URL}/api/activate/${user.activationLink}`;
 
         await Cart.create({ user_id: createdUser.id });
+        sendActivationMail(user.email, activationUrl);
 
         res.status(201).json({ message: "your account has been created" });
       } catch (error: any) {

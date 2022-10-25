@@ -11,7 +11,7 @@ export default async function handler(
   const { method } = req;
 
   switch (method) {
-    case "POST":
+    case "GET":
       try {
         const { activationLink } = req.query;
         console.log(req.query);
@@ -30,14 +30,14 @@ export default async function handler(
       } catch (error: any) {}
       break;
 
-    case "GET":
-      try {
-        sendActivationMail();
-        res.send("send");
-      } catch (error) {
-        console.log(error);
-      }
-      break;
+    // case "GET":
+    //   try {
+    //     sendActivationMail();
+    //     res.send("send");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //   break;
 
     default:
       res
