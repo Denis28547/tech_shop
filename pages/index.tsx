@@ -22,12 +22,7 @@ const Home: NextPage = () => {
       <h1>{session.data?.user?.name}</h1>
 
       {session.data && <button onClick={() => signOut()}>SIGN OUT</button>}
-      {!session.data && (
-        <>
-          <button onClick={() => router.push("/signup")}>SIGN UP</button>
-          <button onClick={() => signIn()}>SIGN IN</button>
-        </>
-      )}
+      {!session.data && <>BAGATITI</>}
     </>
   );
 };
