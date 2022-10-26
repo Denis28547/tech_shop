@@ -38,7 +38,7 @@ export default async function handler(
 
         res.status(200).json(user);
       } catch (error: any) {
-        res.status(400).json(error);
+        res.status(500).json({ message: "something unexpected happened" });
       }
       break;
 

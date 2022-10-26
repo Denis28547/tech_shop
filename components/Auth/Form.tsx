@@ -69,7 +69,7 @@ const Form = ({
         };
 
         const response = await axios.post(
-          "http://localhost:3000/api/signup",
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/signup`,
           userInfo
         );
 

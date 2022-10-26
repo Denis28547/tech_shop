@@ -11,7 +11,11 @@ import DayIcon from "../../public/assets/navbarIcons/DayIcon";
 import styles from "../../styles/navbar/Navbar.module.scss";
 import ProfileComponent from "./ProfileComponent";
 
-const Navbar = () => {
+interface INavbar {
+  disabled: boolean;
+}
+
+const Navbar = ({ disabled }: INavbar) => {
   const [theme, setTheme] = useState("light");
 
   const nextTheme = theme === "light" ? "dark" : "light";
@@ -31,7 +35,10 @@ const Navbar = () => {
   }, [theme]);
 
   return (
-    <nav className={styles.navbar}>
+    <nav
+      className={styles.navbar}
+      style={{ display: disabled ? "none" : "flex" }}
+    >
       <div className={styles.left_container}>
         <Link href="/">
           <div className={styles.logo_container}>

@@ -27,7 +27,7 @@ export const authOptions = {
       authorize: async (credentials) => {
         try {
           const res = await axios.post(
-            "http://localhost:3000/api/signin",
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/signin`,
             credentials
           );
 

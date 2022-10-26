@@ -42,15 +42,14 @@ export default async function handler(
         });
 
         const createdUser = user.toJSON();
-        const activationUrl = `${process.env.NEXTAUTH_URL}/api/activate/${user.activationLink}`;
+        const activationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/activate/${user.activationLink}`;
 
         await Cart.create({ user_id: createdUser.id });
         sendActivationMail(user.email, activationUrl);
 
         res.status(201).json({ message: "your account has been created" });
       } catch (error: any) {
-        console.log(error);
-        res.status(400).json(error);
+        res.status(500).json({ message: "something unexpected happened" });
       }
       break;
 
