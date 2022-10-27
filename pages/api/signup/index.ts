@@ -39,6 +39,7 @@ export default async function handler(
           email,
           password: hashedPass,
           activationLink: uuidv4(),
+          isActivated: false,
         });
 
         const createdUser = user.toJSON();

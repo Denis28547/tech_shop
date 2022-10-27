@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { User } from "../../../models";
+import { sendActivationMail } from "../../../server/mailer";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,13 +15,36 @@ export default async function handler(
         const { activationLink } = req.query;
         const user = await User.findOne({ where: { activationLink } });
 
-        if (!user) return res.status(400).json({ message: "no user" });
+        if (!user) return res.status(400).json({ message: "invalid link" });
 
         if (user.isActivated)
           return res
             .status(400)
             .json({ message: "account is already activated" });
 
+        // user.isActivated = true;
+        await user.save();
+
+        res.status(200).json({ message: "account is successfully activated" });
+      } catch (error: any) {
+        return res
+          .status(500)
+          .json({ message: "something unexpected happened" });
+      }
+      break;
+    case "GET":
+      try {
+        const { activationLink } = req.query;
+        const user = await User.findOne({ where: { activationLink } });
+
+        if (!user) return res.status(400).json({ message: "invalid link" });
+
+        if (user.isActivated)
+          return res
+            .status(400)
+            .json({ message: "account is already activated" });
+
+        sendActivationMail(user.email, "a5435f42-54f9-4842-9788-a2cfae3335c7");
         // user.isActivated = true;
         await user.save();
 
