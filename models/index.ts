@@ -44,7 +44,9 @@ export const User = sequelize.define<IUser>(
     },
     isActivated: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    },
+    email_verified: {
+      type: DataTypes.DATE,
     },
   },
   {

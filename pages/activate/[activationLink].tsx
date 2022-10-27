@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,12 +9,30 @@ import styles from "../../styles/smallPages/activate.module.scss";
 import TickIcon from "../../public/assets/activate/TickIcon";
 import CrossIcon from "../../public/assets/activate/CrossIcon";
 
+const responseDefault = {
+  status: 200,
+  message: "",
+};
+
 const Activate: NextPage = () => {
   const [activated, setActivated] = useState(false);
-  const [responseError, setResponseError] = useState(false);
+  const [response, setResponse] = useState(responseDefault);
   const [redirectSeconds, setRedirectSeconds] = useState(5);
 
   const router = useRouter();
+
+  const errorMap = new Map([
+    ["invalid link", "Invalid link, please contact us or make a new account"],
+    ["account is already activated", "Your account was already activated"],
+    [
+      "something unexpected happened",
+      "Something unexpected happened, please contact us",
+    ],
+  ]);
+
+  const findError = (errMsg: string) => {
+    return errorMap.get(errMsg);
+  };
 
   const activateAccount = async () => {
     const { activationLink } = router.query;
@@ -24,15 +42,17 @@ const Activate: NextPage = () => {
       );
       setActivated(true);
     } catch (error: any) {
-      setResponseError(true);
+      const message = findError(error.response.data.message) as string;
+      setResponse({
+        status: error.response.status,
+        message,
+      });
       setActivated(true);
     }
   };
 
   useEffect(() => {
-    if (!router.isReady) return;
-    if (!router.query) return;
-
+    if (!router.isReady || !router.query) return;
     activateAccount();
   }, [router.isReady]);
 
@@ -54,8 +74,12 @@ const Activate: NextPage = () => {
       {activated ? (
         <div className={styles.info}>
           <div>
-            {responseError ? (
-              <h3>Something unexpected happened, please contact us</h3>
+            {response.status === 400 ? (
+              response.message ? (
+                <h3>{response.message}</h3>
+              ) : (
+                <h3>Something unexpected happened, please contact us</h3>
+              )
             ) : (
               <h3>Your account is successfully activated </h3>
             )}
@@ -64,7 +88,7 @@ const Activate: NextPage = () => {
               {redirectSeconds} seconds
             </p>
           </div>
-          {responseError ? <CrossIcon /> : <TickIcon />}
+          {response.status === 400 ? <CrossIcon /> : <TickIcon />}
 
           <Link href="/">
             <div className={styles.link_text}>To main page</div>

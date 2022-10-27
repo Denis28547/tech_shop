@@ -1,4 +1,4 @@
-import { Model } from "sequelize";
+import { DataType, Model } from "sequelize";
 
 export interface IUser extends Model {
   id: string;
@@ -7,8 +7,9 @@ export interface IUser extends Model {
   password: string;
   image: string | null;
   role: string;
-  activationLink: string;
-  isActivated: boolean;
+  activationLink: string | null;
+  isActivated: boolean | null;
+  email_verified: DataType | null;
 }
 
 export interface IItem extends Model {
