@@ -1,7 +1,8 @@
-import NextAuth, { DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import SequelizeAdapter from "@next-auth/sequelize-adapter";
 import sequelize, { Cart } from "../../../models";
 
@@ -19,7 +20,12 @@ export const authOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
-    }), //! ADD GOOGLE PROVIDER
+    }),
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
 
     CredentialProvider({
       name: "credentials",
@@ -47,6 +53,11 @@ export const authOptions = {
       const user_id = user?.id;
       await Cart.create({ user_id });
     },
+  },
+
+  pages: {
+    signIn: "/oautherror",
+    error: "/oautherror",
   },
 };
 

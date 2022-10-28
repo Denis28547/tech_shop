@@ -18,11 +18,11 @@ export const User = sequelize.define<IUser>(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(32), //! MAKE MAX LENGTH OF THINGS 30 OR SMTH
+      type: DataTypes.STRING,
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
@@ -47,6 +47,59 @@ export const User = sequelize.define<IUser>(
     },
     email_verified: {
       type: DataTypes.DATE,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+export const Account = sequelize.define(
+  "account",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    type: {
+      type: DataTypes.TEXT,
+    },
+    user_id: {
+      type: DataTypes.TEXT,
+    },
+    provider: {
+      type: DataTypes.TEXT,
+    },
+    provider_account_id: {
+      type: DataTypes.TEXT,
+    },
+    refresh_token: {
+      type: DataTypes.TEXT,
+    },
+    access_token: {
+      type: DataTypes.TEXT,
+    },
+    expires_at: {
+      type: DataTypes.INTEGER,
+    },
+    token_type: {
+      type: DataTypes.TEXT,
+    },
+    scope: {
+      type: DataTypes.TEXT,
+    },
+    id_token: {
+      type: DataTypes.TEXT,
+    },
+    session_state: {
+      type: DataTypes.TEXT,
+    },
+    oauth_token_secret: {
+      type: DataTypes.TEXT,
+    },
+    oauth_token: {
+      type: DataTypes.TEXT,
     },
   },
   {
