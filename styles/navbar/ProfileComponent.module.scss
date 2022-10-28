@@ -7,6 +7,9 @@ $background-transition: background-color 0.2s;
   height: 36px;
   color: $text-color;
   cursor: pointer;
+  @media all and (max-width: 800px) {
+    display: none;
+  }
 }
 
 .auth_container {

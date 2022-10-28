@@ -49,7 +49,7 @@ const Navbar = ({ disabled }: INavbar) => {
         <Link href="/shop">
           <div className={styles.catalogue_container}>
             <ShopIcon className={styles.icon} />
-            <p>Shop</p>
+            <p>Browse</p>
           </div>
         </Link>
       </div>

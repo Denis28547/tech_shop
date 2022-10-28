@@ -27,7 +27,7 @@ $background-transition: background-color 0.2s;
     @include flex_container_evenly;
   }
 
-  @media only screen and (max-width: 800px) {
+  @media all and (max-width: 800px) {
     .icon,
     .logo_name,
     .catalogue_container,

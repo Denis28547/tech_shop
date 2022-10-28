@@ -7,19 +7,12 @@ const Layout = ({ children }: { children: ReactElement }) => {
 
   const forbiddenRoutes = {
     "/activate/[activationLink]": true,
-    "/": true,
-    "/shop": true,
+    "/oautherror": true,
   };
 
-  // if (router.pathname in forbiddenRoutes) console.log("true");
-  // else console.log("false");
   return (
     <>
-      <Navbar
-        disabled={
-          router.pathname === "/activate/[activationLink]" ? true : false
-        }
-      />
+      <Navbar disabled={router.pathname in forbiddenRoutes ? true : false} />
       <main>{children}</main>
     </>
   );

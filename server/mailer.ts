@@ -52,10 +52,7 @@ const sendActivationMail = async (email: string, link: string) => {
                 >
                   <tr>
                     <td>
-                      <image
-                        src="/public/assets/icons8-jira-60.png"
-                        alt="logo image"
-                      />
+                      <img src="https://i.ibb.co/N9WJJSp/logo-for-mail.png" alt="logo-for-mail" border="0">
                     </td>
                   </tr>
                 </table>
@@ -90,7 +87,7 @@ const sendActivationMail = async (email: string, link: string) => {
       <tr>
         <td style="text-align: center">
           <a style="margin: 0" href=${link}>
-            To verify your e-mail address, please click on this text
+            Please click on this text to verify your e-mail address
           </a>
         </td>
       </tr>
