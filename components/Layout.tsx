@@ -2,6 +2,8 @@ import { ReactElement } from "react";
 import Navbar from "./Navbar/Navbar";
 import { useRouter } from "next/router";
 
+import styles from "../styles/Main.module.scss";
+
 const Layout = ({ children }: { children: ReactElement }) => {
   const router = useRouter();
 
@@ -13,7 +15,7 @@ const Layout = ({ children }: { children: ReactElement }) => {
   return (
     <>
       <Navbar disabled={router.pathname in forbiddenRoutes ? true : false} />
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
     </>
   );
 };

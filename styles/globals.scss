@@ -1,5 +1,3 @@
-// @use "/styles/variables/colors.scss" as *;
-
 html,
 body {
   padding: 0;
@@ -55,7 +53,7 @@ body[data-theme="light"] {
   --navbar-main: #f9f9f9;
   --navbar-secondary: #eeeeee;
   --base-color: #e7e7e7;
-  --secondary-color: #c6c7c9;
+  --secondary-color: #dadada;
   --third-color: #121212;
   --clickable-color: #d1d1d3;
   --clickable-hover-color: #bcbcbf;
@@ -73,7 +71,7 @@ body[data-theme="dark"] {
   --navbar-main: #121212;
   --navbar-secondary: #eeeeee;
   --base-color: #201e22;
-  --secondary-color: #393e46;
+  --secondary-color: #2c2f34;
   --third-color: #121212;
   --clickable-color: #393e46;
   --clickable-hover-color: #4a5059;

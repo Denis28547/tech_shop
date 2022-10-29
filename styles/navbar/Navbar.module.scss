@@ -1,4 +1,4 @@
-@use "/styles/variables/colors" as *;
+@use "/styles/variables" as *;
 
 @mixin flex_display {
   display: flex;
@@ -21,6 +21,7 @@ $background-transition: background-color 0.2s;
   border-bottom: 1px solid $border-color;
   position: sticky;
   top: 0;
+  z-index: 1;
   > * {
     // selecting all direct children of .navbar
     @include flex_display;
