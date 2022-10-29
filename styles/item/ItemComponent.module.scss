@@ -1,0 +1,15 @@
+@use "../variables" as *;
+
+.item {
+  border: 2px solid $border-color;
+  background-color: $secondary-color;
+  width: 220px;
+  height: 400px;
+  padding: 10px;
+  border-radius: 6px;
+  color: $text-color;
+
+  .image {
+    border-radius: 2px;
+  }
+}

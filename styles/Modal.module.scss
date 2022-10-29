@@ -1,4 +1,4 @@
-@use "/styles/variables/colors" as *;
+@use "/styles/variables" as *;
 
 .modal {
   background-color: rgba(var(--color-modal), 0.2);
