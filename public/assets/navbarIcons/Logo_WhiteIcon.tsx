@@ -1,5 +1,5 @@
 function Icon(props: any) {
-  const color = props.theme === "dark" ? "#ffffff" : "#000000";
+  const color = props.theme === "dark" ? "#eeeeee" : "#121212";
   return (
     <svg
       // fill={color}

@@ -4,12 +4,22 @@
   border: 2px solid $border-color;
   background-color: $secondary-color;
   width: 220px;
-  height: 400px;
+  height: 350px;
   padding: 10px;
   border-radius: 6px;
   color: $text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .image_name {
+  }
 
   .image {
     border-radius: 2px;
+  }
+
+  .item_info {
+    margin-bottom: 10px;
   }
 }
