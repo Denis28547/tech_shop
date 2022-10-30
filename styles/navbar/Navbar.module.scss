@@ -31,7 +31,7 @@ $background-transition: background-color 0.2s;
   @media all and (max-width: 800px) {
     .icon,
     .logo_name,
-    .catalogue_container,
+    .icon_text,
     .change_theme_container {
       display: none;
     }
@@ -60,11 +60,13 @@ $background-transition: background-color 0.2s;
   height: 50px;
 }
 
-.catalogue_container {
+.icon_text {
   @include flex_display;
   background-color: $clickable-color;
   border-radius: 8px;
-  padding: 5px 14px;
+  padding: 0 14px;
+  height: 46px;
+  gap: 5px;
   cursor: pointer;
   transition: $background-transition;
 

@@ -6,18 +6,20 @@ import styles from "../styles/item/ItemComponent.module.scss";
 const ItemComponent = () => {
   return (
     <div className={styles.item}>
-      <Image
-        src={phoneImage}
-        alt="item_image"
-        width={216}
-        height={250}
-        className={styles.image}
-      />
-      <h2>Name</h2>
-      <p>$1250</p>
-      <div>
-        <p>Lviv</p>
-        <p>22 september 2022</p>
+      <div className={styles.image_name}>
+        <Image
+          src={phoneImage}
+          alt="item_image"
+          width={216}
+          height={250}
+          className={styles.image}
+        />
+        <h2>Iphone 14</h2>
+      </div>
+
+      <div className={styles.item_info}>
+        <p>Lviv - 22 september 2022</p>
+        <b>$1250</b>
       </div>
     </div>
   );

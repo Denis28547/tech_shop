@@ -7,6 +7,7 @@ import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
 import CartIcon from "../../public/assets/navbarIcons/CartIcon";
 import NightIcon from "../../public/assets/navbarIcons/NightIcon";
 import DayIcon from "../../public/assets/navbarIcons/DayIcon";
+import SellIcon from "../../public/assets/navbarIcons/SellIcon";
 
 import styles from "../../styles/navbar/Navbar.module.scss";
 import ProfileComponent from "./ProfileComponent";
@@ -47,7 +48,7 @@ const Navbar = ({ disabled }: INavbar) => {
           </div>
         </Link>
         <Link href="/shop">
-          <div className={styles.catalogue_container}>
+          <div className={styles.icon_text}>
             <ShopIcon className={styles.icon} />
             <p>Browse</p>
           </div>
@@ -76,6 +77,13 @@ const Navbar = ({ disabled }: INavbar) => {
             <DayIcon className={`${styles.icon} ${styles.day_icon}`} />
           </div>
         </div>
+
+        <Link href="sell">
+          <div className={styles.icon_text}>
+            <SellIcon className={styles.icon} theme={theme} />
+            <p>Sell</p>
+          </div>
+        </Link>
 
         <CartIcon className={styles.icon} />
 
