@@ -1,12 +1,6 @@
 function Icon(props: any) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 80 80"
-      width="100px"
-      height="100px"
-      {...props}
-    >
+    <svg viewBox="0 0 80 80" width="100px" height="100px" {...props}>
       <path
         fill="#f78f8f"
         d="M40,77.5C19.322,77.5,2.5,60.678,2.5,40S19.322,2.5,40,2.5S77.5,19.322,77.5,40S60.678,77.5,40,77.5 z"
