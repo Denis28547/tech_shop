@@ -144,29 +144,32 @@
 
   .files_grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: fit-content;
+    grid-template-columns: repeat(4, auto);
+    flex-wrap: wrap;
+    // width: fit-content;
     gap: 20px;
+    width: 100%;
+    justify-content: flex-start;
 
-    @media all and (max-width: 1000px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    // @media all and (max-width: 1000px) {
+    //   grid-template-columns: repeat(3, auto);
+    // }
 
-    @media all and (max-width: 800px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    // @media all and (max-width: 800px) {
+    //   grid-template-columns: repeat(2, auto);
+    // }
 
-    @media all and (max-width: 380px) {
-      grid-template-columns: repeat(1, 1fr);
-    }
+    // @media all and (max-width: 490px) {
+    //   grid-template-columns: auto;
+    // }
 
     .file_container {
       position: relative;
       background-color: $clickable-color;
       border-radius: 4px;
-      max-width: 190px;
-      min-width: 141px;
+      width: 190px;
       height: 141px;
+      transition: background-color 0.2s;
 
       input[type="file"] {
         background-color: transparent;
@@ -183,6 +186,11 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      &:hover {
+        background-color: $clickable-hover-color;
       }
     }
   }
