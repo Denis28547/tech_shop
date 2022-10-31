@@ -1,14 +1,7 @@
 function Icon(props: any) {
   const color = props.theme === "dark" ? "#eeeeee" : "#121212";
   return (
-    <svg
-      // fill={color}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 44.343 46"
-      width="100px"
-      height="100px"
-      {...props}
-    >
+    <svg viewBox="0 0 44.343 46" width="100px" height="100px" {...props}>
       <g data-name="Слой 2">
         <g data-name="Слой 6">
           <path

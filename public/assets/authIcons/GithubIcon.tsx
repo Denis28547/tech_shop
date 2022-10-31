@@ -2,7 +2,6 @@ function Icon(props: any) {
   return (
     <svg
       fill="#ffffff"
-      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width="48px"
       height="48px"
