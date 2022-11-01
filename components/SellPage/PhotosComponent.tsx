@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 import ImageComponent from "./ImageComponent";
 
@@ -7,7 +6,6 @@ import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
 const PhotosComponent = () => {
   let photoTemplates = [];
-
   for (let photoCount = 0; photoCount < 8; photoCount++) {
     photoTemplates.push(photoCount);
   }
@@ -19,7 +17,8 @@ const PhotosComponent = () => {
       <label>The first photo will be on the cover of the ad</label>
       <div className={styles.files_grid}>
         {photoTemplates.map((photo) => {
-          return <ImageComponent key={photo} />;
+          const id = `image${photo}`;
+          return <ImageComponent key={photo} id={id} />;
         })}
       </div>
     </div>

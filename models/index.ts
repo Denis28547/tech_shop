@@ -193,6 +193,20 @@ export const Rating = sequelize.define(
   }
 );
 
+// name: { value: string };
+// category: { value: string };
+// price: { value: number };
+// image0: { files: FileList };
+// image1: { files: FileList };
+// image2: { files: FileList };
+// image3: { files: FileList };
+// image4: { files: FileList };
+// image5: { files: FileList };
+// image6: { files: FileList };
+// image7: { files: FileList };
+// description: { value: string };
+// location: { value: string };
+
 export const Item = sequelize.define<IItem>(
   "item",
   {
@@ -202,21 +216,28 @@ export const Item = sequelize.define<IItem>(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true,
     },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
-      // allowNull: false //! IMAGE NULL IS ENABLED
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    location: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
   },
   {
-    timestamps: false,
+    timestamps: true,
   }
 );
 

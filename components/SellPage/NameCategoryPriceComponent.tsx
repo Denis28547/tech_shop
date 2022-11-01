@@ -33,6 +33,7 @@ const NameCategoryPriceComponent = () => {
         onBlur={() => setIsNameDirty(true)}
         onChange={handleNameChange}
         pattern="^[^\s]+(\s+[^\s]+)*$"
+        autoComplete="off"
         minLength={3}
         maxLength={50}
         required
