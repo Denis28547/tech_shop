@@ -127,6 +127,11 @@
     &:hover {
       background-color: $accent-hover-color;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: $accent-color-disabled;
+    }
   }
 
   span {
@@ -146,52 +151,21 @@
     display: grid;
     grid-template-columns: repeat(4, auto);
     flex-wrap: wrap;
-    // width: fit-content;
     gap: 20px;
     width: 100%;
     justify-content: flex-start;
 
-    // @media all and (max-width: 1000px) {
-    //   grid-template-columns: repeat(3, auto);
-    // }
+    @media all and (max-width: 924px) {
+      grid-template-columns: repeat(3, auto);
+    }
 
-    // @media all and (max-width: 800px) {
-    //   grid-template-columns: repeat(2, auto);
-    // }
+    @media all and (max-width: 682px) {
+      grid-template-columns: repeat(2, auto);
+    }
 
-    // @media all and (max-width: 490px) {
-    //   grid-template-columns: auto;
-    // }
-
-    .file_container {
-      position: relative;
-      background-color: $clickable-color;
-      border-radius: 4px;
-      width: 190px;
-      height: 141px;
-      transition: background-color 0.2s;
-
-      input[type="file"] {
-        background-color: transparent;
-        appearance: none;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-      }
-
-      .camera_icon {
-        height: 30px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-      }
-
-      &:hover {
-        background-color: $clickable-hover-color;
-      }
+    @media all and (max-width: 472px) {
+      grid-template-columns: auto;
+      justify-content: center;
     }
   }
 }

@@ -16,13 +16,15 @@ const LocationComponent = () => {
       <h2>Location</h2>
       <input
         type="text"
+        id="location"
+        autoComplete="off"
         placeholder="Name of the city"
         data-dirty={isLocationDirty}
         onBlur={() => setIsLocationDirty(true)}
         onChange={handleChange}
         pattern="^[^\s]+(\s+[^\s]+)*$"
         minLength={3}
-        maxLength={30}
+        maxLength={50}
         required
       />
       {!isValid && isLocationDirty && (
