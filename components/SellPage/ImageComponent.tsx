@@ -40,7 +40,7 @@ const ImageComponent = ({ id }: { id: string }) => {
     <div className={styles.file_container}>
       {preview ? (
         <>
-          <Image src={preview} alt="photo" layout="fill" />
+          <Image src={preview} alt="photo" layout="fill" objectFit="cover" />
           <div
             className={styles.trash_icon_container}
             onClick={() => {
@@ -61,7 +61,7 @@ const ImageComponent = ({ id }: { id: string }) => {
         id={id}
         ref={inputRef}
         onChange={handleSetImage}
-        accept=".png,.jpg"
+        accept=".png,.jpg,.jpeg"
       />
     </div>
   );

@@ -21,6 +21,7 @@ const PhotosComponent = () => {
           return <ImageComponent key={photo} id={id} />;
         })}
       </div>
+      <p>*only .png, .jpg and .jpeg images can be uploaded</p>
     </div>
   );
 };
