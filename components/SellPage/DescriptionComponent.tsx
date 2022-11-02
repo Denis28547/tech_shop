@@ -17,7 +17,7 @@ const DescriptionComponent = () => {
     <div className={styles.option_block}>
       <h2>Description</h2>
       <textarea
-        placeholder="Write some description about item you want to sell"
+        placeholder="Write some description of item you want to sell"
         id="description"
         minLength={30}
         maxLength={1600}

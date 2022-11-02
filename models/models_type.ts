@@ -15,8 +15,9 @@ export interface IUser extends Model {
 export interface IItem extends Model {
   id: string;
   name: string;
+  category: string;
   price: number;
-  image: string[];
+  images: string[];
   description: string;
   location: string;
 }

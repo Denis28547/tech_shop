@@ -12,6 +12,8 @@ const ItemComponent = () => {
           alt="item_image"
           width={216}
           height={250}
+          // layout="fill"
+          // objectFit="cover"
           className={styles.image}
         />
         <h2>Iphone 14</h2>

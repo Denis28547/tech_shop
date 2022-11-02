@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { useState } from "react";
+import axios from "axios";
 
 import styles from "../../styles/sellPage/SellPage.module.scss";
 
@@ -39,27 +40,36 @@ const SellPage: NextPage = () => {
 
     const target = e.target as typeof e.target & ITarget;
     if (target.image0.files.length === 0) return alert("Please add main photo");
-    // console.log(target.image0.files[0]);
 
     let images: File[] = [];
 
     Object.values(target).forEach((value: any) => {
       if (value.type !== "file") return;
       if (!value.files[0]) return;
-      // console.log(value.files[0]);
       images.push(value.files[0]);
     });
+    3;
+    const formData = new FormData();
+    formData.append("name", target.name.value);
+    formData.append("category", target.category.value);
+    formData.append("price", `${target.price.value}`);
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
+    formData.append("description", target.description.value);
+    formData.append("location", target.location.value);
+    console.log(formData.getAll("images"));
 
-    const { name, category, price, description, location } = target;
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/item`,
+        formData
+      );
 
-    const data = {
-      name,
-      category,
-      price,
-      images,
-      description,
-      location,
-    };
+      // console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
 
     setResponseError(defaultResponseError);
   };
