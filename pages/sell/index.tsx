@@ -58,7 +58,6 @@ const SellPage: NextPage = () => {
     });
     formData.append("description", target.description.value);
     formData.append("location", target.location.value);
-    console.log(formData.getAll("images"));
 
     try {
       const response = await axios.post(
@@ -66,7 +65,7 @@ const SellPage: NextPage = () => {
         formData
       );
 
-      // console.log(response);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

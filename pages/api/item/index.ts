@@ -1,13 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
-import { File, Files, IncomingForm } from "formidable";
+import formidable, { File, Files, IncomingForm } from "formidable";
 const path = require("path");
 
 import { Item } from "../../../models";
-
 import { IItem } from "../../../models/models_type";
-import PersistentFile from "formidable/PersistentFile";
 
 export const config = {
   api: {
@@ -18,7 +16,6 @@ export const config = {
 const checkFileType = (file: File): boolean => {
   if (file.originalFilename) {
     let fileType = file.originalFilename.split(".").at(-1) as string;
-    fileType = "svg";
     const validTypes = ["png", "jpg", "jpeg"];
     if (validTypes.includes(fileType)) return true;
     return false;
@@ -27,16 +24,12 @@ const checkFileType = (file: File): boolean => {
 };
 
 const saveFile = (file: File): string => {
-  if (file.originalFilename) {
-    const fileType = file.originalFilename.split(".").at(-1);
-    const fileName = uuidv4() + "." + fileType;
-    const data = fs.readFileSync(file.filepath);
-    fs.writeFileSync(`./public/itemImages/${fileName}`, data);
-    // await fs.unlinkSync(file.filepath);
-    return fileName;
-  } else {
-    return "sjksj";
-  }
+  const fileType = file.originalFilename!.split(".").at(-1);
+  const fileName = uuidv4() + "." + fileType;
+  const data = fs.readFileSync(file.filepath);
+  fs.writeFileSync(`./public/itemImages/${fileName}`, data);
+  // await fs.unlinkSync(file.filepath);
+  return fileName;
 };
 
 export default async function handler(
@@ -48,44 +41,69 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        const form = new IncomingForm({
-          multiples: true,
-          maxFileSize: 50 * 1024 * 1024,
+        console.log("first");
+        const response = await new Promise((resolve, reject) => {
+          const form = new IncomingForm({
+            multiples: true,
+            maxFileSize: 50 * 1024 * 1024,
+          });
+
+          form.parse(req, async (err, fields, files) => {
+            if (err) {
+              return reject(err);
+            }
+
+            const { name, category, price, description, location } = fields;
+
+            if (
+              !name ||
+              !category ||
+              !price ||
+              !description ||
+              !location ||
+              !files
+            )
+              return reject("no required fields");
+
+            let imagePaths: string[] = [];
+
+            const { images }: Files = files;
+
+            if (Array.isArray(images)) {
+              for (let index = 0; index < images.length; index++) {
+                const image = images[index];
+                const isValid = checkFileType(image);
+                console.log(isValid);
+                if (!isValid) {
+                  return reject("invalid file type");
+                }
+                const imagePath = saveFile(image);
+                imagePaths.push(imagePath);
+              }
+            } else {
+              const isValid = checkFileType(images);
+              if (!isValid) {
+                return reject("invalid file type");
+              }
+              saveFile(images);
+              resolve("item created successfully");
+            }
+
+            const item = await Item.create({
+              name,
+              category,
+              price,
+              images: imagePaths,
+              description,
+              location,
+            });
+            console.log(item);
+          });
         });
 
-        form.parse(req, async (err, fields, files) => {
-          if (err)
-            res.status(500).json({
-              message: "something unexpected happened while working with file",
-            });
-
-          let imagePaths: string[] = [];
-
-          interface addFile {
-            filepath: string;
-            originalFilename: string;
-          }
-
-          const { images }: Files = files;
-
-          if (Array.isArray(images)) {
-            images.forEach(async (image) => {
-              const isValid = checkFileType(image);
-              console.log(isValid);
-              const imagePath = saveFile(image);
-              imagePaths.push(imagePath);
-            });
-          } else {
-            await saveFile(images);
-          }
-        });
-
-        res.status(400).json({ message: "successfully added item" });
-      } catch (error: any) {
-        console.log(error);
-        return res
-          .status(500)
-          .json({ message: "something unexpected happened" });
+        res.status(201).json({ message: response });
+      } catch (error) {
+        res.status(400).json({ message: error });
       }
       break;
 
