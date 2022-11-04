@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 import styles from "../../styles/sellPage/SellPage.module.scss";
 
@@ -26,20 +27,22 @@ interface ITarget {
   location: { value: string };
 }
 
-const defaultResponseError = {
-  error: false,
-  message: "",
-};
-
 const SellPage: NextPage = () => {
-  const [responseError, setResponseError] = useState(defaultResponseError);
-  // console.log(responseError);
+  const [responseErrMessage, setResponseErrMessage] = useState("");
+  const [loadingResponse, setLoadingResponse] = useState(false);
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoadingResponse(true);
 
     const target = e.target as typeof e.target & ITarget;
-    if (target.image0.files.length === 0) return alert("Please add main photo");
+    if (target.image0.files.length === 0) {
+      alert("Please add main photo");
+      setLoadingResponse(false);
+      return;
+    }
 
     let images: File[] = [];
 
@@ -48,7 +51,7 @@ const SellPage: NextPage = () => {
       if (!value.files[0]) return;
       images.push(value.files[0]);
     });
-    3;
+
     const formData = new FormData();
     formData.append("name", target.name.value);
     formData.append("category", target.category.value);
@@ -65,12 +68,11 @@ const SellPage: NextPage = () => {
         formData
       );
 
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+      router.push(`/redirect?text=${response.data.message}&success=${true}`);
+    } catch (error: any) {
+      setResponseErrMessage(error.response.data.message);
+      setLoadingResponse(false);
     }
-
-    setResponseError(defaultResponseError);
   };
 
   return (
@@ -81,7 +83,10 @@ const SellPage: NextPage = () => {
       <PhotosComponent />
       <DescriptionComponent />
       <LocationComponent />
-      <ButtonComponent errMessage={responseError.message} />
+      <ButtonComponent
+        responseErrMessage={responseErrMessage}
+        loadingResponse={loadingResponse}
+      />
     </form>
   );
 };

@@ -24,10 +24,15 @@
     gap: 25px;
     min-width: 250px;
     min-height: 250px;
+    justify-content: center;
 
     h3 {
       font-size: 1.45rem;
       margin-bottom: 10px;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
     }
 
     .link_text {

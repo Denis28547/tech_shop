@@ -10,6 +10,7 @@ const Layout = ({ children }: { children: ReactElement }) => {
   const forbiddenRoutes = {
     "/activate/[activationLink]": true,
     "/oautherror": true,
+    "/redirect": true,
   };
 
   return (
