@@ -41,7 +41,6 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        console.log("first");
         const response = await new Promise((resolve, reject) => {
           const form = new IncomingForm({
             multiples: true,
@@ -73,7 +72,6 @@ export default async function handler(
               for (let index = 0; index < images.length; index++) {
                 const image = images[index];
                 const isValid = checkFileType(image);
-                console.log(isValid);
                 if (!isValid) {
                   return reject("invalid file type");
                 }
@@ -85,11 +83,11 @@ export default async function handler(
               if (!isValid) {
                 return reject("invalid file type");
               }
-              saveFile(images);
-              resolve("item created successfully");
+              const imagePath = saveFile(images);
+              imagePaths.push(imagePath);
             }
 
-            const item = await Item.create({
+            await Item.create({
               name,
               category,
               price,
@@ -97,7 +95,8 @@ export default async function handler(
               description,
               location,
             });
-            console.log(item);
+
+            resolve("item created successfully");
           });
         });
 

@@ -47,12 +47,12 @@ const Navbar = ({ disabled }: INavbar) => {
             <p className={styles.logo_name}>TechShop</p>
           </div>
         </Link>
-        <Link href="/shop">
+        {/* <Link href="/sell">
           <div className={styles.icon_text}>
             <ShopIcon className={styles.icon} />
-            <p>Browse</p>
+            <p>Sell</p>
           </div>
-        </Link>
+        </Link> */}
       </div>
 
       <div className={styles.middle_container}>
@@ -63,7 +63,7 @@ const Navbar = ({ disabled }: INavbar) => {
         <button>FIND</button>
       </div>
 
-      <div className={`${styles.right_container} ${styles.flex_container}`}>
+      <div className={styles.right_container}>
         <div
           className={styles.change_theme_container}
           data-theme={theme}
@@ -78,9 +78,9 @@ const Navbar = ({ disabled }: INavbar) => {
           </div>
         </div>
 
-        <Link href="sell">
+        <Link href="/sell">
           <div className={styles.icon_text}>
-            <SellIcon className={styles.icon} theme={theme} />
+            <ShopIcon className={styles.icon} />
             <p>Sell</p>
           </div>
         </Link>

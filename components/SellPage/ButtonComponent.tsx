@@ -1,14 +1,20 @@
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
 interface IButtonComponent {
-  errMessage: string;
+  responseErrMessage: string;
+  loadingResponse: boolean;
 }
 
-const ButtonComponent = ({ errMessage }: IButtonComponent) => {
+const ButtonComponent = ({
+  responseErrMessage,
+  loadingResponse,
+}: IButtonComponent) => {
   return (
     <div className={styles.option_block}>
-      <span>{errMessage}</span>
-      <button type="submit">Post</button>
+      <span className={styles.response_error}>{responseErrMessage}</span>
+      <button type="submit" disabled={loadingResponse}>
+        Post
+      </button>
     </div>
   );
 };

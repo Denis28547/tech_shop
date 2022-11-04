@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-import styles from "../../styles/smallPages/activate.module.scss";
+import styles from "../../styles/smallPages/redirect.module.scss";
 
-import TickIcon from "../../public/assets/activate/TickIcon";
-import CrossIcon from "../../public/assets/activate/CrossIcon";
+import TickIcon from "../../public/assets/redirect/TickIcon";
+import CrossIcon from "../../public/assets/redirect/CrossIcon";
 
 const responseDefault = {
   status: 200,
@@ -58,14 +58,14 @@ const Activate: NextPage = () => {
 
   useEffect(() => {
     if (redirectSeconds == 0) {
-      router.push("/");
+      // router.push("/");
       return;
     }
 
     if (activated) {
       setTimeout(() => {
         setRedirectSeconds(redirectSeconds - 1);
-      }, 2000);
+      }, 1000);
     }
   }, [redirectSeconds, activated]);
 

@@ -6,7 +6,7 @@
 }
 
 @mixin flex_container_evenly {
-  flex-grow: 1;
+  // flex-grow: 1;
   justify-content: space-evenly;
 }
 
@@ -26,6 +26,8 @@ $background-transition: background-color 0.2s;
     // selecting all direct children of .navbar
     @include flex_display;
     @include flex_container_evenly;
+    flex: 0 1 22%;
+    // flex: 0 1 360px;
   }
 
   @media all and (max-width: 800px) {
@@ -36,10 +38,18 @@ $background-transition: background-color 0.2s;
       display: none;
     }
 
+    > * {
+      flex: 0 1 100px;
+    }
+
     .middle_container {
       button {
         display: none;
       }
+    }
+
+    .right_container {
+      min-width: 0;
     }
 
     .burger {
@@ -64,7 +74,7 @@ $background-transition: background-color 0.2s;
   @include flex_display;
   background-color: $clickable-color;
   border-radius: 8px;
-  padding: 0 14px;
+  padding: 0 4%;
   height: 46px;
   gap: 5px;
   cursor: pointer;
@@ -78,7 +88,8 @@ $background-transition: background-color 0.2s;
 .middle_container {
   border-radius: 6px;
   overflow: hidden;
-  flex-grow: 4;
+  // flex-grow: 4;
+  flex-grow: 1;
   height: 44px;
 
   .find_icon_container {
@@ -120,6 +131,10 @@ $background-transition: background-color 0.2s;
   height: 36px;
   color: $text-color;
   cursor: pointer;
+}
+
+.right_container {
+  min-width: 260px;
 }
 
 .change_theme_container {
