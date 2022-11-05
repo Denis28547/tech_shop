@@ -1,23 +1,19 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 import { NextPage } from "next";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 import styles from "../../styles/smallPages/redirect.module.scss";
 
-import TickIcon from "../../public/assets/redirect/TickIcon";
-import CrossIcon from "../../public/assets/redirect/CrossIcon";
-
-const responseDefault = {
-  status: 200,
+const defaultResponseMessage = {
   message: "",
+  success: false,
 };
 
 const Activate: NextPage = () => {
-  const [activated, setActivated] = useState(false);
-  const [response, setResponse] = useState(responseDefault);
-  const [redirectSeconds, setRedirectSeconds] = useState(5);
+  const [responseMessage, setResponseMessage] = useState(
+    defaultResponseMessage
+  );
 
   const router = useRouter();
 
@@ -37,17 +33,13 @@ const Activate: NextPage = () => {
   const activateAccount = async () => {
     const { activationLink } = router.query;
     try {
-      await axios.put(
+      const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/activate/${activationLink}`
       );
-      setActivated(true);
+      setResponseMessage({ message: response.data.message, success: true });
     } catch (error: any) {
       const message = findError(error.response.data.message) as string;
-      setResponse({
-        status: error.response.status,
-        message,
-      });
-      setActivated(true);
+      setResponseMessage({ message, success: false });
     }
   };
 
@@ -57,50 +49,20 @@ const Activate: NextPage = () => {
   }, [router.isReady]);
 
   useEffect(() => {
-    if (redirectSeconds == 0) {
-      // router.push("/");
-      return;
+    if (responseMessage.message) {
+      router.push(
+        `/redirect?text=${responseMessage.message}&success=${responseMessage.success}`
+      );
     }
-
-    if (activated) {
-      setTimeout(() => {
-        setRedirectSeconds(redirectSeconds - 1);
-      }, 1000);
-    }
-  }, [redirectSeconds, activated]);
+  }, [responseMessage]);
 
   return (
     <div className={styles.main}>
-      {activated ? (
-        <div className={styles.info}>
-          <div>
-            {response.status === 400 ? (
-              response.message ? (
-                <h3>{response.message}</h3>
-              ) : (
-                <h3>Something unexpected happened, please contact us</h3>
-              )
-            ) : (
-              <h3>Your account is successfully activated </h3>
-            )}
-            <p>
-              You will be automatically redirected to main page in{" "}
-              {redirectSeconds} seconds
-            </p>
-          </div>
-          {response.status === 400 ? <CrossIcon /> : <TickIcon />}
-
-          <Link href="/">
-            <div className={styles.link_text}>To main page</div>
-          </Link>
-        </div>
-      ) : (
-        <div className={styles.info}>
-          <h3>Activating your account</h3>
-          <h3>LOADING</h3>
-          <h2>.....</h2>
-        </div>
-      )}
+      <div className={styles.info}>
+        <h3>Activating your account</h3>
+        <h3>LOADING</h3>
+        <h2>.....</h2>
+      </div>
     </div>
   );
 };

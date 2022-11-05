@@ -29,6 +29,7 @@ interface ITarget {
 
 const SellPage: NextPage = () => {
   const [responseErrMessage, setResponseErrMessage] = useState("");
+  const [photoError, setPhotoError] = useState("");
   const [loadingResponse, setLoadingResponse] = useState(false);
 
   const router = useRouter();
@@ -40,6 +41,7 @@ const SellPage: NextPage = () => {
     const target = e.target as typeof e.target & ITarget;
     if (target.image0.files.length === 0) {
       alert("Please add main photo");
+      setPhotoError("*Not valid (please add main photo)");
       setLoadingResponse(false);
       return;
     }
@@ -80,7 +82,7 @@ const SellPage: NextPage = () => {
       <h1 className={styles.main_text}>Sell something</h1>
 
       <NameCategoryPriceComponent />
-      <PhotosComponent />
+      <PhotosComponent photoError={photoError} />
       <DescriptionComponent />
       <LocationComponent />
       <ButtonComponent
@@ -90,7 +92,5 @@ const SellPage: NextPage = () => {
     </form>
   );
 };
-//! try to make validation without useStates, make isDirty class for css
-//! and in scss check if input isInvalid and has isDirty thing
 
 export default SellPage;
