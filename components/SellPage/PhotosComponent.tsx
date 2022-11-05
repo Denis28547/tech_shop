@@ -4,7 +4,7 @@ import ImageComponent from "./ImageComponent";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
-const PhotosComponent = () => {
+const PhotosComponent = ({ photoError }: { photoError: string }) => {
   let photoTemplates = [];
   for (let photoCount = 0; photoCount < 8; photoCount++) {
     photoTemplates.push(photoCount);
@@ -22,6 +22,7 @@ const PhotosComponent = () => {
         })}
       </div>
       <p>*only .png, .jpg and .jpeg images can be uploaded</p>
+      <span>{photoError}</span>
     </div>
   );
 };
