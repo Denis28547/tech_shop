@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 import { v4 as uuidv4 } from "uuid";
 import { sendActivationMail } from "../../../server/mailer";
 
-import { Cart, User } from "../../../models";
+import { User } from "../../../models";
 
 export default async function handler(
   req: NextApiRequest,
@@ -42,10 +42,8 @@ export default async function handler(
           isActivated: false,
         });
 
-        const createdUser = user.toJSON();
         const activationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/activate/${user.activationLink}`;
 
-        await Cart.create({ user_id: createdUser.id });
         sendActivationMail(user.email, activationUrl);
 
         res.status(201).json({ message: "your account has been created" });
