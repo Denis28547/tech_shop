@@ -80,7 +80,6 @@ const SellPage: NextPage = () => {
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
       <h1 className={styles.main_text}>Sell something</h1>
-
       <NameCategoryPriceComponent />
       <PhotosComponent photoError={photoError} />
       <DescriptionComponent />

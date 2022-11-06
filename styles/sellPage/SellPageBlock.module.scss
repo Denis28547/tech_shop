@@ -114,26 +114,6 @@
     @include border_bottom_colors;
   }
 
-  button {
-    background-color: $accent-color;
-    width: 25%;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    transition: 0.2s;
-    color: #eeeeee;
-
-    &:hover {
-      background-color: $accent-hover-color;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      background-color: $accent-color-disabled;
-    }
-  }
-
   span {
     color: $error-color;
     font-size: 0.9rem;
