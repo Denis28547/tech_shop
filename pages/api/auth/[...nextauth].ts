@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import SequelizeAdapter from "@next-auth/sequelize-adapter";
-import sequelize, { Cart } from "../../../models";
+import sequelize from "../../../models";
 
 sequelize.sync();
 
@@ -14,7 +14,7 @@ export const authOptions = {
     maxAge: 24 * 60 * 60,
   },
 
-  adapter: SequelizeAdapter(sequelize),
+  // adapter: SequelizeAdapter(sequelize),
 
   providers: [
     GithubProvider({
@@ -47,13 +47,13 @@ export const authOptions = {
     }),
   ],
 
-  events: {
-    //@ts-ignore
-    async createUser({ user }) {
-      const user_id = user?.id;
-      await Cart.create({ user_id });
-    },
-  },
+  // events: {
+  //@ts-ignore
+  // async createUser({ user }) {
+  // // const user_id = user?.id;
+  // await Cart.create({ user_id });
+  // },
+  // },
 
   pages: {
     signIn: "/oautherror",
