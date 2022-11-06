@@ -22,7 +22,7 @@ const PhotosComponent = ({ photoError }: { photoError: string }) => {
         })}
       </div>
       <p>*only .png, .jpg and .jpeg images can be uploaded</p>
-      <span>{photoError}</span>
+      {photoError && <span>{photoError}</span>}
     </div>
   );
 };

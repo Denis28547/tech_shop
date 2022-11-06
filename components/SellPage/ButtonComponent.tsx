@@ -1,3 +1,5 @@
+import CustomButton from "../../components/CustomButton";
+
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
 interface IButtonComponent {
@@ -11,10 +13,17 @@ const ButtonComponent = ({
 }: IButtonComponent) => {
   return (
     <div className={styles.option_block}>
-      <span className={styles.response_error}>{responseErrMessage}</span>
-      <button type="submit" disabled={loadingResponse}>
-        Post
-      </button>
+      {responseErrMessage && (
+        <span className={styles.response_error}>{responseErrMessage}</span>
+      )}
+
+      <CustomButton
+        text={"Post"}
+        loading={loadingResponse}
+        height={61}
+        width={"25%"}
+        margin={"0 auto"}
+      />
     </div>
   );
 };

@@ -1,0 +1,21 @@
+@use "./variables" as *;
+
+.custom_button {
+  background-color: $accent-color;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  transition: 0.2s;
+  color: #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: $accent-hover-color;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $accent-color-disabled;
+  }
+}

@@ -1,13 +1,15 @@
 import { signIn } from "next-auth/react";
 import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+
+import CustomButton from "../CustomButton";
+import InputForm from "./InputForm";
 
 import ProfileIcon from "../../public/assets/authIcons/ProfileIcon";
 import EmailIcon from "../../public/assets/authIcons/EmailIcon";
 import PasswordIcon from "../../public/assets/authIcons/PasswordIcon";
 
 import styles from "../../styles/auth/Form.module.scss";
-import axios from "axios";
-import InputForm from "./InputForm";
 
 interface IForm {
   currentPage: string;
@@ -153,9 +155,13 @@ const Form = ({
         icon={<PasswordIcon style={{ marginLeft: "5px" }} />}
       />
 
-      <button disabled={disableButton}>
-        Sign {currentPage === "register" ? "up" : "in"}
-      </button>
+      <CustomButton
+        text={`Sign ${currentPage === "register" ? "up" : "in"}`}
+        loading={disableButton}
+        height={50}
+        width={"100%"}
+        margin={"10px 0 0 0"}
+      />
     </form>
   );
 };
