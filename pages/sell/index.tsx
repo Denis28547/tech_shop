@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import styles from "../../styles/sellPage/SellPage.module.scss";
 
@@ -31,6 +32,8 @@ const SellPage: NextPage = () => {
   const [responseErrMessage, setResponseErrMessage] = useState("");
   const [photoError, setPhotoError] = useState("");
   const [loadingResponse, setLoadingResponse] = useState(false);
+  const { status, data } = useSession();
+  console.log(data);
 
   const router = useRouter();
 
@@ -76,6 +79,12 @@ const SellPage: NextPage = () => {
       setLoadingResponse(false);
     }
   };
+
+  if (status === "unauthenticated") {
+    router.push(
+      `/redirect?text=Please log in or register to sell an item&success=${false}`
+    );
+  }
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>

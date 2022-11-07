@@ -15,9 +15,15 @@ export interface IUser extends Model {
 export interface IItem extends Model {
   id: string;
   name: string;
-  category: string;
   price: number;
   images: string[];
   description: string;
   location: string;
+  user_id: string;
+  category_id: string;
+}
+
+export interface ICategory extends Model {
+  id: string;
+  name: string;
 }

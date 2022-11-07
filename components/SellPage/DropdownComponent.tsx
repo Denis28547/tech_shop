@@ -1,13 +1,18 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
+
+interface ICategories {
+  id: string;
+  name: string;
+}
 
 const DropdownComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [isValid, setIsValid] = useState(false);
-
-  const optionsArray = ["phones", "fridges", "tables"];
+  const [categories, setCategories] = useState<ICategories[]>([]);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.checkValidity()) setIsValid(true);
@@ -18,6 +23,17 @@ const DropdownComponent = () => {
     setIsOpen(false);
     setIsDirty(true);
   };
+
+  const fetchCategories = async () => {
+    const categories = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/category`
+    );
+    setCategories(categories.data);
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <>
@@ -36,9 +52,9 @@ const DropdownComponent = () => {
           <option value="" disabled hidden>
             Choose category
           </option>
-          {optionsArray.map((option) => (
-            <option key={option} value={option}>
-              {option}
+          {categories.map((option) => (
+            <option key={option.id} value={option.name}>
+              {option.name}
             </option>
           ))}
         </select>

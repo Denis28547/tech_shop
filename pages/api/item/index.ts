@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
-import formidable, { File, Files, IncomingForm } from "formidable";
-const path = require("path");
+import { File, Files, IncomingForm } from "formidable";
+import { useSession, getSession } from "next-auth/react";
 
-import { Item } from "../../../models";
+import { Item, Category } from "../../../models";
 import { IItem } from "../../../models/models_type";
 
 export const config = {
@@ -87,13 +87,25 @@ export default async function handler(
               imagePaths.push(imagePath);
             }
 
-            await Item.create({
+            const categoryModel = await Category.findOne({
+              where: { name: category },
+            });
+
+            if (!categoryModel) reject("something unexpected happened");
+
+            const session = await getSession({ req });
+
+            if (!session) reject("please log in to sell an item");
+
+            await Item.create<IItem>({
               name,
               category,
               price,
               images: imagePaths,
               description,
               location,
+              user_id: session?.user?.id,
+              category_id: categoryModel?.id,
             });
 
             resolve("item created successfully");

@@ -16,7 +16,6 @@ const Redirect = () => {
 
   useEffect(() => {
     const { text, success } = router.query as any;
-    console.log(text, success);
     setMainText(text);
     if (success === "true") setIsSuccess(true);
     else setIsSuccess(false);

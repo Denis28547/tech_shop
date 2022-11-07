@@ -9,12 +9,7 @@ import sequelize from "../../../models";
 sequelize.sync();
 
 export const authOptions = {
-  session: {
-    strategy: "jwt",
-    maxAge: 24 * 60 * 60,
-  },
-
-  // adapter: SequelizeAdapter(sequelize),
+  adapter: SequelizeAdapter(sequelize),
 
   providers: [
     GithubProvider({
@@ -47,13 +42,27 @@ export const authOptions = {
     }),
   ],
 
-  // events: {
-  //@ts-ignore
-  // async createUser({ user }) {
-  // // const user_id = user?.id;
-  // await Cart.create({ user_id });
-  // },
-  // },
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60,
+  },
+
+  callbacks: {
+    session: async ({
+      session,
+      token,
+      user,
+    }: {
+      session: any;
+      token: any;
+      user: any;
+    }) => {
+      if (session?.user) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+  },
 
   pages: {
     signIn: "/oautherror",
@@ -61,5 +70,5 @@ export const authOptions = {
   },
 };
 
-//@ts-ignore
+// @ts-ignore
 export default NextAuth(authOptions);
