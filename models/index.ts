@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from "sequelize";
-import { IItem, IUser } from "./models_type";
+import { ICategory, IItem, IUser } from "./models_type";
 
 const sequelize = new Sequelize({
   username: "postgres",
@@ -140,7 +140,7 @@ export const Favorites = sequelize.define(
   }
 );
 
-export const Category = sequelize.define(
+export const Category = sequelize.define<ICategory>(
   "category",
   {
     id: {
@@ -150,6 +150,8 @@ export const Category = sequelize.define(
     },
     name: {
       type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
     },
   },
   {
@@ -169,10 +171,6 @@ export const Item = sequelize.define<IItem>(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    // category: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -197,6 +195,9 @@ export const Item = sequelize.define<IItem>(
 
 User.hasMany(Rating, { foreignKey: "rating_id" });
 Rating.belongsTo(User, { foreignKey: "rating_id" });
+
+User.hasMany(Item, { foreignKey: "user_id" });
+Item.belongsTo(User, { foreignKey: "user_id" });
 
 User.belongsToMany(Item, { through: Favorites, foreignKey: "user_id" });
 Item.belongsToMany(User, { through: Favorites, foreignKey: "item_id" });
