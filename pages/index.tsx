@@ -8,6 +8,8 @@ import ItemsGridComponent from "../components/ItemsGridComponent";
 
 import styles from "../styles/LandingPage.module.scss";
 
+import { userAPI } from "../store/sevices/UserService";
+
 const Home: NextPage = () => {
   const router = useRouter();
 
