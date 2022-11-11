@@ -14,10 +14,10 @@ const ProfileComponent = () => {
 
   const modalHandler = () => setModalActive(!modalActive);
 
-  const session = useSession();
+  const { status, data } = useSession();
 
   const whichHandlerToUse = () => {
-    session.status === "authenticated"
+    status === "authenticated"
       ? setAuthContainer((prevState) => !prevState)
       : modalHandler();
   };
@@ -44,10 +44,10 @@ const ProfileComponent = () => {
           <>
             <Link href="profile">
               <div className={styles.profile_container}>
-                {session.data?.user?.image ? (
+                {data?.user?.image ? (
                   <Image
                     alt="user icon"
-                    src={session.data.user.image}
+                    src={data.user.image}
                     width={50}
                     height={50}
                     style={{ borderRadius: "50%" }}
@@ -59,8 +59,8 @@ const ProfileComponent = () => {
                   />
                 )}
                 <div className={styles.profile_info}>
-                  <h4>{session.data?.user?.name}</h4>
-                  <h6>{session.data?.user?.email}</h6>
+                  <h4>{data?.user?.name}</h4>
+                  <h6>{data?.user?.email}</h6>
                 </div>
               </div>
             </Link>

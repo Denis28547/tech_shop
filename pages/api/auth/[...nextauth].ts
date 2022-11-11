@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
@@ -8,7 +8,7 @@ import sequelize from "../../../models";
 
 sequelize.sync();
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: SequelizeAdapter(sequelize),
 
   providers: [

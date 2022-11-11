@@ -1,30 +1,19 @@
-import ItemComponent from "./ItemComponent";
+import ItemComponent from "./itemComponent";
 
 import styles from "../styles/item/ItemGridComponent.module.scss";
+import { IItem } from "../store/redux_types";
 
-const ItemsGridComponent = () => {
+interface IItemsGridComponent {
+  data: IItem[];
+}
+
+const ItemsGridComponent = ({ data }: IItemsGridComponent) => {
   return (
     <div className={styles.grid}>
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
-      <ItemComponent />
+      {data.map((item) => (
+        <ItemComponent key={item.id} item={item} />
+      ))}
     </div>
-    // <div className={styles.grid_container}>
-
-    // </div>
   );
 };
 
