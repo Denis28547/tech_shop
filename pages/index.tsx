@@ -8,20 +8,21 @@ import ItemsGridComponent from "../components/ItemsGridComponent";
 
 import styles from "../styles/LandingPage.module.scss";
 
-import { userAPI } from "../store/sevices/UserService";
+import { useSession } from "next-auth/react";
+import { useGetAllItemsQuery } from "../store/services/ItemService";
 
 const Home: NextPage = () => {
-  const router = useRouter();
+  const session = useSession();
 
-  // if (session.status === "loading") return <div>LOADING...</div>;
+  const { isLoading, data } = useGetAllItemsQuery();
+
+  if (isLoading) return <h1>LOADING</h1>;
+
   return (
     <>
       <div className={styles.main_wrapper}>
-        {/* <Image alt="user icon" src={halloweenImage} layout="responsive" /> */}
-        <h1>Newest items</h1>
-        <ItemsGridComponent />
-        <h1>Sells in your city</h1>
-        <ItemsGridComponent />
+        <h1 className={styles.landing_h1}>VIP-items</h1>
+        {data && <ItemsGridComponent data={data} />}
       </div>
     </>
   );

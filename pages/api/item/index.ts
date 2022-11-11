@@ -2,7 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import { File, Files, IncomingForm } from "formidable";
-import { useSession, getSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
 
 import { Item, Category } from "../../../models";
 import { IItem } from "../../../models/models_type";
@@ -27,8 +28,7 @@ const saveFile = (file: File): string => {
   const fileType = file.originalFilename!.split(".").at(-1);
   const fileName = uuidv4() + "." + fileType;
   const data = fs.readFileSync(file.filepath);
-  fs.writeFileSync(`./public/itemImages/${fileName}`, data);
-  // await fs.unlinkSync(file.filepath);
+  fs.writeFileSync(`./public/Content/${fileName}`, data);
   return fileName;
 };
 
@@ -39,6 +39,16 @@ export default async function handler(
   const { method } = req;
 
   switch (method) {
+    case "GET":
+      try {
+        const items = await Item.findAll();
+
+        res.status(200).json(items);
+      } catch (error: any) {
+        res.status(400).json({ message: error.message });
+      }
+      break;
+
     case "POST":
       try {
         const response = await new Promise((resolve, reject) => {
@@ -93,7 +103,11 @@ export default async function handler(
 
             if (!categoryModel) reject("something unexpected happened");
 
-            const session = await getSession({ req });
+            const session = await unstable_getServerSession(
+              req,
+              res,
+              authOptions
+            );
 
             if (!session) reject("please log in to sell an item");
 

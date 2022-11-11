@@ -1,17 +1,16 @@
 import { NextPage } from "next";
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-import styles from "../../styles/sellPage/SellPage.module.scss";
-
+import { useAddItemMutation } from "../../store/services/ItemService";
 import NameCategoryPriceComponent from "../../components/SellPage/NameCategoryPriceComponent";
 import PhotosComponent from "../../components/SellPage/PhotosComponent";
 import DescriptionComponent from "../../components/SellPage/DescriptionComponent";
 import LocationComponent from "../../components/SellPage/LocationComponent";
 import ButtonComponent from "../../components/SellPage/ButtonComponent";
 
+import styles from "../../styles/sellPage/SellPage.module.scss";
 interface ITarget {
   name: { value: string };
   category: { value: string };
@@ -29,23 +28,18 @@ interface ITarget {
 }
 
 const SellPage: NextPage = () => {
-  const [responseErrMessage, setResponseErrMessage] = useState("");
+  const [addItem, { isLoading, isError, data, error }] = useAddItemMutation();
   const [photoError, setPhotoError] = useState("");
-  const [loadingResponse, setLoadingResponse] = useState(false);
-  const { status, data } = useSession();
-  console.log(data);
-
+  const { status } = useSession();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoadingResponse(true);
 
     const target = e.target as typeof e.target & ITarget;
     if (target.image0.files.length === 0) {
       alert("Please add main photo");
       setPhotoError("*Not valid (please add main photo)");
-      setLoadingResponse(false);
       return;
     }
 
@@ -67,23 +61,17 @@ const SellPage: NextPage = () => {
     formData.append("description", target.description.value);
     formData.append("location", target.location.value);
 
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/item`,
-        formData
-      );
-
-      router.push(`/redirect?text=${response.data.message}&success=${true}`);
-    } catch (error: any) {
-      setResponseErrMessage(error.response.data.message);
-      setLoadingResponse(false);
-    }
+    await addItem(formData);
   };
 
   if (status === "unauthenticated") {
     router.push(
       `/redirect?text=Please log in or register to sell an item&success=${false}`
     );
+  }
+
+  if (data) {
+    router.push(`/redirect?text=${data.message}&success=${true}`);
   }
 
   return (
@@ -94,8 +82,9 @@ const SellPage: NextPage = () => {
       <DescriptionComponent />
       <LocationComponent />
       <ButtonComponent
-        responseErrMessage={responseErrMessage}
-        loadingResponse={loadingResponse}
+        //@ts-ignore idk how to handle data.message type
+        responseErrMessage={isError && error && error.data.message}
+        loadingResponse={isLoading}
       />
     </form>
   );
