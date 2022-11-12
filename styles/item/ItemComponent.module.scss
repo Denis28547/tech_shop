@@ -3,16 +3,34 @@
 .item {
   border: 2px solid $border-color;
   background-color: $secondary-color;
-  width: 220px;
-  height: 350px;
-  padding: 10px;
+  width: 250px;
+  min-height: 380px;
+  padding: 15px;
   border-radius: 6px;
   color: $text-color;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  word-wrap: break-word;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 
   .image_name {
+    .name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 
   .image {
@@ -20,6 +38,12 @@
   }
 
   .item_info {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    b {
+      font-size: 1.05rem;
+    }
   }
 }

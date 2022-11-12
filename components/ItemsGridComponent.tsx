@@ -1,7 +1,7 @@
+import { IItem } from "../store/redux_types";
 import ItemComponent from "./itemComponent";
 
 import styles from "../styles/item/ItemGridComponent.module.scss";
-import { IItem } from "../store/redux_types";
 
 interface IItemsGridComponent {
   data: IItem[];
