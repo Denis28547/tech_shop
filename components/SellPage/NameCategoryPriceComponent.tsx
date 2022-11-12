@@ -56,11 +56,11 @@ const NameCategoryPriceComponent = () => {
         onBlur={() => setIsPriceDirty(true)}
         onChange={handlePriceChange}
         min={1}
-        max={999999999}
+        max={9999999}
         required
       />
       {!isPriceValid && isPriceDirty && (
-        <span>*Not valid (min price is 1)</span>
+        <span>*Not valid (min price is 1, max is 9999999)</span>
       )}
     </div>
   );

@@ -19,4 +19,5 @@ export interface IItem {
   location: string;
   user_id: string;
   category_id: string;
+  createdAt: string;
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import phoneImage from "../public/iphone_14.jpg";
+import { useRouter } from "next/router";
+
 import { IItem } from "../store/redux_types";
 
 import styles from "../styles/item/ItemComponent.module.scss";
@@ -10,8 +11,25 @@ interface IItemComponent {
 
 const ItemComponent = ({ item }: IItemComponent) => {
   const item_image = `/Content/${item.images[0]}`;
+  const date = new Date(item.createdAt);
+  const router = useRouter();
+
+  const fullDate = `${date.getDate()} ${date.toLocaleString("default", {
+    month: "long",
+  })} ${date.getFullYear()}`;
+
+  const handleOpenFullItem = () => {
+    router.push(`/item/${item.id}`);
+  };
+
+  // console.log(item.createdAt);
   return (
-    <div className={styles.item}>
+    <div
+      className={styles.item}
+      onClick={() => {
+        handleOpenFullItem();
+      }}
+    >
       <div className={styles.image_name}>
         <Image
           src={item_image}
@@ -22,12 +40,15 @@ const ItemComponent = ({ item }: IItemComponent) => {
           objectFit="cover"
           className={styles.image}
         />
-        <h2>{item.name}</h2>
+        <div title={item.name} className={styles.name}>
+          {item.name} asdfsdafsdfsdfasdsfsdaadsdfsd
+        </div>
       </div>
 
       <div className={styles.item_info}>
-        <p>{item.location} - 22 september 2022</p>
-        <b>{item.price}</b>
+        <p>{item.location}</p>
+        <p>{fullDate}</p>
+        <b>{item.price} $</b>
       </div>
     </div>
   );
