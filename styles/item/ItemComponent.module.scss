@@ -1,5 +1,12 @@
 @use "../variables" as *;
 
+$skeleton_border_radius: 2px;
+
+@mixin skeleton_bc {
+  animation: skeleton_loading 2s linear infinite alternate;
+  opacity: 0.7;
+}
+
 .item {
   border: 2px solid $border-color;
   background-color: $secondary-color;
@@ -31,10 +38,31 @@
       text-overflow: ellipsis;
       overflow: hidden;
     }
-  }
 
-  .image {
-    border-radius: 2px;
+    .image {
+      border-radius: $skeleton_border_radius;
+    }
+
+    .image_skeleton {
+      width: 216px;
+      height: 250px;
+      margin-bottom: 10px;
+      border-radius: $skeleton_border_radius;
+      @include skeleton_bc;
+    }
+
+    .skeleton_text {
+      width: 100%;
+      height: 1.2rem;
+      margin-bottom: 5px;
+      border-radius: $skeleton_border_radius;
+      @include skeleton_bc;
+
+      &:nth-child(3) {
+        width: 75%;
+        margin-bottom: 16px;
+      }
+    }
   }
 
   .item_info {
@@ -45,5 +73,25 @@
     b {
       font-size: 1.05rem;
     }
+
+    .skeleton_text2 {
+      width: 86%;
+      height: 0.9rem;
+      border-radius: $skeleton_border_radius;
+      @include skeleton_bc;
+
+      &:nth-child(2) {
+        width: 40%;
+      }
+    }
+  }
+}
+
+@keyframes skeleton_loading {
+  0% {
+    background-color: rgba(var(--color-modal), 0.2);
+  }
+  100% {
+    background-color: rgba(var(--color-modal), 0.3);
   }
 }
