@@ -21,9 +21,51 @@ $skeleton_border_radius: 2px;
   word-wrap: break-word;
   cursor: pointer;
   transition: 0.2s;
+  position: relative;
 
   &:hover {
-    transform: scale(1.03);
+    transform: scale(1.01);
+  }
+
+  .like_icon_container {
+    &:hover {
+      &:before {
+        display: block;
+      }
+    }
+
+    .like_icon {
+      width: 26px;
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      @include no_copy;
+
+      &:hover {
+        fill: $text-color;
+      }
+    }
+
+    &:before {
+      content: "Add to favorites";
+      bottom: 41px;
+      right: 15px;
+      display: none;
+      position: absolute;
+      background-color: $accent-color;
+      border-radius: 4px;
+      padding: 8px;
+    }
+
+    &[data-isfavorite="true"] {
+      &:before {
+        content: "Remove from favorites";
+      }
+
+      .like_icon {
+        fill: $text-color;
+      }
+    }
   }
 
   .image_name {

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 import ProfileIcon from "../../public/assets/navbarIcons/ProfileIcon";
-import styles from "../../styles/navbar/ProfileComponent.module.scss";
 import Modal from "../Modal";
 import Auth from "../Auth/Auth";
+
+import styles from "../../styles/navbar/ProfileComponent.module.scss";
 
 const ProfileComponent = () => {
   const [authContainer, setAuthContainer] = useState(false);
@@ -40,34 +41,46 @@ const ProfileComponent = () => {
       </Modal>
 
       {authContainer && (
-        <div className={styles.auth_container}>
-          <>
-            <Link href="profile">
-              <div className={styles.profile_container}>
-                {data?.user?.image ? (
-                  <Image
-                    alt="user icon"
-                    src={data.user.image}
-                    width={50}
-                    height={50}
-                    style={{ borderRadius: "50%" }}
-                  />
-                ) : (
-                  <ProfileIcon //! MAKE PLACEHOLDER FOR AVATAR
-                    className={styles.icon}
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                )}
-                <div className={styles.profile_info}>
-                  <h4>{data?.user?.name}</h4>
-                  <h6>{data?.user?.email}</h6>
+        <>
+          <div className={styles.auth_container}>
+            <>
+              <Link href="profile">
+                <div className={styles.profile_container}>
+                  {data?.user?.image ? (
+                    <Image
+                      alt="user icon"
+                      src={data.user.image}
+                      width={50}
+                      height={50}
+                      style={{ borderRadius: "50%" }}
+                    />
+                  ) : (
+                    <ProfileIcon //! MAKE PLACEHOLDER FOR AVATAR
+                      className={styles.icon}
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  )}
+                  <div className={styles.profile_info}>
+                    <h4>{data?.user?.name}</h4>
+                    <h6>{data?.user?.email}</h6>
+                  </div>
                 </div>
+              </Link>
+              <hr />
+              <div className={styles.list}>
+                <Link href="profile/messages">Messages</Link>
+                <Link href="profile/liked">Liked</Link>
+                <Link href="profile/settings">Settings</Link>
               </div>
-            </Link>
-            <hr />
-            <a onClick={() => signOut()}>Sign out</a>
-          </>
-        </div>
+              <hr />
+              <a onClick={() => signOut()}>Sign out</a>
+            </>
+          </div>
+          <div
+            className={styles.auth_container_background}
+            onClick={() => setAuthContainer(!authContainer)}
+          ></div>
+        </>
       )}
     </>
   );
