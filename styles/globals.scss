@@ -66,6 +66,9 @@ body[data-theme="light"] {
   --accent-color-disabled: #92abc6;
   --error-color: #ff0001;
   --success-color: #2e9939;
+  --scrollbar-track-background-color: #f1f1f1;
+  --scrollbar-thumb-background-color: silver;
+  --scrollbar-thumb-hover-background-color: #a7a7a7;
 }
 
 body[data-theme="dark"] {
@@ -84,6 +87,28 @@ body[data-theme="dark"] {
   --accent-color-disabled: #92abc6;
   --error-color: #f43c3d;
   --success-color: #2e9939;
+  --scrollbar-track-background-color: #444;
+  --scrollbar-thumb-background-color: #686868;
+  --scrollbar-thumb-hover-background-color: #7a7a7a;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-background-color);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-background-color);
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-background-color);
 }
 
 input:-webkit-autofill,

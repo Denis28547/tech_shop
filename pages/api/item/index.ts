@@ -5,7 +5,7 @@ import { File, Files, IncomingForm } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
-import { Item, Category } from "../../../models";
+import { Item, Category, User } from "../../../models";
 import { IItem } from "../../../models/models_type";
 
 export const config = {
@@ -40,8 +40,11 @@ export default async function handler(
 
   switch (method) {
     case "GET":
+      let { limit } = req.query;
+      const limitNumber = Number(limit);
+
       try {
-        const items = await Item.findAll();
+        const items = await Item.findAll({ limit: limitNumber });
 
         res.status(200).json(items);
       } catch (error: any) {
@@ -61,6 +64,14 @@ export default async function handler(
             if (err) {
               return reject(err);
             }
+
+            const session = await unstable_getServerSession(
+              req,
+              res,
+              authOptions
+            );
+
+            if (!session) reject("please log in to sell an item");
 
             const { name, category, price, description, location } = fields;
 
@@ -103,13 +114,9 @@ export default async function handler(
 
             if (!categoryModel) reject("something unexpected happened");
 
-            const session = await unstable_getServerSession(
-              req,
-              res,
-              authOptions
-            );
+            // await User.setRatings(new Item({
 
-            if (!session) reject("please log in to sell an item");
+            // }));
 
             await Item.create<IItem>({
               name,

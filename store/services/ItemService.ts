@@ -2,18 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { IItem } from "../redux_types";
 
-interface rtxResponse {
-  message: string;
-}
-
 export const itemAPI = createApi({
   reducerPath: "itemAPI",
   tagTypes: ["Items"],
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
-    getAllItems: build.query<IItem[], void>({
-      query: () => ({
-        url: "/api/item",
+    getAllItems: build.query<IItem[], number>({
+      query: (limit) => ({
+        url: `/api/item?limit=${limit}`,
       }),
       providesTags: (result) =>
         result

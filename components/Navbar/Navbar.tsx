@@ -7,7 +7,6 @@ import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
 import CartIcon from "../../public/assets/navbarIcons/CartIcon";
 import NightIcon from "../../public/assets/navbarIcons/NightIcon";
 import DayIcon from "../../public/assets/navbarIcons/DayIcon";
-import SellIcon from "../../public/assets/navbarIcons/SellIcon";
 
 import styles from "../../styles/navbar/Navbar.module.scss";
 import ProfileComponent from "./ProfileComponent";

@@ -50,7 +50,7 @@ export const User = sequelize.define<IUser>(
     },
   },
   {
-    timestamps: false,
+    timestamps: true,
   }
 );
 
@@ -193,16 +193,49 @@ export const Item = sequelize.define<IItem>(
   }
 );
 
-User.hasMany(Rating, { foreignKey: "rating_id" });
-Rating.belongsTo(User, { foreignKey: "rating_id" });
+User.hasMany(Rating, {
+  foreignKey: {
+    allowNull: false,
+    name: "rating_id",
+  },
+});
+Rating.belongsTo(User, {
+  foreignKey: {
+    allowNull: false,
+    name: "rating_id",
+  },
+});
 
-User.hasMany(Item, { foreignKey: "user_id" });
-Item.belongsTo(User, { foreignKey: "user_id" });
+User.hasMany(Item, {
+  foreignKey: {
+    allowNull: false,
+    name: "user_id",
+  },
+});
+Item.belongsTo(User, {
+  foreignKey: {
+    allowNull: false,
+    name: "user_id",
+  },
+});
+
+// User.hasMany(Favorites, { foreignKey: "user_id" });
+// Favorites.belongsTo(User, { foreignKey: "user_id" });
 
 User.belongsToMany(Item, { through: Favorites, foreignKey: "user_id" });
 Item.belongsToMany(User, { through: Favorites, foreignKey: "item_id" });
 
-Category.hasMany(Item, { foreignKey: "category_id" });
-Item.belongsTo(Category, { foreignKey: "category_id" });
+Category.hasMany(Item, {
+  foreignKey: {
+    allowNull: false,
+    name: "category_id",
+  },
+});
+Item.belongsTo(Category, {
+  foreignKey: {
+    allowNull: false,
+    name: "category_id",
+  },
+});
 
 export default sequelize;

@@ -24,13 +24,13 @@ const LocationComponent = () => {
         onChange={handleChange}
         pattern="^[^\s]+(\s+[^\s]+)*$"
         minLength={3}
-        maxLength={50}
+        maxLength={20}
         required
       />
       {!isValid && isLocationDirty && (
         <span>
           *Not valid (field should not be empty, no white spaces at the start
-          and at the end, min length is 3, max is 30)
+          and at the end, min length is 3, max is 20)
         </span>
       )}
     </div>
