@@ -5,7 +5,7 @@ import { File, Files, IncomingForm } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
-import { Item, Category, User } from "../../../models";
+import { Item, Category } from "../../../models";
 import { IItem } from "../../../models/models_type";
 
 export const config = {
@@ -113,10 +113,6 @@ export default async function handler(
             });
 
             if (!categoryModel) reject("something unexpected happened");
-
-            // await User.setRatings(new Item({
-
-            // }));
 
             await Item.create<IItem>({
               name,

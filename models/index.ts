@@ -50,7 +50,7 @@ export const User = sequelize.define<IUser>(
     },
   },
   {
-    timestamps: true,
+    timestamps: false, //! HOW TO ADD TIMESTAMPS TO USERS IN NEXTAUTH
   }
 );
 
@@ -121,21 +121,6 @@ export const Rating = sequelize.define(
     },
   },
   {
-    timestamps: false,
-  }
-);
-
-export const Favorites = sequelize.define(
-  "favorites",
-  {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    },
-  },
-  {
-    freezeTableName: true,
     timestamps: false,
   }
 );
@@ -219,11 +204,17 @@ Item.belongsTo(User, {
   },
 });
 
-// User.hasMany(Favorites, { foreignKey: "user_id" });
-// Favorites.belongsTo(User, { foreignKey: "user_id" });
-
-User.belongsToMany(Item, { through: Favorites, foreignKey: "user_id" });
-Item.belongsToMany(User, { through: Favorites, foreignKey: "item_id" });
+User.belongsToMany(Item, {
+  as: "favorite",
+  through: "favorites",
+  foreignKey: "user_id",
+  timestamps: false,
+});
+Item.belongsToMany(User, {
+  through: "favorites",
+  foreignKey: "item_id",
+  timestamps: false,
+});
 
 Category.hasMany(Item, {
   foreignKey: {
