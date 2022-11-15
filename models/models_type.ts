@@ -1,4 +1,10 @@
-import { DataType, Model } from "sequelize";
+import {
+  BelongsToManyAddAssociationMixin,
+  BelongsToManyGetAssociationsMixin,
+  BelongsToManyRemoveAssociationMixin,
+  DataType,
+  Model,
+} from "sequelize";
 
 export interface IUser extends Model {
   id: string;
@@ -10,6 +16,9 @@ export interface IUser extends Model {
   activationLink: string | null;
   isActivated: boolean | null;
   email_verified: DataType | null;
+  getFavorite: BelongsToManyGetAssociationsMixin<IItem>;
+  addFavorite: BelongsToManyAddAssociationMixin<IItem, string>;
+  removeFavorite: BelongsToManyRemoveAssociationMixin<IItem, string>;
 }
 
 export interface IItem extends Model {

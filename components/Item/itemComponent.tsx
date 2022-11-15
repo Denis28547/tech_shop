@@ -6,6 +6,7 @@ import { IItem } from "../../store/redux_types";
 import HeartIcon from "../../public/assets/HeartIcon";
 
 import styles from "../../styles/item/ItemComponent.module.scss";
+import axios from "axios";
 
 interface IItemComponent {
   item: IItem;
@@ -22,12 +23,33 @@ const ItemComponent = ({ item }: IItemComponent) => {
   })} ${date.getFullYear()}`;
 
   const handleOpenFullItem = () => {
-    router.push(`/item/${item.id}`);
+    router.push(`/itemPage/${item.id}`);
   };
 
   const addToFavorites = (e: MouseEvent) => {
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
+
+    if (!isFavorite) {
+      setIsFavorite(true);
+      try {
+        axios
+          .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites/${item.id}`)
+          .then((res) => console.log(res));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setIsFavorite(false);
+      try {
+        axios
+          .delete(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites/${item.id}`
+          )
+          .then((res) => console.log(res));
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (

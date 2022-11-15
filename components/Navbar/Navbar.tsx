@@ -77,7 +77,7 @@ const Navbar = ({ disabled }: INavbar) => {
           </div>
         </div>
 
-        <Link href="/sell">
+        <Link href="/sellItem">
           <div className={styles.icon_text}>
             <ShopIcon className={styles.icon} />
             <p>Sell</p>
