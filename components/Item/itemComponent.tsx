@@ -5,15 +5,19 @@ import { MouseEvent, useState } from "react";
 import { IItem } from "../../store/redux_types";
 import HeartIcon from "../../public/assets/HeartIcon";
 
-import styles from "../../styles/item/ItemComponent.module.scss";
-import axios from "axios";
+import {
+  useAddFavoriteMutation,
+  useRemoveFavoriteMutation,
+} from "../../store/services/FavoritesService";
 
+import styles from "../../styles/item/ItemComponent.module.scss";
 interface IItemComponent {
   item: IItem;
+  isFavoriteData?: boolean;
 }
 
-const ItemComponent = ({ item }: IItemComponent) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const ItemComponent = ({ item, isFavoriteData }: IItemComponent) => {
+  const [isFavorite, setIsFavorite] = useState(isFavoriteData);
   const item_image = `/Content/${item.images[0]}`;
   const date = new Date(item.createdAt);
   const router = useRouter();
@@ -26,29 +30,18 @@ const ItemComponent = ({ item }: IItemComponent) => {
     router.push(`/itemPage/${item.id}`);
   };
 
+  const [addFavorite, addThings] = useAddFavoriteMutation();
+  const [removeFavorite, removeThings] = useRemoveFavoriteMutation();
+
   const addToFavorites = (e: MouseEvent) => {
     e.stopPropagation();
 
     if (!isFavorite) {
+      addFavorite(item.id);
       setIsFavorite(true);
-      try {
-        axios
-          .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites/${item.id}`)
-          .then((res) => console.log(res));
-      } catch (error) {
-        console.log(error);
-      }
     } else {
+      removeFavorite(item.id);
       setIsFavorite(false);
-      try {
-        axios
-          .delete(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites/${item.id}`
-          )
-          .then((res) => console.log(res));
-      } catch (error) {
-        console.log(error);
-      }
     }
   };
 
@@ -74,7 +67,6 @@ const ItemComponent = ({ item }: IItemComponent) => {
           {item.name}
         </div>
       </div>
-
       <div className={styles.item_info}>
         <p>
           {item.location} - {fullDate}
@@ -83,7 +75,6 @@ const ItemComponent = ({ item }: IItemComponent) => {
           <b>{item.price} $</b>
         </p>
       </div>
-
       <div className={styles.like_icon_container} data-isfavorite={isFavorite}>
         <HeartIcon className={styles.like_icon} onClick={addToFavorites} />
       </div>
