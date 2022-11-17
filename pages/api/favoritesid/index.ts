@@ -25,9 +25,17 @@ export default async function handler(
             .status(500)
             .json({ message: "something unexpected happened" });
 
-        const favoritesData = await user.getFavorite();
+        const favoritesData = await user.getFavorite({
+          attributes: ["id"],
+        });
 
-        res.status(200).json(favoritesData);
+        let favorites: string[] = [];
+
+        favoritesData.forEach((element) => {
+          favorites.push(element.id);
+        });
+
+        res.status(200).json(favorites);
       } catch (error: any) {
         return res
           .status(500)

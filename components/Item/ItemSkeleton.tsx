@@ -1,5 +1,13 @@
 import styles from "../../styles/item/ItemComponent.module.scss";
 
+export const templatesFn = () => {
+  let itemTemplates = [];
+  for (let photoCount = 0; photoCount < 16; photoCount++) {
+    itemTemplates.push(photoCount);
+  }
+  return itemTemplates;
+};
+
 const ItemSkeleton = () => {
   return (
     <div className={styles.item}>

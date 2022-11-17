@@ -1,40 +1,41 @@
-import { IItem } from "../../store/redux_types";
 import ItemComponent from "./itemComponent";
-import ItemSkeleton from "./ItemSkeleton";
+import ItemSkeleton, { templatesFn } from "./ItemSkeleton";
+import { useGetAllItemsQuery } from "../../store/services/ItemService";
+import { useGetFavoritesIdQuery } from "../../store/services/FavoritesService";
 
 import styles from "../../styles/item/ItemGridComponent.module.scss";
-import { useGetAllItemsQuery } from "../../store/services/ItemService";
-
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 const ItemsGridComponent = () => {
-  const { isLoading, data } = useGetAllItemsQuery(24);
-  const [favorites, setFavorites] = useState([]);
+  const { isLoading: isItemsLoading, data: itemsData } =
+    useGetAllItemsQuery(24);
+  const { isLoading: isFavoritesLoading, data: favoritesData } =
+    useGetFavoritesIdQuery();
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites`)
-      .then((fav) => setFavorites(fav.data));
-  }, []);
+  const itemTemplates = templatesFn();
 
-  console.log(favorites);
-
-  let itemTemplates = [];
-  for (let photoCount = 0; photoCount < 8; photoCount++) {
-    itemTemplates.push(photoCount);
+  if (isItemsLoading || isFavoritesLoading || !itemsData) {
+    return (
+      <div className={styles.grid}>
+        {itemTemplates.map((_, index) => (
+          <ItemSkeleton key={index} />
+        ))}
+      </div>
+    );
   }
+
   return (
     <div className={styles.grid}>
-      {isLoading &&
-        !data &&
-        !favorites &&
-        itemTemplates.map((_, index) => <ItemSkeleton key={index} />)}
-      {data &&
-        data.map((item) => {
-          if (favorites.includes(item.id)) console.log("yes");
-          return <ItemComponent key={item.id} item={item} />;
-        })}
+      {itemsData.map((item) => {
+        let isFavorite = false;
+        if (favoritesData && favoritesData.includes(item.id)) isFavorite = true;
+        return (
+          <ItemComponent
+            key={item.id}
+            item={item}
+            isFavoriteData={isFavorite}
+          />
+        );
+      })}
     </div>
   );
 };

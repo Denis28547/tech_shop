@@ -45,7 +45,10 @@ const ProfileComponent = () => {
           <div className={styles.auth_container}>
             <>
               <Link href="profile">
-                <div className={styles.profile_container}>
+                <div
+                  className={styles.profile_container}
+                  onClick={() => setAuthContainer(false)}
+                >
                   {data?.user?.image ? (
                     <Image
                       alt="user icon"
@@ -68,12 +71,35 @@ const ProfileComponent = () => {
               </Link>
               <hr />
               <div className={styles.list}>
-                <Link href="profile/messages">Messages</Link>
-                <Link href="profile/liked">Liked</Link>
-                <Link href="profile/settings">Settings</Link>
+                <Link href="profile/messages">
+                  <p
+                    className={styles.links}
+                    onClick={() => setAuthContainer(false)}
+                  >
+                    Messages
+                  </p>
+                </Link>
+                <Link href="profile/favorites">
+                  <p
+                    className={styles.links}
+                    onClick={() => setAuthContainer(false)}
+                  >
+                    Favorites
+                  </p>
+                </Link>
+                <Link href="profile/settings">
+                  <p
+                    className={styles.links}
+                    onClick={() => setAuthContainer(false)}
+                  >
+                    Settings
+                  </p>
+                </Link>
               </div>
               <hr />
-              <a onClick={() => signOut()}>Sign out</a>
+              <a onClick={() => signOut({ redirect: true, callbackUrl: "/" })}>
+                Sign out
+              </a>
             </>
           </div>
           <div

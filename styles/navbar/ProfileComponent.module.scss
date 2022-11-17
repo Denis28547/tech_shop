@@ -40,12 +40,14 @@ $background-transition: background-color 0.2s;
     width: calc(100% + 20px);
   }
 
+  .links,
   a {
     transition: $background-transition;
     border-radius: 10px;
     padding: 5px;
     width: 100%;
     text-align: center;
+    cursor: pointer;
 
     &:hover {
       background-color: $clickable-hover-color;
