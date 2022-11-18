@@ -71,7 +71,9 @@ const ProfileComponent = () => {
               </Link>
               <hr />
               <div className={styles.list}>
-                <Link href="profile/messages">
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}profile/messages`}
+                >
                   <p
                     className={styles.links}
                     onClick={() => setAuthContainer(false)}
@@ -79,7 +81,9 @@ const ProfileComponent = () => {
                     Messages
                   </p>
                 </Link>
-                <Link href="profile/favorites">
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}profile/favorites`}
+                >
                   <p
                     className={styles.links}
                     onClick={() => setAuthContainer(false)}
@@ -87,7 +91,9 @@ const ProfileComponent = () => {
                     Favorites
                   </p>
                 </Link>
-                <Link href="profile/settings">
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}profile/settings`}
+                >
                   <p
                     className={styles.links}
                     onClick={() => setAuthContainer(false)}

@@ -1,10 +1,12 @@
 import { NextPage } from "next";
 
 import { useGetAllFavoritesQuery } from "../../store/services/FavoritesService";
-import ItemSkeleton, { templatesFn } from "../../components/Item/ItemSkeleton";
-import ItemComponent from "../../components/Item/itemComponent";
+import ItemSkeletonWide, {
+  templatesFn,
+} from "../../components/Item/ItemSkeletonWide";
+import ItemComponentWide from "../../components/Item/ItemComponentWide";
 
-import styles from "../../styles/item/ItemGridComponent.module.scss";
+import styles from "../../styles/item/ItemComponentWide.module.scss";
 
 const Favorites: NextPage = () => {
   const { isLoading, data } = useGetAllFavoritesQuery();
@@ -13,10 +15,10 @@ const Favorites: NextPage = () => {
 
   if (isLoading || !data) {
     return (
-      <div style={{ margin: "0 auto", marginTop: "50px" }}>
+      <div className={styles.item_wide_wrapper}>
         <div className={styles.grid}>
           {itemTemplates.map((_, index) => (
-            <ItemSkeleton key={index} />
+            <ItemSkeletonWide key={index} />
           ))}
         </div>
       </div>
@@ -24,14 +26,12 @@ const Favorites: NextPage = () => {
   }
 
   return (
-    <div style={{ margin: "0 auto", marginTop: "50px" }}>
-      <div className={styles.grid}>
-        {data.map((item) => {
-          return (
-            <ItemComponent key={item.id} item={item} isFavoriteData={true} />
-          );
-        })}
-      </div>
+    <div className={styles.item_wide_wrapper}>
+      {data.map((item) => {
+        return (
+          <ItemComponentWide key={item.id} item={item} isFavoriteData={true} />
+        );
+      })}
     </div>
   );
 };
