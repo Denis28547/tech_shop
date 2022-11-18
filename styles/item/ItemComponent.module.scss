@@ -129,6 +129,32 @@ $skeleton_border_radius: 2px;
   }
 }
 
+.item_wide {
+  width: 100%;
+  margin-bottom: 20px;
+  min-height: 230px;
+  max-height: 230px;
+
+  display: grid;
+  // grid-template-columns: minmax(216px, 1fr) 3fr;
+  grid-template-columns: 216px calc(100% - 231px);
+  column-gap: 15px;
+  justify-content: flex-start;
+  overflow-wrap: break-word;
+
+  // grid-template-rows: 1fr min-content;
+  .full_item_info {
+    // grid-column-start: 2;
+    // grid-column-end: 5;
+    // width: 500px;
+    b {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+  }
+}
+
 @keyframes skeleton_loading {
   0% {
     background-color: rgba(var(--color-modal), 0.2);
