@@ -1,4 +1,4 @@
-import ItemComponent from "./itemComponent";
+import ItemComponent from "./itemComponent1";
 import ItemSkeleton, { templatesFn } from "./ItemSkeleton";
 import { useGetAllItemsQuery } from "../../store/services/ItemService";
 import { useGetFavoritesIdQuery } from "../../store/services/FavoritesService";
