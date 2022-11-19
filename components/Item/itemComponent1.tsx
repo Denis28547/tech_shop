@@ -10,9 +10,7 @@ import {
   useRemoveFavoriteMutation,
 } from "../../store/services/FavoritesService";
 
-// import styles from "../../styles/item/ItemComponent.module.scss";
-import styles from "../../styles/item/ItemComponentWide.module.scss";
-
+import styles from "../../styles/item/ItemComponent.module.scss";
 interface IItemComponent {
   item: IItem;
   isFavoriteData?: boolean;
@@ -49,39 +47,36 @@ const ItemComponent = ({ item, isFavoriteData }: IItemComponent) => {
 
   return (
     <div
-      className={`${styles.item} ${styles.item_wide}`}
+      className={styles.item}
       onClick={() => {
         handleOpenFullItem();
       }}
     >
-      <Image
-        src={item_image}
-        alt="item_image"
-        width={216}
-        height={200}
-        objectFit="cover"
-        className={styles.image}
-        style={{ marginBottom: "10px", borderRadius: "2px" }}
-      />
+      <div className={styles.image_name}>
+        <Image
+          src={item_image}
+          alt="item_image"
+          width={216}
+          height={250}
+          objectFit="cover"
+          className={styles.image}
+          style={{ marginBottom: "10px" }}
+        />
 
-      <div className={styles.item_info}>
-        <h2 title={item.name} className={styles.name}>
+        <div title={item.name} className={styles.name}>
           {item.name}
-        </h2>
+        </div>
+      </div>
+      <div className={styles.item_info}>
         <p>
           {item.location} - {fullDate}
         </p>
+        <p>
+          <b>{item.price} $</b>
+        </p>
       </div>
-
-      <div className={styles.price_heart_container}>
-        <b>{item.price} $</b>
-        {/* <b>9999999 $</b> */}
-        <div
-          className={styles.like_icon_container}
-          data-isfavorite={isFavorite}
-        >
-          <HeartIcon className={styles.like_icon} onClick={addToFavorites} />
-        </div>
+      <div className={styles.like_icon_container} data-isfavorite={isFavorite}>
+        <HeartIcon className={styles.like_icon} onClick={addToFavorites} />
       </div>
     </div>
   );

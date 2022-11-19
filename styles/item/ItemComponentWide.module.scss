@@ -9,7 +9,7 @@
   .item_wide {
     width: 100%;
     margin-bottom: 20px;
-    min-height: 230px;
+    min-height: none;
     max-height: 230px;
     border: 2px solid $border-color;
     background-color: $secondary-color;
@@ -20,7 +20,7 @@
     transition: 0.2s;
     position: relative;
     display: grid;
-    grid-template-columns: 216px 1fr 0.2fr;
+    grid-template-columns: 216px 1fr auto;
     column-gap: 15px;
     justify-content: flex-start;
     overflow-wrap: break-word;
@@ -34,12 +34,6 @@
       p {
         font-size: 1.1rem;
       }
-    }
-
-    b {
-      // position: absolute;
-      // top: 15px;
-      // right: 15px;
     }
 
     .price_heart_container {
