@@ -3,4 +3,5 @@
 .main {
   display: flex;
   color: $text-color;
+  flex-direction: column;
 }

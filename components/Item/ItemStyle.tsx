@@ -2,14 +2,15 @@ import Image from "next/image";
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemComponent } from "./IItemComponent_type";
 
-import styles from "../../styles/item/ItemComponentWide.module.scss";
+import styles from "../../styles/item/ItemComponent.module.scss";
+import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 
-const ItemWideStyle = ({
+const ItemStyle = ({
   item_image,
   item,
   fullDate,
   isFavorite,
-  removeFromFavorites,
+  changeFavorite,
   handleOpenFullItem,
 }: IItemComponent) => {
   return (
@@ -42,11 +43,17 @@ const ItemWideStyle = ({
           <b>{item.price} $</b>
         </p>
       </div>
-      <div className={styles.like_icon_container} data-isfavorite={isFavorite}>
-        <HeartIcon className={styles.like_icon} onClick={removeFromFavorites} />
+      <div
+        className={like_icon_style.like_icon_container}
+        data-isfavorite={isFavorite}
+      >
+        <HeartIcon
+          className={like_icon_style.like_icon}
+          onClick={changeFavorite}
+        />
       </div>
     </div>
   );
 };
 
-export default ItemWideStyle;
+export default ItemStyle;

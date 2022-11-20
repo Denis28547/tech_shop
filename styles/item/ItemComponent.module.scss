@@ -26,105 +26,64 @@ $skeleton_border_radius: 2px;
   &:hover {
     transform: scale(1.01);
   }
+}
 
-  .like_icon_container {
-    &:hover {
-      &:before {
-        display: block;
-      }
-    }
-
-    .like_icon {
-      width: 26px;
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      @include no_copy;
-
-      &:hover {
-        fill: $text-color;
-      }
-    }
-
-    &:before {
-      content: "Add to favorites";
-      bottom: 41px;
-      right: 15px;
-      display: none;
-      position: absolute;
-      background-color: $accent-color;
-      border-radius: 4px;
-      padding: 8px;
-    }
-
-    &[data-isfavorite="true"] {
-      &:before {
-        content: "Remove from favorites";
-      }
-
-      .like_icon {
-        fill: $text-color;
-      }
-    }
+.image_name {
+  .name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
-  .image_name {
-    .name {
-      font-size: 1.4rem;
-      font-weight: 600;
-      line-height: 1.25;
+  .image {
+    border-radius: $skeleton_border_radius;
+  }
+
+  .image_skeleton {
+    width: 216px;
+    height: 250px;
+    margin-bottom: 10px;
+    border-radius: $skeleton_border_radius;
+    @include skeleton_bc;
+  }
+
+  .skeleton_text {
+    width: 100%;
+    height: 1.2rem;
+    margin-bottom: 5px;
+    border-radius: $skeleton_border_radius;
+    @include skeleton_bc;
+
+    &:nth-child(3) {
+      width: 75%;
       margin-bottom: 16px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    .image {
-      border-radius: $skeleton_border_radius;
-    }
-
-    .image_skeleton {
-      width: 216px;
-      height: 250px;
-      margin-bottom: 10px;
-      border-radius: $skeleton_border_radius;
-      @include skeleton_bc;
-    }
-
-    .skeleton_text {
-      width: 100%;
-      height: 1.2rem;
-      margin-bottom: 5px;
-      border-radius: $skeleton_border_radius;
-      @include skeleton_bc;
-
-      &:nth-child(3) {
-        width: 75%;
-        margin-bottom: 16px;
-      }
     }
   }
+}
 
-  .item_info {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+.item_info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 
-    b {
-      font-size: 1.05rem;
-    }
+  b {
+    font-size: 1.05rem;
+  }
 
-    .skeleton_text2 {
-      width: 86%;
-      height: 0.9rem;
-      border-radius: $skeleton_border_radius;
-      @include skeleton_bc;
+  .skeleton_text2 {
+    width: 86%;
+    height: 0.9rem;
+    border-radius: $skeleton_border_radius;
+    @include skeleton_bc;
 
-      &:nth-child(2) {
-        width: 40%;
-      }
+    &:nth-child(2) {
+      width: 40%;
     }
   }
 }

@@ -3,13 +3,14 @@ import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemComponent } from "./IItemComponent_type";
 
 import styles from "../../styles/item/ItemComponentWide.module.scss";
+import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 
 const ItemWideStyle = ({
   item_image,
   item,
   fullDate,
   isFavorite,
-  removeFromFavorites,
+  changeFavorite,
   handleOpenFullItem,
 }: IItemComponent) => {
   return (
@@ -30,9 +31,12 @@ const ItemWideStyle = ({
       />
 
       <div className={styles.item_info}>
-        <h1 title={item.name} className={styles.name}>
-          {item.name}
-        </h1>
+        <div>
+          <h1 title={item.name} className={styles.name}>
+            {item.name}
+          </h1>
+          <small>ADD Category</small>
+        </div>
         <h3>
           {item.location} - {fullDate}
         </h3>
@@ -41,12 +45,13 @@ const ItemWideStyle = ({
       <div className={styles.price_heart_container}>
         <b>{item.price} $</b>
         <div
-          className={styles.like_icon_container}
+          className={`${like_icon_style.like_icon_container} ${styles.like_icon_container}`}
           data-isfavorite={isFavorite}
         >
           <HeartIcon
-            className={styles.like_icon}
-            onClick={removeFromFavorites}
+            className={`${like_icon_style.like_icon} ${styles.like_icon}`}
+            onClick={changeFavorite}
+            stroke={"red"}
           />
         </div>
       </div>
