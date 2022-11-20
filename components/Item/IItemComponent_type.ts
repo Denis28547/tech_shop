@@ -5,6 +5,6 @@ export interface IItemComponent {
   item: IItem;
   fullDate: string;
   isFavorite: boolean;
-  removeFromFavorites: (e: React.MouseEvent<Element, MouseEvent>) => void;
+  changeFavorite: (e: React.MouseEvent<Element, MouseEvent>) => void;
   handleOpenFullItem: () => void;
 }

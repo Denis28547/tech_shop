@@ -12,10 +12,12 @@ import {
 
 interface IItemComponent {
   item: IItem;
-  isWide: boolean;
+  isWide?: boolean;
+  isFavoriteData: boolean;
 }
 
-const ItemComponent = ({ item, isWide }: IItemComponent) => {
+const ItemComponent = ({ item, isWide, isFavoriteData }: IItemComponent) => {
+  const [isFavorite, setIsFavorite] = useState(isFavoriteData);
   const item_image = `/Content/${item.images[0]}`;
   const date = new Date(item.createdAt);
   const router = useRouter();
@@ -31,9 +33,15 @@ const ItemComponent = ({ item, isWide }: IItemComponent) => {
   const [addFavorite, addThings] = useAddFavoriteMutation();
   const [removeFavorite, removeThings] = useRemoveFavoriteMutation();
 
-  const removeFromFavorites = (e: MouseEvent) => {
+  const changeFavorite = (e: MouseEvent) => {
     e.stopPropagation();
-    removeFavorite(item.id);
+    if (isFavorite) {
+      removeFavorite(item.id);
+      setIsFavorite(false);
+    } else {
+      addFavorite(item.id);
+      setIsFavorite(true);
+    }
   };
 
   return (
@@ -43,8 +51,8 @@ const ItemComponent = ({ item, isWide }: IItemComponent) => {
           item_image={item_image}
           item={item}
           fullDate={fullDate}
-          isFavorite={true}
-          removeFromFavorites={removeFromFavorites}
+          isFavorite={isFavorite}
+          changeFavorite={changeFavorite}
           handleOpenFullItem={handleOpenFullItem}
         />
       ) : (
@@ -52,8 +60,8 @@ const ItemComponent = ({ item, isWide }: IItemComponent) => {
           item_image={item_image}
           item={item}
           fullDate={fullDate}
-          isFavorite={true}
-          removeFromFavorites={removeFromFavorites}
+          isFavorite={isFavorite}
+          changeFavorite={changeFavorite}
           handleOpenFullItem={handleOpenFullItem}
         />
       )}

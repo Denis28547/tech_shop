@@ -1,0 +1,45 @@
+@use "../variables" as *;
+
+.like_icon_container {
+  &:hover {
+    &:before {
+      display: block;
+    }
+  }
+
+  .like_icon {
+    width: 26px;
+    stroke: $small-things-color;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    @include no_copy;
+
+    &:hover {
+      fill: $text-color;
+    }
+  }
+
+  &:before {
+    content: "Add to favorites";
+    bottom: 41px;
+    right: 15px;
+    display: none;
+    position: absolute;
+    background-color: $accent-color;
+    color: #eeeeee;
+    border-radius: 4px;
+    padding: 8px;
+  }
+
+  &[data-isfavorite="true"] {
+    &:before {
+      content: "Remove from favorites";
+    }
+
+    .like_icon {
+      fill: $small-things-color;
+      stroke: $small-things-color;
+    }
+  }
+}
