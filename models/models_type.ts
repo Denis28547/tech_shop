@@ -2,6 +2,7 @@ import {
   BelongsToManyAddAssociationMixin,
   BelongsToManyGetAssociationsMixin,
   BelongsToManyRemoveAssociationMixin,
+  BelongsToManySetAssociationsMixin,
   DataType,
   Model,
 } from "sequelize";
@@ -18,6 +19,7 @@ export interface IUser extends Model {
   email_verified: DataType | null;
   getFavorite: BelongsToManyGetAssociationsMixin<IItem>;
   addFavorite: BelongsToManyAddAssociationMixin<IItem, string>;
+  setFavorite: BelongsToManySetAssociationsMixin<void, void>;
   removeFavorite: BelongsToManyRemoveAssociationMixin<IItem, string>;
 }
 

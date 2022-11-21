@@ -18,6 +18,13 @@ export const favoritesAPI = createApi({
       }),
       providesTags: ["Favorites"],
     }),
+    removeAllFavorites: build.mutation<void, void>({
+      query: () => ({
+        url: "/api/favorites",
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Favorites"],
+    }),
     addFavorite: build.mutation<void, string>({
       query: (item_id) => ({
         url: `/api/favorites/${item_id}`,
@@ -38,6 +45,7 @@ export const favoritesAPI = createApi({
 export const {
   useGetFavoritesIdQuery,
   useGetAllFavoritesQuery,
+  useRemoveAllFavoritesMutation,
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
 } = favoritesAPI;

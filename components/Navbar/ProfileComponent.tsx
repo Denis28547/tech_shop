@@ -72,7 +72,7 @@ const ProfileComponent = () => {
               <hr />
               <div className={styles.list}>
                 <Link
-                  href={`${process.env.NEXT_PUBLIC_BASE_URL}profile/messages`}
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/messages`}
                 >
                   <p
                     className={styles.links}
@@ -82,7 +82,7 @@ const ProfileComponent = () => {
                   </p>
                 </Link>
                 <Link
-                  href={`${process.env.NEXT_PUBLIC_BASE_URL}profile/favorites`}
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/favorites`}
                 >
                   <p
                     className={styles.links}
@@ -92,7 +92,7 @@ const ProfileComponent = () => {
                   </p>
                 </Link>
                 <Link
-                  href={`${process.env.NEXT_PUBLIC_BASE_URL}profile/settings`}
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/settings`}
                 >
                   <p
                     className={styles.links}
