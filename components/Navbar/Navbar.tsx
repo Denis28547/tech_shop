@@ -84,7 +84,7 @@ const Navbar = ({ disabled }: INavbar) => {
           </div>
         </Link>
 
-        <CartIcon className={styles.icon} />
+        {/* <CartIcon className={styles.icon} /> */}
 
         <ProfileComponent />
 

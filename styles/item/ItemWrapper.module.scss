@@ -14,10 +14,38 @@ $favorites-top-height: 144px;
   z-index: -1;
 }
 
+.empty_data {
+  text-align: center;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+.change_look_box {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 0;
+
+  .change_look_icons {
+    width: 34px;
+    margin-left: 10px;
+    opacity: 50%;
+    color: $small-things-color;
+    @include no_copy;
+  }
+
+  .change_look_icon_active {
+    opacity: 100%;
+  }
+}
+
 .favorites_top_info {
   width: 100%;
   height: $favorites-top-height;
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
   background-color: transparent;
   z-index: 1;
   display: flex;
