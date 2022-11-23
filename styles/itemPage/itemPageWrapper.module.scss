@@ -1,22 +1,65 @@
+@use "/styles/variables" as *;
+
 .item_wrapper {
   display: grid;
   grid-template-columns: repeat(12, auto);
   width: 100%;
   height: 200px;
-  gap: 10px;
+  gap: 20px;
   margin-top: 50px;
 
   & > * {
-    background-color: red;
+    // background-color: $secondary-color;
+    border-radius: 6px;
   }
 
   .item_info {
-    grid-column-start: 2;
+    grid-column-start: 3;
     grid-column-end: 8;
   }
 
   .additional_info {
-    grid-column-start: 9;
-    grid-column-end: 12;
+    grid-column-start: 8;
+    grid-column-end: 11;
   }
+}
+
+.photo_block {
+  width: 100%;
+  height: 500px;
+  padding: 15px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $secondary-color;
+  margin-bottom: 20px;
+  // max-width: 800px;
+}
+
+.description_block {
+  width: 100%;
+  // height: 500px;
+  padding: 15px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $secondary-color;
+  margin-bottom: 20px;
+  // max-width: 800px;
+  word-wrap: break-word;
+}
+
+.user_block {
+  width: 100%;
+  padding: 15px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $secondary-color;
+  max-width: 800px;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 300px;
 }
