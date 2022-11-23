@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <>
       <div className={styles.wrapper}>
-        <h1 className={styles.landing_h1}>VIP-items</h1>
+        <h1 className={styles.landing_h1}>Items</h1>
         <ItemsGridComponent />
       </div>
     </>

@@ -35,6 +35,7 @@ $favorites-top-height: 144px;
     opacity: 50%;
     color: $small-things-color;
     @include no_copy;
+    cursor: pointer;
   }
 
   .change_look_icon_active {
