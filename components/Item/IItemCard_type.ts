@@ -1,6 +1,6 @@
 import { IItem } from "../../store/redux_types";
 
-export interface IItemComponent {
+export interface IItemCard {
   item_image: string;
   item: IItem;
   fullDate: string;

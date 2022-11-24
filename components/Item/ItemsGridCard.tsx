@@ -1,11 +1,11 @@
-import ItemComponent from "./itemComponent";
+import ItemCard from "./ItemCard";
 import ItemSkeleton, { templatesFn } from "./ItemSkeleton";
 import { useGetAllItemsQuery } from "../../store/services/ItemService";
 import { useGetFavoritesIdQuery } from "../../store/services/FavoritesService";
 
 import styles from "../../styles/item/ItemGridComponent.module.scss";
 
-const ItemsGridComponent = () => {
+const ItemsGridCard = () => {
   const { isLoading: isItemsLoading, data: itemsData } =
     useGetAllItemsQuery(24);
   const { isLoading: isFavoritesLoading, data: favoritesData } =
@@ -29,15 +29,11 @@ const ItemsGridComponent = () => {
         let isFavorite = false;
         if (favoritesData && favoritesData.includes(item.id)) isFavorite = true;
         return (
-          <ItemComponent
-            key={item.id}
-            item={item}
-            isFavoriteData={isFavorite}
-          />
+          <ItemCard key={item.id} item={item} isFavoriteData={isFavorite} />
         );
       })}
     </div>
   );
 };
 
-export default ItemsGridComponent;
+export default ItemsGridCard;
