@@ -14,6 +14,7 @@ $background-transition: background-color 0.2s;
 
 .navbar {
   @include flex_display;
+  justify-content: center;
   height: 70px;
   background-color: $navbar-main;
   color: $text-color;
@@ -91,6 +92,7 @@ $background-transition: background-color 0.2s;
   overflow: hidden;
   // flex-grow: 4;
   flex-grow: 1;
+  max-width: 1200px;
   height: 44px;
 
   .find_icon_container {

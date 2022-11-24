@@ -7,22 +7,37 @@ import {
 import ItemSkeletonWide, {
   templatesFn,
 } from "../../components/Item/ItemSkeletonWide";
-import ItemComponent from "../../components/Item/ItemComponent";
-import CustomButton from "../../components/CustomButton";
-import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
-import ItemWideIcon from "../../public/assets/favoritePageIcons/ItemWideIcon";
+import ItemCard from "../../components/Item/ItemCard";
+import TopBlock from "../../components/Favorites/TopBlock";
+import ListLookBlock from "../../components/Favorites/ListLookBlock";
+import { useEffect, useState } from "react";
 
 import styles from "../../styles/item/ItemWrapper.module.scss";
-import { useState } from "react";
 
 const Favorites: NextPage = () => {
   const [isItemWide, setIsItemWide] = useState(true);
+  const [disableWideItemOption, setDisableWideItemOption] = useState(false);
   const [removeAllFavorite, { isLoading: areItemsDeleting }] =
     useRemoveAllFavoritesMutation();
 
   const { isLoading, data } = useGetAllFavoritesQuery();
 
   const itemTemplates = templatesFn();
+
+  useEffect(() => {
+    function handleResize(windowListener: any) {
+      const { innerWidth } = windowListener.target.window;
+      if (innerWidth <= 650) {
+        setDisableWideItemOption(true);
+        setIsItemWide(false);
+      } else {
+        setDisableWideItemOption(false);
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   if (isLoading || !data) {
     return (
@@ -43,23 +58,12 @@ const Favorites: NextPage = () => {
     <>
       <div className={styles.favorites_top_block} />
       <div className={styles.favorites_wrapper}>
-        <div className={styles.favorites_top_info}>
-          <h1>Favorite items</h1>
-          <div className={styles.favorites_top_info_button}>
-            <h3>Added ({data.length}/50)</h3>
-            {!isDataEmpty && (
-              <div onClick={() => removeAllFavorite()}>
-                <CustomButton
-                  text={"Clear favorites"}
-                  loading={areItemsDeleting}
-                  height={50}
-                  width={"155px"}
-                  margin={0}
-                />
-              </div>
-            )}
-          </div>
-        </div>
+        <TopBlock
+          areItemsDeleting={areItemsDeleting}
+          length={data.length}
+          isDataEmpty={isDataEmpty}
+          removeAllFavorite={removeAllFavorite}
+        />
         {isDataEmpty ? (
           <div className={styles.empty_data}>
             <h1>You favorite list is empty</h1>
@@ -67,23 +71,12 @@ const Favorites: NextPage = () => {
           </div>
         ) : (
           <>
-            <div className={styles.change_look_box}>
-              <b>List look:</b>
-              <div onClick={() => setIsItemWide(true)}>
-                <ItemWideIcon
-                  className={`${styles.change_look_icons} ${
-                    isItemWide && styles.change_look_icon_active
-                  } `}
-                />
-              </div>
-              <div onClick={() => setIsItemWide(false)}>
-                <ShopIcon
-                  className={`${styles.change_look_icons} ${
-                    !isItemWide && styles.change_look_icon_active
-                  }`}
-                />
-              </div>
-            </div>
+            {!disableWideItemOption && (
+              <ListLookBlock
+                isItemWide={isItemWide}
+                setIsItemWide={setIsItemWide}
+              />
+            )}
             <div
               className={`${
                 isItemWide
@@ -93,7 +86,7 @@ const Favorites: NextPage = () => {
             >
               {data.map((item) => {
                 return (
-                  <ItemComponent
+                  <ItemCard
                     key={item.id}
                     item={item}
                     isWide={isItemWide}

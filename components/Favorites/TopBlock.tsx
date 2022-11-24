@@ -2,12 +2,24 @@ import CustomButton from "../CustomButton";
 
 import styles from "../../styles/item/ItemWrapper.module.scss";
 
-const TopBlock = ({ length, isDataEmpty, areItemsDeleting }) => {
+interface ITopBlock {
+  length: number;
+  isDataEmpty: boolean;
+  areItemsDeleting: boolean;
+  removeAllFavorite: () => void;
+}
+
+const TopBlock = ({
+  length,
+  isDataEmpty,
+  areItemsDeleting,
+  removeAllFavorite,
+}: ITopBlock) => {
   return (
     <div className={styles.favorites_top_info}>
       <h1>Favorite items</h1>
       <div className={styles.favorites_top_info_button}>
-        <h3>Added ({data.length}/50)</h3>
+        <h3>Added ({length}/50)</h3>
         {!isDataEmpty && (
           <div onClick={() => removeAllFavorite()}>
             <CustomButton

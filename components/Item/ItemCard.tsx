@@ -10,13 +10,13 @@ import {
   useRemoveFavoriteMutation,
 } from "../../store/services/FavoritesService";
 
-interface IItemComponent {
+interface IItemCard {
   item: IItem;
   isWide?: boolean;
   isFavoriteData: boolean;
 }
 
-const ItemComponent = ({ item, isWide, isFavoriteData }: IItemComponent) => {
+const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
   const item_image = `/Content/${item.images[0]}`;
   const date = new Date(item.createdAt);
@@ -69,4 +69,4 @@ const ItemComponent = ({ item, isWide, isFavoriteData }: IItemComponent) => {
   );
 };
 
-export default ItemComponent;
+export default ItemCard;

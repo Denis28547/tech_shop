@@ -1,6 +1,6 @@
 import Image from "next/image";
 import HeartIcon from "../../public/assets/HeartIcon";
-import { IItemComponent } from "./IItemComponent_type";
+import { IItemCard } from "./IItemCard_type";
 
 import styles from "../../styles/item/ItemComponentWide.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
@@ -12,7 +12,7 @@ const ItemWideStyle = ({
   isFavorite,
   changeFavorite,
   handleOpenFullItem,
-}: IItemComponent) => {
+}: IItemCard) => {
   return (
     <div
       className={styles.item_wide}
