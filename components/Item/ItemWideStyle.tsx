@@ -2,12 +2,13 @@ import Image from "next/image";
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCard } from "./IItemCard_type";
 
-import styles from "../../styles/item/ItemComponentWide.module.scss";
+import styles from "../../styles/item/ItemCardWide.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 
 const ItemWideStyle = ({
   item_image,
   item,
+  category,
   fullDate,
   isFavorite,
   changeFavorite,
@@ -23,7 +24,7 @@ const ItemWideStyle = ({
       <Image
         src={item_image}
         alt="item_image"
-        width={216}
+        width={260}
         height={200}
         objectFit="cover"
         className={styles.image}
@@ -35,7 +36,7 @@ const ItemWideStyle = ({
           <h1 title={item.name} className={styles.name}>
             {item.name}
           </h1>
-          <small>ADD Category</small>
+          <p style={{ color: "#8e8e8e" }}>» {category}</p>
         </div>
         <h3>
           {item.location} - {fullDate}

@@ -1,4 +1,4 @@
-import styles from "../../styles/item/ItemComponent.module.scss";
+import styles from "../../styles/item/SkeletonStyles.module.scss";
 
 export const templatesFn = () => {
   let itemTemplates = [];

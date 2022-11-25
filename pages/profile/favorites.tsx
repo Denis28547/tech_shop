@@ -1,18 +1,20 @@
 import { NextPage } from "next";
+import { useEffect, useState } from "react";
 
 import {
   useGetAllFavoritesQuery,
   useRemoveAllFavoritesMutation,
 } from "../../store/services/FavoritesService";
-import ItemSkeletonWide, {
-  templatesFn,
-} from "../../components/Item/ItemSkeletonWide";
+
 import ItemCard from "../../components/Item/ItemCard";
 import TopBlock from "../../components/Favorites/TopBlock";
 import ListLookBlock from "../../components/Favorites/ListLookBlock";
-import { useEffect, useState } from "react";
 
-import styles from "../../styles/item/ItemWrapper.module.scss";
+import ItemSkeleton, { templatesFn } from "../../components/Item/ItemSkeleton";
+import ItemSkeletonWide from "../../components/Item/ItemSkeletonWide";
+
+import styles from "../../styles/item/Favorites.module.scss";
+import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 
 const Favorites: NextPage = () => {
   const [isItemWide, setIsItemWide] = useState(true);
@@ -21,32 +23,42 @@ const Favorites: NextPage = () => {
     useRemoveAllFavoritesMutation();
 
   const { isLoading, data } = useGetAllFavoritesQuery();
+  console.log(data);
 
   const itemTemplates = templatesFn();
 
   useEffect(() => {
-    function handleResize(windowListener: any) {
-      const { innerWidth } = windowListener.target.window;
-      if (innerWidth <= 650) {
-        setDisableWideItemOption(true);
-        setIsItemWide(false);
-      } else {
-        setDisableWideItemOption(false);
-      }
+    if (window && window.innerWidth <= 650) {
+      setDisableWideItemOption(true);
+      setIsItemWide(false);
+    } else {
+      setDisableWideItemOption(false);
     }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   if (isLoading || !data) {
     return (
-      <div className={styles.item_wide_wrapper}>
-        <div className={styles.grid}>
-          {itemTemplates.map((_, index) => (
-            <ItemSkeletonWide key={index} />
-          ))}
-        </div>
+      <div className={styles.favorites_wrapper}>
+        <div className={styles.favorites_top_block} />
+        <TopBlock
+          areItemsDeleting={areItemsDeleting}
+          length={0}
+          isDataEmpty={true}
+          removeAllFavorite={removeAllFavorite}
+        />
+        {isItemWide ? (
+          <div className={wrapperStyle.item_wrapper_wide}>
+            {itemTemplates.map((_, index) => (
+              <ItemSkeletonWide key={index} />
+            ))}
+          </div>
+        ) : (
+          <div className={wrapperStyle.item_wrapper_grid}>
+            {itemTemplates.map((_, index) => (
+              <ItemSkeleton key={index} />
+            ))}
+          </div>
+        )}
       </div>
     );
   }
@@ -80,8 +92,8 @@ const Favorites: NextPage = () => {
             <div
               className={`${
                 isItemWide
-                  ? styles.item_wrapper_wide
-                  : styles.item_wrapper_small
+                  ? wrapperStyle.item_wrapper_wide
+                  : wrapperStyle.item_wrapper_grid
               }`}
             >
               {data.map((item) => {

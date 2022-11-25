@@ -2,8 +2,8 @@ import Image from "next/image";
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCard } from "./IItemCard_type";
 
-import styles from "../../styles/item/ItemComponent.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
+import styles from "../../styles/item/ItemCard.module.scss";
 
 const ItemStyle = ({
   item_image,

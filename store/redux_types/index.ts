@@ -13,6 +13,10 @@ export interface IUser {
 export interface IItem {
   id: string;
   name: string;
+  category: {
+    id: string;
+    name: string;
+  };
   price: number;
   images: string[];
   description: string;

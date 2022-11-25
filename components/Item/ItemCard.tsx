@@ -50,6 +50,7 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
         <ItemWideStyle
           item_image={item_image}
           item={item}
+          category={item.category.name}
           fullDate={fullDate}
           isFavorite={isFavorite}
           changeFavorite={changeFavorite}
