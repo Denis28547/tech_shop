@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
-import { User } from "../../../models";
+import { Category, User } from "../../../models";
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,7 +25,13 @@ export default async function handler(
             .status(500)
             .json({ message: "something unexpected happened" });
 
-        const favoritesData = await user.getFavorite();
+        const favoritesData = await user.getFavorite({
+          include: [
+            {
+              model: Category,
+            },
+          ],
+        });
 
         res.status(200).json(favoritesData);
       } catch (error: any) {

@@ -1,6 +1,6 @@
 import CustomButton from "../CustomButton";
 
-import styles from "../../styles/item/ItemWrapper.module.scss";
+import styles from "../../styles/item/Favorites.module.scss";
 
 interface ITopBlock {
   length: number;

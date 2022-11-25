@@ -3,7 +3,7 @@ import ItemSkeleton, { templatesFn } from "./ItemSkeleton";
 import { useGetAllItemsQuery } from "../../store/services/ItemService";
 import { useGetFavoritesIdQuery } from "../../store/services/FavoritesService";
 
-import styles from "../../styles/item/ItemGridComponent.module.scss";
+import styles from "../../styles/item/ItemWrapper.module.scss";
 
 const ItemsGridCard = () => {
   const { isLoading: isItemsLoading, data: itemsData } =
@@ -15,7 +15,7 @@ const ItemsGridCard = () => {
 
   if (isItemsLoading || isFavoritesLoading || !itemsData) {
     return (
-      <div className={styles.grid}>
+      <div className={styles.item_wrapper_grid}>
         {itemTemplates.map((_, index) => (
           <ItemSkeleton key={index} />
         ))}
@@ -24,7 +24,7 @@ const ItemsGridCard = () => {
   }
 
   return (
-    <div className={styles.grid}>
+    <div className={styles.item_wrapper_grid}>
       {itemsData.map((item) => {
         let isFavorite = false;
         if (favoritesData && favoritesData.includes(item.id)) isFavorite = true;
