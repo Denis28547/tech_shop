@@ -1,0 +1,12 @@
+1) sidebar on phones
+2) normal responsive item page
+3) do something with landing page
+4) search feature
+5) footer
+6) profile page
+7) text seller functionality
+
+
+*** small things
+1) styles for category when sell item
+2) mb fix photos grid on sell page
