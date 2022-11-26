@@ -13,6 +13,8 @@ import ListLookBlock from "../../components/Favorites/ListLookBlock";
 import ItemSkeleton, { templatesFn } from "../../components/Item/ItemSkeleton";
 import ItemSkeletonWide from "../../components/Item/ItemSkeletonWide";
 
+import EmptyList from "../../public/assets/favoritePageIcons/EmptyListIcon";
+
 import styles from "../../styles/item/Favorites.module.scss";
 import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 
@@ -23,7 +25,6 @@ const Favorites: NextPage = () => {
     useRemoveAllFavoritesMutation();
 
   const { isLoading, data } = useGetAllFavoritesQuery();
-  console.log(data);
 
   const itemTemplates = templatesFn();
 
@@ -80,6 +81,7 @@ const Favorites: NextPage = () => {
           <div className={styles.empty_data}>
             <h1>You favorite list is empty</h1>
             <p>you can add items to favorites when browsing site</p>
+            <EmptyList className={styles.emptyListIcon} />
           </div>
         ) : (
           <>

@@ -18,6 +18,12 @@
     &:hover {
       fill: $text-color;
     }
+
+    @media (pointer: none), (pointer: coarse) {
+      &:hover {
+        fill: none;
+      }
+    }
   }
 
   &:before {
@@ -39,7 +45,14 @@
 
     .like_icon {
       fill: $small-things-color;
-      stroke: $small-things-color;
+    }
+  }
+
+  @media (pointer: none), (pointer: coarse) {
+    &:hover {
+      &:before {
+        display: none;
+      }
     }
   }
 }

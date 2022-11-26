@@ -2,8 +2,8 @@ import Image from "next/image";
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCard } from "./IItemCard_type";
 
-import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 import styles from "../../styles/item/ItemCard.module.scss";
+import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 
 const ItemStyle = ({
   item_image,
@@ -21,15 +21,16 @@ const ItemStyle = ({
       }}
     >
       <div className={styles.image_name}>
-        <Image
-          src={item_image}
-          alt="item_image"
-          width={216}
-          height={250}
-          objectFit="cover"
-          className={styles.image}
-          style={{ marginBottom: "10px" }}
-        />
+        <div style={{ width: "100%", height: "250px", position: "relative" }}>
+          <Image
+            src={item_image}
+            alt="item_image"
+            objectFit="cover"
+            layout="fill"
+            className={styles.image}
+            style={{ marginBottom: "10px" }}
+          />
+        </div>
 
         <div title={item.name} className={styles.name}>
           {item.name}

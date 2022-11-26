@@ -14,7 +14,7 @@ export default async function handler(
     case "GET":
       try {
         const { item_id } = req.query;
-        console.log(typeof item_id);
+        // console.log(typeof item_id);
 
         if (typeof item_id !== "string")
           return res

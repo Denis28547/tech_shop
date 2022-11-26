@@ -61,6 +61,13 @@ $favorites-top-height: 144px;
 .empty_data {
   text-align: center;
   width: 1200px;
+  padding: 10px;
+
+  .emptyListIcon {
+    color: $small-things-color;
+    width: 100%;
+    max-width: 450px;
+  }
 
   @media all and (max-width: 1300px) {
     width: 1000px;

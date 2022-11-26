@@ -9,11 +9,9 @@
   }
 
   @media all and (max-width: 1000px) {
-    grid-template-columns: repeat(2, 250px);
-  }
-
-  @media all and (max-width: 530px) {
-    grid-template-columns: repeat(1, 250px);
+    grid-template-columns: repeat(2, minmax(100px, 250px));
+    padding: 0 5px;
+    gap: 5px;
   }
 }
 

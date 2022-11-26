@@ -17,13 +17,13 @@ const ItemPage = () => {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/item/${item_id}`
       );
-      console.log(res.data[0]);
+      // console.log(res.data[0]);
       setItem(res.data[0]);
     };
     findItem();
   }, [router.isReady]);
 
-  console.log(item);
+  // console.log(item);
 
   // const item_image = `/Content/${item.images[0]}`;
 
