@@ -2,8 +2,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IItem } from "../../store/redux_types";
-import styles from "../../styles/itemPage/itemPageWrapper.module.scss";
 import Image from "next/image";
+
+import styles from "../../styles/itemPage/itemPage.module.scss";
 
 const ItemPage = () => {
   const router = useRouter();
@@ -81,17 +82,34 @@ const UserBlock = ({ item }) => {
         />
         <h3 style={{ marginLeft: "10px" }}>{item.user.name}</h3>
       </div>
-      <button
-        style={{
-          backgroundColor: "#2c78c8",
-          padding: "20px",
-          borderRadius: "6px",
-          fontWeight: "700",
-          fontSize: "1.1rem",
-        }}
-      >
-        Message
-      </button>
+
+      <div style={{ display: "flex", gap: "15px" }}>
+        <button
+          style={{
+            backgroundColor: "transparent",
+            border: "3px solid black",
+            padding: "16px 20px",
+            borderRadius: "6px",
+            fontWeight: "700",
+            fontSize: "1.1rem",
+            width: "50%",
+          }}
+        >
+          Show number
+        </button>
+        <button
+          style={{
+            backgroundColor: "#2c78c8",
+            padding: "16px 20px",
+            borderRadius: "6px",
+            fontWeight: "700",
+            fontSize: "1.1rem",
+            width: "50%",
+          }}
+        >
+          Message
+        </button>
+      </div>
     </div>
   );
 };
