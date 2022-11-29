@@ -14,8 +14,5 @@ const Loader = ({ height }: ILoader) => {
     </div>
   );
 };
-{
-  /* <div className={styles.loader}></div> */
-}
 
 export default Loader;
