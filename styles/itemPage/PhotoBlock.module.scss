@@ -1,0 +1,77 @@
+@use "/styles/variables" as *;
+
+@mixin info_block {
+  border-radius: 6px;
+  background-color: $secondary-color;
+}
+
+.photo_block {
+  @include no_copy;
+  @include info_block;
+  height: 500px;
+  padding: 30px 70px;
+  position: relative;
+  overflow: hidden;
+
+  .arrow {
+    position: absolute;
+    border-top-left-radius: 2px;
+    border-top: 4px solid $clickable-hover-color;
+    border-left: 4px solid $clickable-hover-color;
+    top: 50%;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+  }
+
+  .left_arrow {
+    left: 0;
+    transform: translate(125%, -50%) rotate(-45deg);
+  }
+
+  .right_arrow {
+    right: 0;
+    transform: translate(-125%, -50%) rotate(135deg);
+  }
+
+  .arrow_disabled {
+    opacity: 25%;
+    cursor: not-allowed;
+  }
+}
+
+.image_wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .loader_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .dots_container {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    z-index: 2;
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border: 3px solid $clickable-hover-color;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .active_dot {
+      border-color: rgb(238, 238, 238);
+      border-width: 5px;
+    }
+  }
+}

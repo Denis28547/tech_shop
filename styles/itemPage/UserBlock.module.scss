@@ -1,0 +1,14 @@
+@use "/styles/variables" as *;
+
+.user_block {
+  width: 100%;
+  padding: 15px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $secondary-color;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

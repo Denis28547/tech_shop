@@ -1,0 +1,12 @@
+@use "/styles/variables" as *;
+
+.description_block {
+  width: 100%;
+  padding: 15px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $secondary-color;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+}
