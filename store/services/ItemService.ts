@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IItem } from "../redux_types";
+import { IItem, IItemWithUser } from "../redux_types";
 
 export const itemAPI = createApi({
   reducerPath: "itemAPI",
@@ -11,13 +11,13 @@ export const itemAPI = createApi({
       query: (limit) => ({
         url: `/api/item?limit=${limit}`,
       }),
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }) => ({ type: "Items" as const, id })),
-              { type: "Items", id: "LIST" },
-            ]
-          : [{ type: "Items", id: "LIST" }],
+      providesTags: ["Items"],
+    }),
+    getItemByIdWithUser: build.query<IItemWithUser, string | string[]>({
+      query: (item_id) => ({
+        url: `api/item/${item_id}`,
+      }),
+      providesTags: ["Items"],
     }),
     addItem: build.mutation({
       query: (body) => ({
@@ -25,9 +25,13 @@ export const itemAPI = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: [{ type: "Items", id: "LIST" }],
+      invalidatesTags: ["Items"],
     }),
   }),
 });
 
-export const { useGetAllItemsQuery, useAddItemMutation } = itemAPI;
+export const {
+  useGetAllItemsQuery,
+  useGetItemByIdWithUserQuery,
+  useAddItemMutation,
+} = itemAPI;

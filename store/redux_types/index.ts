@@ -25,3 +25,7 @@ export interface IItem {
   category_id: string;
   createdAt: string;
 }
+
+export interface IItemWithUser extends IItem {
+  user: IUser;
+}

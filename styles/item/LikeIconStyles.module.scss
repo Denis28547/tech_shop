@@ -1,6 +1,11 @@
 @use "../variables" as *;
 
 .like_icon_container {
+  height: 26px;
+  width: 26px;
+  position: relative;
+  cursor: pointer;
+
   &:hover {
     &:before {
       display: block;
@@ -10,9 +15,6 @@
   .like_icon {
     width: 26px;
     stroke: $small-things-color;
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
     @include no_copy;
 
     &:hover {
@@ -28,10 +30,11 @@
 
   &:before {
     content: "Add to favorites";
-    bottom: 41px;
-    right: 15px;
-    display: none;
     position: absolute;
+    bottom: 30px;
+    right: 0;
+    white-space: nowrap;
+    display: none;
     background-color: $accent-color;
     color: #eeeeee;
     border-radius: 4px;

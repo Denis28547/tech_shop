@@ -16,6 +16,15 @@ a {
   box-sizing: border-box;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 h1,
 h2,
 h3,
@@ -25,6 +34,10 @@ h6,
 hr,
 p {
   margin: 0;
+}
+
+hr {
+  border: none;
 }
 
 input,
@@ -119,13 +132,3 @@ input:-webkit-autofill:hover {
   -webkit-text-fill-color: var(--text-color);
   -webkit-box-shadow: inset 0 0 0 32px var(--base-color);
 }
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */

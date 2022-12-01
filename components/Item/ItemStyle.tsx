@@ -2,7 +2,7 @@ import Image from "next/image";
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCard } from "./IItemCard_type";
 
-import styles from "../../styles/item/ItemCard.module.scss";
+import styles from "../../styles/item/ItemCardSmall.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 
 const ItemStyle = ({
@@ -40,18 +40,18 @@ const ItemStyle = ({
         <p>
           {item.location} - {fullDate}
         </p>
-        <p>
+        <div className={styles.price_and_like_icon_container}>
           <b>{item.price} $</b>
-        </p>
-      </div>
-      <div
-        className={like_icon_style.like_icon_container}
-        data-isfavorite={isFavorite}
-      >
-        <HeartIcon
-          className={like_icon_style.like_icon}
-          onClick={changeFavorite}
-        />
+          <div
+            className={like_icon_style.like_icon_container}
+            data-isfavorite={isFavorite}
+          >
+            <HeartIcon
+              className={`${like_icon_style.like_icon} ${styles.like_icon}`}
+              onClick={changeFavorite}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
