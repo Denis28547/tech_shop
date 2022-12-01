@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IItem } from "../../store/redux_types";
+import { IItemWithUser } from "../../store/redux_types";
 import Image from "next/image";
 
 import PhotoBlock from "../../components/ItemPage/PhotoBlock";
@@ -9,27 +9,25 @@ import DescriptionBlock from "../../components/ItemPage/DescriptionBlock";
 import UserBlock from "../../components/ItemPage/UserBlock";
 
 import styles from "../../styles/itemPage/itemPage.module.scss";
-
-// interface ItemWithUser: IItem
+import { useGetItemByIdWithUserQuery } from "../../store/services/ItemService";
 
 const ItemPage = () => {
+  const [item, setItem] = useState<IItemWithUser>();
   const router = useRouter();
-  const { item_id } = router.query;
-
-  const [item, setItem] = useState<IItem>();
+  const item_id = router.query.item_id as string;
+  const { isLoading: isItemLoading, data: itemData } =
+    useGetItemByIdWithUserQuery(item_id);
 
   useEffect(() => {
-    if (!router.isReady) return;
-    const findItem = async () => {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/item/${item_id}`
-      );
-      setItem(res.data[0]);
-    };
-    findItem();
-  }, [router.isReady]);
+    console.log(item_id);
+    if (!item_id) {
+      return;
+    } else {
+      setItem(itemData);
+    }
+  }, [item_id]);
 
-  if (!item) return <h1>loading</h1>;
+  if (isItemLoading || !item) return <h1>loading</h1>;
 
   return (
     <div className={styles.item_wrapper}>

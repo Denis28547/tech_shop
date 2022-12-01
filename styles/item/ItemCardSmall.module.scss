@@ -54,27 +54,11 @@
   flex-direction: column;
   gap: 3px;
 
-  b {
-    font-size: 1.05rem;
-  }
-}
-
-.item_wide {
-  width: 100%;
-  margin-bottom: 20px;
-  min-height: 230px;
-  max-height: 230px;
-  display: grid;
-  grid-template-columns: 216px calc(100% - 231px);
-  column-gap: 15px;
-  justify-content: flex-start;
-  overflow-wrap: break-word;
-
-  .full_item_info {
+  .price_and_like_icon_container {
+    display: flex;
+    justify-content: space-between;
     b {
-      position: absolute;
-      top: 15px;
-      right: 15px;
+      font-size: 1.05rem;
     }
   }
 }

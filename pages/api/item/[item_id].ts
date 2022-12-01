@@ -27,7 +27,7 @@ export default async function handler(
         //   return res.status(400).json({ message: "you are not logged in" });
 
         // const user = await User.findByPk(session?.user?.id);
-        const item = await Item.findAll({
+        const item = await Item.findOne({
           //!DOESNT WORK PROPERLY, DOES NOT FIND CORRECT USER
           where: { id: item_id },
           include: {

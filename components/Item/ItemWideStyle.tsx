@@ -50,9 +50,8 @@ const ItemWideStyle = ({
           data-isfavorite={isFavorite}
         >
           <HeartIcon
-            className={`${like_icon_style.like_icon} ${styles.like_icon}`}
+            className={like_icon_style.like_icon}
             onClick={changeFavorite}
-            stroke={"red"}
           />
         </div>
       </div>

@@ -53,21 +53,23 @@ const PhotoBlock = ({ images }: IPhotoBlock) => {
         <div className={styles.loader_wrapper}>
           <Loader height={100} />
         </div>
-        <div className={styles.dots_container}>
-          {images.map((_, index) => {
-            let isCurrentImage = false;
-            if (index === currentImage) isCurrentImage = true;
-            return (
-              <span
-                key={index}
-                onClick={() => setCurrentImage(index)}
-                className={`${styles.dot} ${
-                  isCurrentImage && styles.active_dot
-                }`}
-              />
-            );
-          })}
-        </div>
+        {images.length > 1 && (
+          <div className={styles.dots_container}>
+            {images.map((_, index) => {
+              let isCurrentImage = false;
+              if (index === currentImage) isCurrentImage = true;
+              return (
+                <span
+                  key={index}
+                  onClick={() => setCurrentImage(index)}
+                  className={`${styles.dot} ${
+                    isCurrentImage && styles.active_dot
+                  }`}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

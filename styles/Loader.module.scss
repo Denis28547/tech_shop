@@ -5,8 +5,9 @@
   height: 40px;
   border-radius: 50%;
   border: 4px solid rgba(229, 229, 229, 0.8);
+  border-color: transparent;
   border-left-color: $accent-color;
-  animation: loader 1.3s linear infinite;
+  animation: loader 1.3s cubic-bezier(0.15, 0.29, 0.72, 0.89) infinite;
 }
 
 @keyframes loader {
