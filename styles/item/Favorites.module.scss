@@ -43,18 +43,6 @@ $favorites-top-height: 144px;
       flex-direction: column;
       gap: 5px;
     }
-
-    button {
-      background-color: $clickable-color;
-      border: 2px solid $border-color;
-      font-size: 1rem;
-      font-weight: 600;
-      color: $text-color;
-
-      &:hover {
-        background-color: $clickable-hover-color;
-      }
-    }
   }
 }
 

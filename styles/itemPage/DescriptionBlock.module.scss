@@ -1,11 +1,9 @@
 @use "/styles/variables" as *;
+@use "/styles/variables/itemPageBlockMixin.scss" as *;
 
 .description_block {
-  width: 100%;
+  @include info_block;
   padding: 30px 15px;
-  position: relative;
-  border-radius: 6px;
-  background-color: $secondary-color;
   margin-bottom: 20px;
   word-wrap: break-word;
 
@@ -43,6 +41,7 @@
       padding: 10px 15px;
       border: 2px solid $text-color;
       border-radius: 5px;
+      width: fit-content;
 
       &::first-letter {
         text-transform: uppercase;

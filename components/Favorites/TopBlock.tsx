@@ -27,7 +27,9 @@ const TopBlock = ({
               loading={areItemsDeleting}
               height={50}
               width={"155px"}
-              margin={0}
+              fontSize="1rem"
+              fontWeight={600}
+              buttonType="grey"
             />
           </div>
         )}
