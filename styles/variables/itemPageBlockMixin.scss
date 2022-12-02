@@ -1,0 +1,7 @@
+@use "./colors.scss" as *;
+
+@mixin info_block {
+  border-radius: 6px;
+  background-color: $secondary-color;
+  position: relative;
+}

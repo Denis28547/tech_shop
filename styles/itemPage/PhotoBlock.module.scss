@@ -1,16 +1,11 @@
 @use "/styles/variables" as *;
-
-@mixin info_block {
-  border-radius: 6px;
-  background-color: $secondary-color;
-}
+@use "/styles/variables/itemPageBlockMixin.scss" as *;
 
 .photo_block {
   @include no_copy;
   @include info_block;
   height: 500px;
   padding: 30px 70px;
-  position: relative;
   overflow: hidden;
 
   .arrow {

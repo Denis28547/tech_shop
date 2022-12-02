@@ -17,4 +17,11 @@
   .additional_info {
     grid-column: span 4;
   }
+
+  @media all and (max-width: 1200px) {
+    .item_info,
+    .additional_info {
+      grid-column: span 12;
+    }
+  }
 }

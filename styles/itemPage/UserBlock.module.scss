@@ -1,14 +1,86 @@
 @use "/styles/variables" as *;
+@use "/styles/variables/itemPageBlockMixin.scss" as *;
 
 .user_block {
-  width: 100%;
-  padding: 15px;
-  position: relative;
-  border-radius: 6px;
+  @include info_block;
+  padding: 20px;
   overflow: hidden;
-  background-color: $secondary-color;
   word-wrap: break-word;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+
+  .user_container {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 5px;
+
+    &:hover {
+      background-color: $clickable-hover-color;
+    }
+
+    .user_info {
+      margin-left: 20px;
+    }
+
+    .profile_pic_placeholder {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .rating_box {
+    margin-top: 20px;
+    background-color: rgba(10, 255, 242, 0.3);
+    border-radius: 5px;
+    width: 100%;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .stars_container {
+      margin-top: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .star {
+        width: 25px;
+      }
+
+      .star[data-filled="true"] {
+        fill: #ddc60f;
+        stroke: #ddc60f;
+      }
+    }
+  }
+
+  .rating_box[data-rating="medium"] {
+    background-color: rgba(208, 181, 35, 0.3);
+  }
+
+  .rating_box[data-rating="bad"] {
+    background-color: rgba(204, 62, 62, 0.3);
+  }
+
+  .buttons_container {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    button:nth-child(1) {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+      width: 100px;
+    }
+  }
 }
