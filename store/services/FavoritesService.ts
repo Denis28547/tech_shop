@@ -6,9 +6,9 @@ export const favoritesAPI = createApi({
   tagTypes: ["Favorites"],
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
-    getFavoritesId: build.query<string[], void>({
+    getAllUserFavoritesIds: build.query<string[], void>({
       query: () => ({
-        url: "/api/favoritesid",
+        url: "/api/favoritesIds",
       }),
       providesTags: ["Favorites"],
     }),
@@ -43,7 +43,7 @@ export const favoritesAPI = createApi({
 });
 
 export const {
-  useGetFavoritesIdQuery,
+  useGetAllUserFavoritesIdsQuery,
   useGetAllFavoritesQuery,
   useRemoveAllFavoritesMutation,
   useAddFavoriteMutation,

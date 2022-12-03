@@ -8,6 +8,7 @@ export interface IUser {
   activationLink: string | null;
   isActivated: boolean | null;
   email_verified: string | null;
+  createdAt: string;
 }
 
 export interface IItem {

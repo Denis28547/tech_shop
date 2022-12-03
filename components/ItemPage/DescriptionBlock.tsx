@@ -12,10 +12,10 @@ import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 
 interface IDescriptionBlock {
   item: IItem;
+  isFavoriteData: boolean;
 }
 
-const DescriptionBlock = ({ item }: IDescriptionBlock) => {
-  const isFavoriteData = true;
+const DescriptionBlock = ({ item, isFavoriteData }: IDescriptionBlock) => {
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
 
   const [addFavorite, addThings] = useAddFavoriteMutation();
@@ -72,22 +72,8 @@ const DescriptionBlock = ({ item }: IDescriptionBlock) => {
 
       <hr />
 
-      <h2 style={{ marginBottom: "10px" }}>DESCRIPTION</h2>
+      <h2>DESCRIPTION</h2>
       <p>{item.description}</p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, error
-        sapiente, quos odio excepturi itaque unde harum suscipit eligendi sequi
-        incidunt labore facere aliquid reiciendis! Rerum consectetur dicta
-        numquam ratione, et voluptatem aperiam nihil necessitatibus voluptas,
-        exercitationem, ut esse error rem sunt. Corporis pariatur laborum,
-        dolorum beatae culpa soluta ex expedita eum, tempore debitis tenetur
-        voluptatem fugit veritatis explicabo natus, vero aliquam quae ab
-        aspernatur maxime laudantium nihil quisquam! Explicabo dignissimos odio
-        ab vitae corporis, laboriosam illum quod soluta quasi doloribus
-        aspernatur, ipsam tempore, cumque unde iure. Ea perferendis hic illo,
-        ipsam, facere vitae vero perspiciatis alias asperiores molestiae
-        expedita!
-      </p>
     </div>
   );
 };

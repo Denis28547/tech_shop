@@ -1,21 +1,40 @@
 import ItemCard from "./ItemCard";
 import ItemSkeleton, { templatesFn } from "./ItemSkeleton";
-import { useGetAllItemsQuery } from "../../store/services/ItemService";
-import { useGetFavoritesIdQuery } from "../../store/services/FavoritesService";
 
 import styles from "../../styles/item/ItemWrapper.module.scss";
+import { IItem } from "../../store/redux_types";
 
-const ItemsGridCard = () => {
-  const { isLoading: isItemsLoading, data: itemsData } =
-    useGetAllItemsQuery(24);
-  const { isLoading: isFavoritesLoading, data: favoritesData } =
-    useGetFavoritesIdQuery();
+interface IItemsGridCard {
+  isItemsLoading: boolean;
+  itemsData: IItem[] | undefined;
+  isFavoritesLoading: boolean;
+  favoritesData: string[] | undefined;
+  gridLayout?: "overflow" | "normal";
+}
+
+const ItemsGridCard = ({
+  isItemsLoading,
+  itemsData,
+  isFavoritesLoading,
+  favoritesData,
+  gridLayout = "normal",
+}: IItemsGridCard) => {
+  // const { isLoading: isItemsLoading, data: itemsData } =
+  //   useGetAllItemsQuery(24);
+  // const { isLoading: isFavoritesLoading, data: favoritesData } =
+  //   useGetAllUserFavoritesIdsQuery();
 
   const itemTemplates = templatesFn();
 
   if (isItemsLoading || isFavoritesLoading || !itemsData) {
     return (
-      <div className={styles.item_wrapper_grid}>
+      <div
+        className={`${
+          gridLayout === "normal"
+            ? styles.item_wrapper_grid
+            : styles.grid_horizontal_overflow
+        }`}
+      >
         {itemTemplates.map((_, index) => (
           <ItemSkeleton key={index} />
         ))}

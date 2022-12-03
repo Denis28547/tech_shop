@@ -37,35 +37,43 @@ const countRating = (rating: number) => {
 const UserBlock = ({ user }: IUserBlock) => {
   const [isNumberShown, setIsNumberShown] = useState(false);
   const number = "+380683200302";
-  const rating = 5;
+  const rating = 4;
 
   const { starsArr, ratedName } = countRating(rating);
+
+  const date = new Date(user.createdAt);
+  const fullDate = `${date.getDate()} ${date.toLocaleString("default", {
+    month: "long",
+  })} ${date.getFullYear()}`;
 
   return (
     <div className={styles.user_block}>
       <b>SELLER</b>
       <Link href="profile">
-        <div className={styles.user_container}>
-          {user.image ? (
-            <Image
-              src={user.image}
-              width={"65px"}
-              height={"65px"}
-              style={{ borderRadius: "50%" }}
-              alt={"user image"}
-            />
-          ) : (
-            <UserPicPlaceholderIcon
-              className={styles.profile_pic_placeholder}
-            />
-          )}
+        <a>
+          <div className={styles.user_container}>
+            {user.image ? (
+              <Image
+                src={user.image}
+                width={"65px"}
+                height={"65px"}
+                style={{ borderRadius: "50%" }}
+                alt={"user image"}
+              />
+            ) : (
+              <UserPicPlaceholderIcon
+                className={styles.profile_pic_placeholder}
+              />
+            )}
 
-          <div className={styles.user_info}>
-            <h3>{user.name}</h3>
-            <p>registered since DATE</p>
-            <p>last online: DATE</p>
+            <div className={styles.user_info}>
+              <h3>{user.name}</h3>
+              <p>
+                registered since <b>{fullDate}</b>
+              </p>
+            </div>
           </div>
-        </div>
+        </a>
       </Link>
 
       <div
