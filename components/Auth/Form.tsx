@@ -162,6 +162,8 @@ const Form = ({
         width={"100%"}
         margin={"10px 0 0 0"}
         buttonType="blue"
+        fontSize="1.1rem"
+        fontWeight={600}
       />
     </form>
   );

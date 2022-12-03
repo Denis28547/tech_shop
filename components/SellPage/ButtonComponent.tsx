@@ -23,6 +23,9 @@ const ButtonComponent = ({
         height={61}
         width={"25%"}
         margin={"0 auto"}
+        buttonType="blue"
+        fontSize="1.3rem"
+        fontWeight={500}
       />
     </div>
   );

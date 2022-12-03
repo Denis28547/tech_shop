@@ -1,0 +1,7 @@
+@use "/styles/variables" as *;
+@use "/styles/variables/itemPageBlockMixin.scss" as *;
+
+.user_items_block {
+  // @include info_block;
+  display: flex;
+}

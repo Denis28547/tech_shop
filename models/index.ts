@@ -48,9 +48,13 @@ export const User = sequelize.define<IUser>(
     email_verified: {
       type: DataTypes.DATE,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+    },
   },
   {
-    timestamps: false, //! HOW TO ADD TIMESTAMPS TO USERS IN NEXTAUTH
+    timestamps: true,
+    updatedAt: false,
   }
 );
 

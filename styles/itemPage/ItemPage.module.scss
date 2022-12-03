@@ -12,10 +12,15 @@
     grid-column: span 8;
     display: grid;
     gap: 20px;
+    // width: 400px;
   }
 
   .additional_info {
     grid-column: span 4;
+  }
+
+  .user_items_block {
+    grid-column: span 12;
   }
 
   @media all and (max-width: 1200px) {

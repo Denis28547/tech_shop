@@ -3,9 +3,18 @@
 
 .description_block {
   @include info_block;
-  padding: 30px 15px;
+  // padding: 30px 15px;
   margin-bottom: 20px;
+  max-width: 793.328px;
+
+  -ms-word-break: break-all;
   word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+
+  @media all and (max-width: 1200px) {
+    max-width: none;
+  }
 
   .published_text {
     color: #7d7d7d;
@@ -51,5 +60,6 @@
 
   h2 {
     line-height: 40px;
+    margin-bottom: 10px;
   }
 }

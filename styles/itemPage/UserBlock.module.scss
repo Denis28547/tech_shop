@@ -3,7 +3,7 @@
 
 .user_block {
   @include info_block;
-  padding: 20px;
+  // padding: 20px;
   overflow: hidden;
   word-wrap: break-word;
   display: flex;
@@ -33,6 +33,7 @@
   }
 
   .rating_box {
+    @include no_copy;
     margin-top: 20px;
     background-color: rgba(10, 255, 242, 0.3);
     border-radius: 5px;
@@ -52,11 +53,15 @@
 
       .star {
         width: 25px;
+        fill: #eeeeee;
+        stroke: #eeeeee;
+        opacity: 50%;
       }
 
       .star[data-filled="true"] {
         fill: #ddc60f;
         stroke: #ddc60f;
+        opacity: 100%;
       }
     }
   }
