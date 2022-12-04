@@ -25,7 +25,7 @@ const ItemsGridCard = ({
   //   useGetAllUserFavoritesIdsQuery();
 
   const itemTemplates = templatesFn();
-
+  //isItemsLoading || isFavoritesLoading || !itemsData
   if (isItemsLoading || isFavoritesLoading || !itemsData) {
     return (
       <div
@@ -43,7 +43,13 @@ const ItemsGridCard = ({
   }
 
   return (
-    <div className={styles.item_wrapper_grid}>
+    <div
+      className={`${
+        gridLayout === "normal"
+          ? styles.item_wrapper_grid
+          : styles.grid_horizontal_overflow
+      }`}
+    >
       {itemsData.map((item) => {
         let isFavorite = false;
         if (favoritesData && favoritesData.includes(item.id)) isFavorite = true;

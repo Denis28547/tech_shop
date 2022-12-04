@@ -11,7 +11,12 @@ const UserItemsBlock = () => {
     useGetAllUserFavoritesIdsQuery();
 
   return (
-    <div className={styles.user_items_block}>
+    <>
+      <div className={styles.user_items_top_flex}>
+        <h2>Other items from this user</h2>
+        <h3>all items</h3>
+      </div>
+
       <ItemsGridCard
         isItemsLoading={isItemsLoading}
         itemsData={itemsData}
@@ -19,7 +24,7 @@ const UserItemsBlock = () => {
         favoritesData={favoritesData}
         gridLayout="overflow"
       />
-    </div>
+    </>
   );
 };
 
