@@ -25,6 +25,7 @@
   grid-auto-columns: minmax(240px, 1fr);
   grid-auto-flow: column;
   overflow-x: auto;
+  overflow-y: hidden;
   gap: 10px;
 }
 
