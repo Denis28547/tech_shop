@@ -53,7 +53,7 @@ const Redirect = () => {
         </p>
         {isSuccess ? <TickIcon /> : <CrossIcon />}
         <Link href="/">
-          <div className={styles.link_text}>To main page</div>
+          <a className={styles.link_text}>To main page</a>
         </Link>
       </div>
     </div>

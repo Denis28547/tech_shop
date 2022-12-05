@@ -5,7 +5,6 @@ import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import SequelizeAdapter from "@next-auth/sequelize-adapter";
 import sequelize, { User } from "../../../models";
-import { IUser } from "../../../models/models_type";
 
 sequelize.sync();
 

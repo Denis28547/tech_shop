@@ -40,8 +40,7 @@ $background-transition: background-color 0.2s;
     width: calc(100% + 20px);
   }
 
-  .links,
-  a {
+  .links {
     transition: $background-transition;
     border-radius: 10px;
     padding: 5px;

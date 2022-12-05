@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { MouseEvent, useState } from "react";
 
 import ItemStyle from "./ItemStyle";
@@ -20,18 +19,13 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
   const item_image = `/Content/${item.images[0]}`;
   const date = new Date(item.createdAt);
-  const router = useRouter();
 
   const fullDate = `${date.getDate()} ${date.toLocaleString("default", {
     month: "long",
   })} ${date.getFullYear()}`;
 
-  const handleOpenFullItem = () => {
-    router.push(`/itemPage/${item.id}`);
-  };
-
-  const [addFavorite, addThings] = useAddFavoriteMutation();
-  const [removeFavorite, removeThings] = useRemoveFavoriteMutation();
+  const [addFavorite] = useAddFavoriteMutation();
+  const [removeFavorite] = useRemoveFavoriteMutation();
 
   const changeFavorite = (e: MouseEvent) => {
     e.stopPropagation();
@@ -54,7 +48,6 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
           fullDate={fullDate}
           isFavorite={isFavorite}
           changeFavorite={changeFavorite}
-          handleOpenFullItem={handleOpenFullItem}
         />
       ) : (
         <ItemStyle
@@ -63,7 +56,6 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
           fullDate={fullDate}
           isFavorite={isFavorite}
           changeFavorite={changeFavorite}
-          handleOpenFullItem={handleOpenFullItem}
         />
       )}
     </>

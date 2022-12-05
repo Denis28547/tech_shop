@@ -45,7 +45,7 @@ const ProfileComponent = () => {
           <div className={styles.auth_container}>
             <>
               <Link href="profile">
-                <div
+                <a
                   className={styles.profile_container}
                   onClick={() => setAuthContainer(false)}
                 >
@@ -67,43 +67,46 @@ const ProfileComponent = () => {
                     <h4>{data?.user?.name}</h4>
                     <h6>{data?.user?.email}</h6>
                   </div>
-                </div>
+                </a>
               </Link>
               <hr />
               <div className={styles.list}>
                 <Link
                   href={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/messages`}
                 >
-                  <p
+                  <a
                     className={styles.links}
                     onClick={() => setAuthContainer(false)}
                   >
                     Messages
-                  </p>
+                  </a>
                 </Link>
                 <Link
                   href={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/favorites`}
                 >
-                  <p
+                  <a
                     className={styles.links}
                     onClick={() => setAuthContainer(false)}
                   >
                     Favorites
-                  </p>
+                  </a>
                 </Link>
                 <Link
                   href={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/settings`}
                 >
-                  <p
+                  <a
                     className={styles.links}
                     onClick={() => setAuthContainer(false)}
                   >
                     Settings
-                  </p>
+                  </a>
                 </Link>
               </div>
               <hr />
-              <a onClick={() => signOut({ redirect: true, callbackUrl: "/" })}>
+              <a
+                className={styles.links}
+                onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+              >
                 Sign out
               </a>
             </>

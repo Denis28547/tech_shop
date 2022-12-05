@@ -3,19 +3,8 @@
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 
   width: 100%;
-  // grid-template-columns: repeat(4, 250px);
   gap: 10px;
   margin-top: 16px;
-
-  // @media all and (max-width: 1300px) {
-  //   grid-template-columns: repeat(3, 250px);
-  // }
-
-  // @media all and (max-width: 1000px) {
-  //   grid-template-columns: repeat(2, minmax(100px, 250px));
-  //   padding: 0 5px;
-  //   gap: 5px;
-  // }
 }
 
 .grid_horizontal_overflow {
@@ -32,19 +21,7 @@
 .item_wrapper_wide {
   display: flex;
   flex-direction: column;
-  width: 1030px;
+  width: 100%;
   gap: 16px;
   margin-top: 16px;
-
-  @media all and (max-width: 1250px) {
-    width: 800px;
-  }
-
-  @media all and (max-width: 1000px) {
-    width: 600px;
-  }
-
-  @media all and (max-width: 750px) {
-    width: auto;
-  }
 }

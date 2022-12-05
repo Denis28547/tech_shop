@@ -29,13 +29,20 @@ const Favorites: NextPage = () => {
   const itemTemplates = templatesFn();
 
   useEffect(() => {
-    if (window && window.innerWidth <= 650) {
+    if (!data || !window) return;
+    if (data.length < 4 && window.innerWidth >= 650) {
+      setDisableWideItemOption(true);
+      setIsItemWide(true);
+      return;
+    }
+    if (window.innerWidth <= 650) {
       setDisableWideItemOption(true);
       setIsItemWide(false);
+      return;
     } else {
       setDisableWideItemOption(false);
     }
-  }, []);
+  }, [data]);
 
   if (isLoading || !data) {
     return (
@@ -64,55 +71,52 @@ const Favorites: NextPage = () => {
     );
   }
 
-  let isDataEmpty = true;
-  if (data.length !== 0) isDataEmpty = false;
+  const isDataEmpty = !Boolean(data.length);
 
   return (
-    <>
+    <div className={styles.favorites_wrapper}>
       <div className={styles.favorites_top_block} />
-      <div className={styles.favorites_wrapper}>
-        <TopBlock
-          areItemsDeleting={areItemsDeleting}
-          length={data.length}
-          isDataEmpty={isDataEmpty}
-          removeAllFavorite={removeAllFavorite}
-        />
-        {isDataEmpty ? (
-          <div className={styles.empty_data}>
-            <h1>You favorite list is empty</h1>
-            <p>you can add items to favorites when browsing site</p>
-            <EmptyList className={styles.emptyListIcon} />
+      <TopBlock
+        areItemsDeleting={areItemsDeleting}
+        length={data.length}
+        isDataEmpty={isDataEmpty}
+        removeAllFavorite={removeAllFavorite}
+      />
+      {isDataEmpty ? (
+        <div className={styles.empty_data}>
+          <h1>You favorite list is empty</h1>
+          <p>you can add items to favorites when browsing site</p>
+          <EmptyList className={styles.emptyListIcon} />
+        </div>
+      ) : (
+        <>
+          {!disableWideItemOption && (
+            <ListLookBlock
+              isItemWide={isItemWide}
+              setIsItemWide={setIsItemWide}
+            />
+          )}
+          <div
+            className={`${
+              isItemWide
+                ? wrapperStyle.item_wrapper_wide
+                : wrapperStyle.item_wrapper_grid
+            }`}
+          >
+            {data.map((item) => {
+              return (
+                <ItemCard
+                  key={item.id}
+                  item={item}
+                  isWide={isItemWide}
+                  isFavoriteData={true}
+                />
+              );
+            })}
           </div>
-        ) : (
-          <>
-            {!disableWideItemOption && (
-              <ListLookBlock
-                isItemWide={isItemWide}
-                setIsItemWide={setIsItemWide}
-              />
-            )}
-            <div
-              className={`${
-                isItemWide
-                  ? wrapperStyle.item_wrapper_wide
-                  : wrapperStyle.item_wrapper_grid
-              }`}
-            >
-              {data.map((item) => {
-                return (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    isWide={isItemWide}
-                    isFavoriteData={true}
-                  />
-                );
-              })}
-            </div>
-          </>
-        )}
-      </div>
-    </>
+        </>
+      )}
+    </div>
   );
 };
 

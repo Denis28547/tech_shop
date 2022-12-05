@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCard } from "./IItemCard_type";
 
@@ -11,30 +13,30 @@ const ItemStyle = ({
   fullDate,
   isFavorite,
   changeFavorite,
-  handleOpenFullItem,
 }: IItemCard) => {
   return (
-    <div
-      className={styles.item}
-      onClick={() => {
-        handleOpenFullItem();
-      }}
-    >
+    <div className={styles.item}>
       <div className={styles.image_name}>
         <div style={{ width: "100%", height: "250px", position: "relative" }}>
-          <Image
-            src={item_image}
-            alt="item_image"
-            objectFit="cover"
-            layout="fill"
-            className={styles.image}
-            style={{ marginBottom: "10px" }}
-          />
+          <Link href={`/itemPage/${item.id}`}>
+            <a>
+              <Image
+                src={item_image}
+                alt="item_image"
+                objectFit="cover"
+                layout="fill"
+                className={styles.image}
+                style={{ marginBottom: "10px", cursor: "pointer" }}
+              />
+            </a>
+          </Link>
         </div>
 
-        <div title={item.name} className={styles.name}>
-          {item.name}
-        </div>
+        <Link href={`/itemPage/${item.id}`}>
+          <a title={item.name} className={styles.name}>
+            {item.name}
+          </a>
+        </Link>
       </div>
       <div className={styles.item_info}>
         <p>

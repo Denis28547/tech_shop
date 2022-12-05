@@ -176,6 +176,10 @@ export const Item = sequelize.define<IItem>(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    phone_number: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,

@@ -29,9 +29,10 @@ export interface IItem extends Model {
   price: number;
   images: string[];
   description: string;
-  location: string;
   user_id: string;
   category_id: string;
+  location: string;
+  phone_number: number | null;
 }
 
 export interface ICategory extends Model {

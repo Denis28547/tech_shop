@@ -1,14 +1,12 @@
 @use "../variables" as *;
 
 .item_wide {
-  width: 100%;
   min-height: none;
   border: 2px solid $border-color;
   background-color: $secondary-color;
   padding: 15px;
   border-radius: 6px;
   color: $text-color;
-  cursor: pointer;
   transition: 0.2s;
   position: relative;
   display: grid;
@@ -26,6 +24,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  .name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 2rem;
+    font-weight: 700;
+    background-color: $secondary-color;
+    max-width: fit-content;
+    cursor: pointer;
+
+    &:hover {
+      filter: invert(100%);
+    }
+  }
 
   h3 {
     margin-bottom: 10px;
