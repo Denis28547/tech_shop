@@ -41,10 +41,10 @@ const Navbar = ({ disabled }: INavbar) => {
     >
       <div className={styles.left_container}>
         <Link href="/">
-          <div className={styles.logo_container}>
+          <a className={styles.logo_container}>
             <LogoIcon className={styles.logo_icon} theme={theme} />
             <p className={styles.logo_name}>TechShop</p>
-          </div>
+          </a>
         </Link>
         {/* <Link href="/sell">
           <div className={styles.icon_text}>
@@ -78,10 +78,10 @@ const Navbar = ({ disabled }: INavbar) => {
         </div>
 
         <Link href="/sellItem">
-          <div className={styles.icon_text}>
+          <a className={styles.icon_text}>
             <ShopIcon className={styles.icon} />
             <p>Sell</p>
-          </div>
+          </a>
         </Link>
 
         {/* <CartIcon className={styles.icon} /> */}

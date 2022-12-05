@@ -16,8 +16,9 @@ $favorites-top-height: 144px;
 
 .favorites_wrapper {
   margin: 0 auto;
-  width: auto;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1230px;
+  padding: 0 15px;
 }
 
 .favorites_top_info {
@@ -80,6 +81,10 @@ $favorites-top-height: 144px;
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+
+  // @media all and (max-width: 650px) {
+  //   display: none;
+  // }
 
   .icon_container {
     height: 34px;

@@ -43,6 +43,7 @@
 
   input[type="text"],
   input[type="number"],
+  input[type="tel"],
   select,
   textarea {
     background-color: $clickable-color;
@@ -57,7 +58,8 @@
     @include border_bottom_colors;
   }
 
-  input[type="number"] {
+  input[type="number"],
+  input[type="tel"] {
     max-width: 200px;
     -moz-appearance: textfield;
 

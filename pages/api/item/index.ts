@@ -73,8 +73,9 @@ export default async function handler(
 
             if (!session) reject("please log in to sell an item");
 
-            const { name, category, price, description, location } = fields;
-
+            const { name, category, price, description, location, number } =
+              fields;
+            console.log(number);
             if (
               !name ||
               !category ||
@@ -122,6 +123,7 @@ export default async function handler(
               description,
               location,
               user_id: session?.user?.id,
+              phone_number: number,
               category_id: categoryModel?.id,
             });
 

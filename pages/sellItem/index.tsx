@@ -7,7 +7,7 @@ import { useAddItemMutation } from "../../store/services/ItemService";
 import NameCategoryPriceComponent from "../../components/SellPage/NameCategoryPriceComponent";
 import PhotosComponent from "../../components/SellPage/PhotosComponent";
 import DescriptionComponent from "../../components/SellPage/DescriptionComponent";
-import LocationComponent from "../../components/SellPage/LocationComponent";
+import UserInfoComponent from "../../components/SellPage/UserInfoComponent";
 import ButtonComponent from "../../components/SellPage/ButtonComponent";
 
 import styles from "../../styles/sellPage/SellPage.module.scss";
@@ -25,6 +25,7 @@ interface ITarget {
   image7: { files: FileList };
   description: { value: string };
   location: { value: string };
+  number: { value: number };
 }
 
 const SellPage: NextPage = () => {
@@ -60,6 +61,7 @@ const SellPage: NextPage = () => {
     });
     formData.append("description", target.description.value);
     formData.append("location", target.location.value);
+    formData.append("number", `${target.number.value}`);
 
     await addItem(formData);
   };
@@ -80,7 +82,7 @@ const SellPage: NextPage = () => {
       <NameCategoryPriceComponent />
       <PhotosComponent photoError={photoError} />
       <DescriptionComponent />
-      <LocationComponent />
+      <UserInfoComponent />
       <ButtonComponent
         //@ts-ignore idk how to handle data.message type
         responseErrMessage={isError && error && error.data.message}

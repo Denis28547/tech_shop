@@ -7,5 +7,4 @@ export interface IItemCard {
   fullDate: string;
   isFavorite: boolean;
   changeFavorite: (e: React.MouseEvent<Element, MouseEvent>) => void;
-  handleOpenFullItem: () => void;
 }

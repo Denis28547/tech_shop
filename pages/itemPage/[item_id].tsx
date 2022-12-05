@@ -44,7 +44,6 @@ const ItemPage = () => {
         <UserBlock user={itemData.user} />
       </div>
       <div className={styles.user_items_block}>
-        {/* <h2>All items from this user</h2> */}
         <UserItemsBlock />
       </div>
     </div>
