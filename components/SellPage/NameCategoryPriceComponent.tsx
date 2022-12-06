@@ -35,13 +35,13 @@ const NameCategoryPriceComponent = () => {
         pattern="^[^\s]+(\s+[^\s]+)*$"
         autoComplete="off"
         minLength={3}
-        maxLength={50}
+        maxLength={90}
         required
       />
       {!isNameValid && isNameDirty && (
         <span>
           *Not valid (field should not be empty, no white spaces at the start
-          and at the end, min length is 3, max is 50)
+          and at the end, min length is 3, max is 90)
         </span>
       )}
 

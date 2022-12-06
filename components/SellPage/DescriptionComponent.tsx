@@ -20,16 +20,16 @@ const DescriptionComponent = () => {
         placeholder="Write some description of item you want to sell"
         id="description"
         minLength={30}
-        maxLength={1600}
+        maxLength={2400}
         data-dirty={isDescriptionDirty}
         onBlur={() => setIsDescriptionDirty(true)}
         onChange={handleChange}
         required
       />
       {!isValid && isDescriptionDirty && (
-        <span>*Not valid (min length is 30, max is 1600)</span>
+        <span>*Not valid (min length is 30, max is 2400)</span>
       )}
-      <span className={styles.string_count}>{stringCount} / 1600</span>
+      <span className={styles.string_count}>{stringCount} / 2400</span>
     </div>
   );
 };

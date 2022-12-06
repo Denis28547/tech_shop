@@ -16,9 +16,7 @@ export default async function handler(
         const { item_id } = req.query;
 
         if (typeof item_id !== "string")
-          return res
-            .status(500)
-            .json({ message: "something unexpected happened" });
+          return res.status(500).json({ message: "wrong type of id" });
 
         const session = await unstable_getServerSession(req, res, authOptions);
 
@@ -28,9 +26,7 @@ export default async function handler(
         const user = await User.findByPk(session?.user?.id);
         const item = await Item.findByPk(item_id);
         if (!user || !item)
-          return res
-            .status(500)
-            .json({ message: "something unexpected happened" });
+          return res.status(500).json({ message: "no user or item" });
 
         await user.addFavorite(item);
 

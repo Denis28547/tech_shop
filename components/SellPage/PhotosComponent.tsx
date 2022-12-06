@@ -10,7 +10,6 @@ const PhotosComponent = ({ photoError }: { photoError: string }) => {
     photoTemplates.push(photoCount);
   }
 
-  //! IMAGE SHOULD HAVE fit=cover
   return (
     <div className={styles.option_block}>
       <h2>Photos</h2>

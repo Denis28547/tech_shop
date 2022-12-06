@@ -52,6 +52,11 @@
     font-size: 1.05rem;
   }
 
+  textarea {
+    white-space: pre-line;
+    white-space: pre-wrap;
+  }
+
   input[type="text"] {
     max-width: 400px;
     padding: 14px 16px;
