@@ -1,13 +1,22 @@
 import ItemsGridCard from "../Item/ItemsGridCard";
 import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
-import { useGetAllItemsQuery } from "../../store/services/ItemService";
+import { useGetAllUserItemsQuery } from "../../store/services/ItemService";
 
 import styles from "../../styles/itemPage/UserItemsBlock.module.scss";
 import Link from "next/link";
 
-const UserItemsBlock = () => {
-  const { isLoading: isItemsLoading, data: itemsData } =
-    useGetAllItemsQuery(24);
+interface IUserItemsBlock {
+  user_id: string;
+}
+
+const UserItemsBlock = ({ user_id }: IUserItemsBlock) => {
+  // const { isLoading: isItemsLoading, data: itemsData } =
+  //   useGetAllUserItemsQuery(user_id, 1);
+  const {
+    isLoading: isItemsLoading,
+    data: itemsData,
+    error,
+  } = useGetAllUserItemsQuery(user_id);
   const { isLoading: isFavoritesLoading, data: favoritesData } =
     useGetAllUserFavoritesIdsQuery();
 

@@ -33,13 +33,13 @@ const UserInfoComponent = () => {
         onChange={handleLocationChange}
         pattern="^[^\s]+(\s+[^\s]+)*$"
         minLength={3}
-        maxLength={20}
+        maxLength={30}
         required
       />
       {!isLocationValid && isLocationDirty && (
         <span>
           *Not valid (field should not be empty, no white spaces at the start
-          and at the end, min length is 3, max is 20)
+          and at the end, min length is 3, max is 30)
         </span>
       )}
 
@@ -55,7 +55,7 @@ const UserInfoComponent = () => {
         pattern="^[0-9]*$"
         minLength={4}
         maxLength={12}
-        required
+        // required
       />
       {!isNumberValid && isNumberDirty && (
         <span>*Not valid number (min length is 4, max is 12)</span>

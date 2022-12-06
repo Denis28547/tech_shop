@@ -17,7 +17,8 @@ export interface IUser extends Model {
   activationLink: string | null;
   isActivated: boolean | null;
   email_verified: DataType | null;
-  getFavorite: BelongsToManyGetAssociationsMixin<IItem>;
+  getItems: BelongsToManyGetAssociationsMixin<IItem | IItem[]>;
+  getFavorite: BelongsToManyGetAssociationsMixin<IItem | IItem[]>;
   addFavorite: BelongsToManyAddAssociationMixin<IItem, string>;
   setFavorite: BelongsToManySetAssociationsMixin<void, void>;
   removeFavorite: BelongsToManyRemoveAssociationMixin<IItem, string>;

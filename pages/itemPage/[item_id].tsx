@@ -41,10 +41,14 @@ const ItemPage = () => {
         <DescriptionBlock item={itemData} isFavoriteData={isFavoriteData} />
       </div>
       <div className={styles.additional_info}>
-        <UserBlock user={itemData.user} />
+        <UserBlock
+          user={itemData.user}
+          phone_number={itemData.phone_number}
+          location={itemData.location}
+        />
       </div>
       <div className={styles.user_items_block}>
-        <UserItemsBlock />
+        <UserItemsBlock user_id={itemData.user.id} />
       </div>
     </div>
   );

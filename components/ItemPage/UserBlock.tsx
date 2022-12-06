@@ -10,6 +10,8 @@ import StarIcon from "../../public/assets/StarIcon";
 import styles from "../../styles/itemPage/UserBlock.module.scss";
 interface IUserBlock {
   user: IUser;
+  phone_number: string | null;
+  location: string;
 }
 
 const countRating = (rating: number) => {
@@ -34,9 +36,8 @@ const countRating = (rating: number) => {
   };
 };
 
-const UserBlock = ({ user }: IUserBlock) => {
+const UserBlock = ({ user, phone_number, location }: IUserBlock) => {
   const [isNumberShown, setIsNumberShown] = useState(false);
-  const number = "+380683200302";
   const rating = 4;
 
   const { starsArr, ratedName } = countRating(rating);
@@ -71,6 +72,7 @@ const UserBlock = ({ user }: IUserBlock) => {
               <p>
                 registered since <b>{fullDate}</b>
               </p>
+              <h3>{location}</h3>
             </div>
           </div>
         </a>
@@ -98,27 +100,29 @@ const UserBlock = ({ user }: IUserBlock) => {
       </div>
 
       <div className={styles.buttons_container}>
-        <CustomButton
-          buttonType="outline"
-          loading={false}
-          text={isNumberShown ? number : "Show number"}
-          width="100%"
-          height={50}
-          fontSize="1rem"
-          fontWeight={600}
-          onClick={(e) => {
-            setIsNumberShown(true);
-            if (isNumberShown) {
-              navigator.clipboard.writeText(number);
-              alert("number copied to clipboard");
-            }
-          }}
-        />
+        {phone_number && (
+          <CustomButton
+            buttonType="outline"
+            loading={false}
+            text={isNumberShown ? phone_number : "Show number"}
+            width="100%"
+            height={50}
+            fontSize="1rem"
+            fontWeight={600}
+            onClick={() => {
+              setIsNumberShown(true);
+              if (isNumberShown) {
+                navigator.clipboard.writeText(phone_number);
+                alert("number copied to clipboard");
+              }
+            }}
+          />
+        )}
         <CustomButton
           buttonType="blue"
           loading={false}
           text="Message"
-          width="100%"
+          width={phone_number ? "100%" : "calc(200% + 20px)"}
           height={50}
           fontSize="1rem"
           fontWeight={600}

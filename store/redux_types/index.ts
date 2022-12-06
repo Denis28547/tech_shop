@@ -23,6 +23,7 @@ export interface IItem {
   description: string;
   location: string;
   user_id: string;
+  phone_number: string | null;
   category_id: string;
   createdAt: string;
 }

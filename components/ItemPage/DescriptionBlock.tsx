@@ -52,6 +52,7 @@ const DescriptionBlock = ({ item, isFavoriteData }: IDescriptionBlock) => {
       </div>
 
       <h1 className={styles.item_name}>{item.name}</h1>
+
       <h1>
         <b>{item.price} $</b>
       </h1>

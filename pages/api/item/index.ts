@@ -75,7 +75,9 @@ export default async function handler(
 
             const { name, category, price, description, location, number } =
               fields;
-            console.log(number);
+
+            const phone_number = number.length === 0 ? null : number;
+
             if (
               !name ||
               !category ||
@@ -123,7 +125,7 @@ export default async function handler(
               description,
               location,
               user_id: session?.user?.id,
-              phone_number: number,
+              phone_number,
               category_id: categoryModel?.id,
             });
 

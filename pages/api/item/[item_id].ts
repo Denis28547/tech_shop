@@ -1,6 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]";
 
 import { User, Item } from "../../../models";
 
@@ -16,9 +14,7 @@ export default async function handler(
         const { item_id } = req.query;
 
         if (typeof item_id !== "string")
-          return res
-            .status(500)
-            .json({ message: "something unexpected happened" });
+          return res.status(500).json({ message: "wrong id type" });
 
         const item = await Item.findOne({
           where: { id: item_id },
@@ -31,6 +27,7 @@ export default async function handler(
 
         res.status(200).json(item);
       } catch (error: any) {
+        console.log(error);
         return res
           .status(500)
           .json({ message: "something unexpected happened" });

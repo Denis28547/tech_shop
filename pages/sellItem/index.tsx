@@ -14,7 +14,7 @@ import styles from "../../styles/sellPage/SellPage.module.scss";
 interface ITarget {
   name: { value: string };
   category: { value: string };
-  price: { value: number };
+  price: { value: string };
   image0: { files: FileList };
   image1: { files: FileList };
   image2: { files: FileList };
@@ -25,7 +25,7 @@ interface ITarget {
   image7: { files: FileList };
   description: { value: string };
   location: { value: string };
-  number: { value: number };
+  number: { value: string };
 }
 
 const SellPage: NextPage = () => {
@@ -55,13 +55,13 @@ const SellPage: NextPage = () => {
     const formData = new FormData();
     formData.append("name", target.name.value);
     formData.append("category", target.category.value);
-    formData.append("price", `${target.price.value}`);
+    formData.append("price", target.price.value);
     images.forEach((image) => {
       formData.append("images", image);
     });
     formData.append("description", target.description.value);
     formData.append("location", target.location.value);
-    formData.append("number", `${target.number.value}`);
+    formData.append("number", target.number.value);
 
     await addItem(formData);
   };

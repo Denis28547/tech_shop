@@ -19,6 +19,21 @@ export const itemAPI = createApi({
       }),
       providesTags: ["Items"],
     }),
+    getAllUserItems: build.query<IItem[] | IItem, string>({
+      query: (user_id) => ({
+        url: `/api/allUserItems/${user_id}`,
+      }),
+      providesTags: ["Items"],
+    }),
+    // getAllUserItems: build.query<
+    //   IItem[] | IItem,
+    //   { user_id: string; limit: number }
+    // >({
+    //   query: ({ user_id, limit }) => ({
+    //     url: `/api/allUserItems/${user_id}?limit=${limit}`,
+    //   }),
+    //   providesTags: ["Items"],
+    // }),
     addItem: build.mutation({
       query: (body) => ({
         url: "/api/item",
@@ -33,5 +48,6 @@ export const itemAPI = createApi({
 export const {
   useGetAllItemsQuery,
   useGetItemByIdWithUserQuery,
+  useGetAllUserItemsQuery,
   useAddItemMutation,
 } = itemAPI;

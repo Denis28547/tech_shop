@@ -1,3 +1,4 @@
+import { NULL } from "sass";
 import { DataTypes, Sequelize } from "sequelize";
 import { ICategory, IItem, IUser } from "./models_type";
 
@@ -157,11 +158,11 @@ export const Item = sequelize.define<IItem>(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(90),
       allowNull: false,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(7),
       allowNull: false,
     },
     images: {
@@ -173,12 +174,13 @@ export const Item = sequelize.define<IItem>(
       allowNull: false,
     },
     location: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(30),
       allowNull: false,
     },
     phone_number: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING(12),
       allowNull: true,
+      defaultValue: null,
     },
   },
   {
