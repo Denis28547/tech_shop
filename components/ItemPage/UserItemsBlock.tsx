@@ -1,25 +1,21 @@
-import ItemsGridCard from "../Item/ItemsGridCard";
-import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
-import { useGetAllUserItemsQuery } from "../../store/services/ItemService";
-
-import styles from "../../styles/itemPage/UserItemsBlock.module.scss";
 import Link from "next/link";
 
+import ItemsGridCard from "../Item/ItemsGridCard";
+import { IItem } from "../../store/redux_types";
+
+import styles from "../../styles/itemPage/UserItemsBlock.module.scss";
+
 interface IUserItemsBlock {
-  user_id: string;
+  isItemsLoading: boolean;
+  itemsData: IItem[] | [];
+  favoritesData: string[];
 }
 
-const UserItemsBlock = ({ user_id }: IUserItemsBlock) => {
-  // const { isLoading: isItemsLoading, data: itemsData } =
-  //   useGetAllUserItemsQuery(user_id, 1);
-  const {
-    isLoading: isItemsLoading,
-    data: itemsData,
-    error,
-  } = useGetAllUserItemsQuery(user_id);
-  const { isLoading: isFavoritesLoading, data: favoritesData } =
-    useGetAllUserFavoritesIdsQuery();
-
+const UserItemsBlock = ({
+  isItemsLoading,
+  itemsData,
+  favoritesData,
+}: IUserItemsBlock) => {
   return (
     <>
       <div className={styles.user_items_top_flex}>
@@ -32,7 +28,6 @@ const UserItemsBlock = ({ user_id }: IUserItemsBlock) => {
       <ItemsGridCard
         isItemsLoading={isItemsLoading}
         itemsData={itemsData}
-        isFavoritesLoading={isFavoritesLoading}
         favoritesData={favoritesData}
         gridLayout="overflow"
       />

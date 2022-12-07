@@ -1,34 +1,43 @@
 import { useRouter } from "next/router";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 
-import { useGetItemByIdWithUserQuery } from "../../store/services/ItemService";
+import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
+import {
+  useGetAllUserItemsQuery,
+  useGetItemByIdWithUserQuery,
+} from "../../store/services/ItemService";
 import PhotoBlock from "../../components/ItemPage/PhotoBlock";
 import DescriptionBlock from "../../components/ItemPage/DescriptionBlock";
 import UserBlock from "../../components/ItemPage/UserBlock";
-
-import styles from "../../styles/itemPage/itemPage.module.scss";
-import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
 import UserItemsBlock from "../../components/ItemPage/UserItemsBlock";
 
-const ItemPage = () => {
-  const { isLoading: isFavoritesLoading, data: favoritesData } =
-    useGetAllUserFavoritesIdsQuery();
+import styles from "../../styles/itemPage/itemPage.module.scss";
 
+const ItemPage = () => {
   const router = useRouter();
   const item_id = router.query.item_id;
 
-  const {
-    isLoading: isItemLoading,
-    data: itemData,
-    error,
-  } = useGetItemByIdWithUserQuery(
-    typeof item_id === "string" ? item_id : skipToken,
-    {
-      skip: router.isFallback,
-    }
-  );
+  const { isLoading: isFavoritesLoading, data: favoritesData } =
+    useGetAllUserFavoritesIdsQuery();
 
-  if (error) return <h1>error</h1>;
+  const { isLoading: isItemLoading, data: itemData } =
+    useGetItemByIdWithUserQuery(
+      typeof item_id === "string" ? item_id : skipToken,
+      {
+        skip: router.isFallback,
+      }
+    );
+
+  const { isLoading: isItemsLoading, data: itemsData } =
+    useGetAllUserItemsQuery(
+      {
+        user_id: itemData?.user.id,
+        limit: 24,
+        excludeItemId: itemData?.id,
+      },
+      { skip: !itemData }
+    );
+
   if (isItemLoading || isFavoritesLoading || !itemData || !favoritesData)
     return <h1>loading</h1>;
 
@@ -47,9 +56,15 @@ const ItemPage = () => {
           location={itemData.location}
         />
       </div>
-      <div className={styles.user_items_block}>
-        <UserItemsBlock user_id={itemData.user.id} />
-      </div>
+      {itemsData && itemsData.length > 0 && (
+        <div className={styles.user_items_block}>
+          <UserItemsBlock
+            isItemsLoading={isItemsLoading}
+            itemsData={itemsData}
+            favoritesData={favoritesData}
+          />
+        </div>
+      )}
     </div>
   );
 };

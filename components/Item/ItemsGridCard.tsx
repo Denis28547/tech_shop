@@ -6,8 +6,8 @@ import { IItem } from "../../store/redux_types";
 
 interface IItemsGridCard {
   isItemsLoading: boolean;
-  itemsData: IItem[] | undefined;
-  isFavoritesLoading: boolean;
+  itemsData: IItem[] | [] | undefined;
+
   favoritesData: string[] | undefined;
   gridLayout?: "overflow" | "normal";
 }
@@ -15,7 +15,7 @@ interface IItemsGridCard {
 const ItemsGridCard = ({
   isItemsLoading,
   itemsData,
-  isFavoritesLoading,
+
   favoritesData,
   gridLayout = "normal",
 }: IItemsGridCard) => {
@@ -26,7 +26,7 @@ const ItemsGridCard = ({
 
   const itemTemplates = templatesFn();
   //isItemsLoading || isFavoritesLoading || !itemsData
-  if (isItemsLoading || isFavoritesLoading || !itemsData) {
+  if (isItemsLoading || !itemsData) {
     return (
       <div
         className={`${
