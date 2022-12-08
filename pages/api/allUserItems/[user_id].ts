@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { User } from "../../../models";
+import { IItem } from "../../../types/index";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,6 +16,7 @@ export default async function handler(
   };
 
   switch (method) {
+    //get all items that user owns
     case "GET":
       try {
         const { user_id, limit, excludeItemId } = req.query as ReqType;
@@ -36,7 +38,6 @@ export default async function handler(
 
         if (Array.isArray(itemsData) && itemsData.length && excludeItemId) {
           result = itemsData.filter((item) => {
-            if (Array.isArray(item)) return;
             return item.id !== excludeItemId;
           });
         }

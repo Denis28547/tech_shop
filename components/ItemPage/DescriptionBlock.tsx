@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { IItem } from "../../store/redux_types";
+import { IItem } from "../../types/index";
 import HeartIcon from "../../public/assets/HeartIcon";
 import {
   useAddFavoriteMutation,

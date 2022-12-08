@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { IUser } from "../../store/redux_types";
+import { IUser } from "../../types/index";
 import Link from "next/link";
 import CustomButton from "../CustomButton";
 import UserPicPlaceholderIcon from "../../public/assets/UserPicPlaceholderIcon";

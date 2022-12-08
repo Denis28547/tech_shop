@@ -1,6 +1,6 @@
-import { NULL } from "sass";
 import { DataTypes, Sequelize } from "sequelize";
-import { ICategory, IItem, IUser } from "./models_type";
+
+import { ICategoryModel, IItemModel, IUserModel } from "../types/index";
 
 const sequelize = new Sequelize({
   username: "postgres",
@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
   dialect: "postgres",
 });
 
-export const User = sequelize.define<IUser>(
+export const User = sequelize.define<IUserModel>(
   "user",
   {
     id: {
@@ -130,7 +130,7 @@ export const Rating = sequelize.define(
   }
 );
 
-export const Category = sequelize.define<ICategory>(
+export const Category = sequelize.define<ICategoryModel>(
   "category",
   {
     id: {
@@ -149,7 +149,7 @@ export const Category = sequelize.define<ICategory>(
   }
 );
 
-export const Item = sequelize.define<IItem>(
+export const Item = sequelize.define<IItemModel>(
   "item",
   {
     id: {

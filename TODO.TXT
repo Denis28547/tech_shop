@@ -16,7 +16,7 @@ LOADING SCREEN FOR ITEM PAGE
 12) add all author items on itempage bottom
 13) mb delete ability to import pngs when sell items, cause they can be transparent and loader can be seen
 14) if ur not logged in u shouldn't be able to add favorites
-
+15) save preferred list style in favorites to local storage
 
 *** small things
 1) styles for category when sell item

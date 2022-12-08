@@ -1,11 +1,7 @@
 @use "../variables" as *;
+@use "../variables/skeletonAnimation.scss" as *;
 
 $skeleton_border_radius: 2px;
-
-@mixin skeleton_bc {
-  animation: skeleton_loading 1s linear infinite alternate;
-  opacity: 0.7;
-}
 
 .item {
   border: 2px solid $border-color;
@@ -81,14 +77,5 @@ $skeleton_border_radius: 2px;
       min-width: 130px;
       height: 1rem;
     }
-  }
-}
-
-@keyframes skeleton_loading {
-  0% {
-    background-color: rgba(var(--color-modal), 0.2);
-  }
-  100% {
-    background-color: rgba(var(--color-modal), 0.3);
   }
 }

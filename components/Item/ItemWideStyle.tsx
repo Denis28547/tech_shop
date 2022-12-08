@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import HeartIcon from "../../public/assets/HeartIcon";
-import { IItemCard } from "./IItemCard_type";
+import { IItemCardWithCategory } from "./IItemCard_type";
 
 import styles from "../../styles/item/ItemCardWide.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
@@ -10,11 +10,10 @@ import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 const ItemWideStyle = ({
   item_image,
   item,
-  category,
   fullDate,
   isFavorite,
   changeFavorite,
-}: IItemCard) => {
+}: IItemCardWithCategory) => {
   return (
     <div className={styles.item_wide}>
       <Link href={`/itemPage/${item.id}`}>
@@ -42,7 +41,9 @@ const ItemWideStyle = ({
               {item.name}
             </a>
           </Link>
-          <p style={{ color: "#8e8e8e" }}>» {category}</p>
+          {item.category && (
+            <p style={{ color: "#8e8e8e" }}>» {item.category.name}</p>
+          )}
         </div>
         <h3>
           {item.location} - {fullDate}
