@@ -12,6 +12,8 @@ import UserBlock from "../../components/ItemPage/UserBlock";
 import UserItemsBlock from "../../components/ItemPage/UserItemsBlock";
 
 import styles from "../../styles/itemPage/itemPage.module.scss";
+import skeletonStyles from "../../styles/itemPage/SkeletonItemPage.module.scss";
+import ItemPageSkeleton from "../../components/ItemPage/ItemPageSkeleton";
 
 const ItemPage = () => {
   const router = useRouter();
@@ -38,8 +40,14 @@ const ItemPage = () => {
       { skip: !itemData }
     );
 
-  if (isItemLoading || isFavoritesLoading || !itemData || !favoritesData)
-    return <h1>loading</h1>;
+  if (
+    isItemLoading ||
+    isFavoritesLoading ||
+    isItemsLoading ||
+    !itemData ||
+    !favoritesData
+  )
+    return <ItemPageSkeleton />;
 
   const isFavoriteData = favoritesData.includes(itemData.id);
 
@@ -59,7 +67,7 @@ const ItemPage = () => {
       {itemsData && itemsData.length > 0 && (
         <div className={styles.user_items_block}>
           <UserItemsBlock
-            isItemsLoading={isItemsLoading}
+            isItemsLoading={false}
             itemsData={itemsData}
             favoritesData={favoritesData}
           />

@@ -1,13 +1,13 @@
 import Link from "next/link";
 
 import ItemsGridCard from "../Item/ItemsGridCard";
-import { IItem } from "../../store/redux_types";
+import { IItem, IItemWithCategory } from "../../types/index";
 
 import styles from "../../styles/itemPage/UserItemsBlock.module.scss";
 
 interface IUserItemsBlock {
   isItemsLoading: boolean;
-  itemsData: IItem[] | [];
+  itemsData: IItem[] | IItemWithCategory[] | [];
   favoritesData: string[];
 }
 

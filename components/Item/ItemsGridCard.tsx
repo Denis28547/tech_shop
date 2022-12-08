@@ -1,12 +1,12 @@
 import ItemCard from "./ItemCard";
 import ItemSkeleton, { templatesFn } from "./ItemSkeleton";
+import { IItem, IItemWithCategory } from "../../types/index";
 
 import styles from "../../styles/item/ItemWrapper.module.scss";
-import { IItem } from "../../store/redux_types";
 
 interface IItemsGridCard {
   isItemsLoading: boolean;
-  itemsData: IItem[] | [] | undefined;
+  itemsData: IItem[] | IItemWithCategory[] | [] | undefined;
 
   favoritesData: string[] | undefined;
   gridLayout?: "overflow" | "normal";
@@ -19,13 +19,8 @@ const ItemsGridCard = ({
   favoritesData,
   gridLayout = "normal",
 }: IItemsGridCard) => {
-  // const { isLoading: isItemsLoading, data: itemsData } =
-  //   useGetAllItemsQuery(24);
-  // const { isLoading: isFavoritesLoading, data: favoritesData } =
-  //   useGetAllUserFavoritesIdsQuery();
-
   const itemTemplates = templatesFn();
-  //isItemsLoading || isFavoritesLoading || !itemsData
+
   if (isItemsLoading || !itemsData) {
     return (
       <div

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IItem } from "../redux_types";
+import { IItem } from "../../types/index";
 
 export const favoritesAPI = createApi({
   reducerPath: "favoritesAPI",

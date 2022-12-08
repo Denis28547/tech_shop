@@ -6,7 +6,6 @@ import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
 import { Item, Category } from "../../../models";
-import { IItem } from "../../../models/models_type";
 
 export const config = {
   api: {
@@ -39,6 +38,7 @@ export default async function handler(
   const { method } = req;
 
   switch (method) {
+    //get all items
     case "GET":
       let { limit } = req.query;
       const limitNumber = Number(limit);
@@ -52,6 +52,7 @@ export default async function handler(
       }
       break;
 
+    //post one item
     case "POST":
       try {
         const response = await new Promise((resolve, reject) => {
@@ -117,7 +118,7 @@ export default async function handler(
 
             if (!categoryModel) reject("something unexpected happened");
 
-            await Item.create<IItem>({
+            await Item.create({
               name,
               category,
               price,

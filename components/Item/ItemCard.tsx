@@ -2,7 +2,7 @@ import { MouseEvent, useState } from "react";
 
 import ItemStyle from "./ItemStyle";
 import ItemWideStyle from "./ItemWideStyle";
-import { IItem } from "../../store/redux_types";
+import { IItem, IItemWithCategory } from "../../types/index";
 
 import {
   useAddFavoriteMutation,
@@ -10,7 +10,7 @@ import {
 } from "../../store/services/FavoritesService";
 
 interface IItemCard {
-  item: IItem;
+  item: IItem | IItemWithCategory;
   isWide?: boolean;
   isFavoriteData: boolean;
 }
@@ -43,8 +43,7 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
       {isWide ? (
         <ItemWideStyle
           item_image={item_image}
-          item={item}
-          category={item.category.name}
+          item={item as IItemWithCategory}
           fullDate={fullDate}
           isFavorite={isFavorite}
           changeFavorite={changeFavorite}

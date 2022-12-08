@@ -8,7 +8,7 @@ export const templatesFn = () => {
   return itemTemplates;
 };
 
-const ItemSkeleton = () => {
+const ItemSkeletonWide = () => {
   return (
     <div className={styles.item_wide}>
       <div className={styles.image_skeleton} />
@@ -21,4 +21,4 @@ const ItemSkeleton = () => {
   );
 };
 
-export default ItemSkeleton;
+export default ItemSkeletonWide;
