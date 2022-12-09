@@ -1,13 +1,19 @@
 import { MouseEvent, useState } from "react";
 
-import ItemStyle from "./ItemStyle";
-import ItemWideStyle from "./ItemWideStyle";
-import { IItem, IItemWithCategory } from "../../types/index";
-
 import {
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
 } from "../../store/services/FavoritesService";
+import { useAppDispatch } from "../../store/hooks";
+import {
+  // openPopup,
+  setSuccessText,
+  setFailedText,
+} from "../../store/reducers/PopupSlice";
+
+import ItemStyle from "./ItemStyle";
+import ItemWideStyle from "./ItemWideStyle";
+import { IItem, IItemWithCategory } from "../../types/index";
 
 interface IItemCard {
   item: IItem | IItemWithCategory;
@@ -16,6 +22,8 @@ interface IItemCard {
 }
 
 const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
+  const dispatch = useAppDispatch();
+
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
   const item_image = `/Content/${item.images[0]}`;
   const date = new Date(item.createdAt);
@@ -29,12 +37,29 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
 
   const changeFavorite = (e: MouseEvent) => {
     e.stopPropagation();
+
     if (isFavorite) {
-      removeFavorite(item.id);
       setIsFavorite(false);
+      removeFavorite(item.id)
+        .unwrap()
+        .then(() => {
+          dispatch(setSuccessText("Item removed from favorites"));
+        })
+        .catch(() => {
+          dispatch(setFailedText("Something unexpected happened"));
+          setIsFavorite(true);
+        });
     } else {
-      addFavorite(item.id);
       setIsFavorite(true);
+      addFavorite(item.id)
+        .unwrap()
+        .then(() => {
+          dispatch(setSuccessText("Item added to favorites"));
+        })
+        .catch((error) => {
+          dispatch(setFailedText(error.data.message));
+          setIsFavorite(true);
+        });
     }
   };
 

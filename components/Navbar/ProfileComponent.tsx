@@ -44,7 +44,7 @@ const ProfileComponent = () => {
         <>
           <div className={styles.auth_container}>
             <>
-              <Link href="profile">
+              <Link href="/profile" replace={true}>
                 <a
                   className={styles.profile_container}
                   onClick={() => setAuthContainer(false)}

@@ -7,14 +7,15 @@ const OAthError: NextPage = () => {
 
   useEffect(() => {
     if (!router.isReady || !router.query) return;
+
     if (router.query.error && router.query.error === "OAuthAccountNotLinked") {
-      alert(
-        "You already used this email to sign up, please, sign in with it again"
+      router.push(
+        `/redirect?text=${"You already used this email to sign up, please, sign in with it again"}&success=${false}`
       );
-      router.push("/");
     } else {
-      alert("Something unexpected happened");
-      router.push("/");
+      router.push(
+        `/redirect?text=${"Something unexpected happened"}&success=${false}`
+      );
     }
   }, [router.isReady]);
   return null;

@@ -36,6 +36,7 @@ $background-transition: background-color 0.2s;
     .logo_name,
     .icon_text,
     .change_theme_container,
+    .icon_container,
     .find_icon_container {
       display: none;
     }
@@ -95,6 +96,11 @@ $background-transition: background-color 0.2s;
   max-width: 1200px;
   height: 44px;
 
+  .search_field {
+    color: $third-color;
+    font-size: 1.1rem;
+  }
+
   .find_icon_container {
     height: 100%;
     padding-left: 6px;
@@ -103,6 +109,7 @@ $background-transition: background-color 0.2s;
 
   .find_icon {
     color: $third-color;
+    stroke: $third-color;
     width: 30px;
     height: 100%;
   }
@@ -132,7 +139,8 @@ $background-transition: background-color 0.2s;
 .icon {
   width: 36px;
   height: 36px;
-  color: $text-color;
+  color: $small-things-color;
+  stroke: $text-color;
   cursor: pointer;
 }
 
@@ -183,12 +191,12 @@ $background-transition: background-color 0.2s;
   width: 26px;
   height: 26px;
   transition: all 0.2s ease-in-out;
-  transform: translateX(-100%);
+  transform: translateX(-120%);
 }
 
 .change_theme_container[data-theme="dark"] {
   .day_icon {
-    transform: translateX(100%);
+    transform: translateX(120%);
   }
 
   .night_icon {

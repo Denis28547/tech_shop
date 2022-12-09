@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import LogoIcon from "../../public/assets/navbarIcons/Logo_WhiteIcon";
 import SearchIcon from "../../public/assets/navbarIcons/SearchIcon";
 import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
-import CartIcon from "../../public/assets/navbarIcons/CartIcon";
+import HeartIcon from "../../public/assets/HeartIcon";
 import NightIcon from "../../public/assets/navbarIcons/NightIcon";
 import DayIcon from "../../public/assets/navbarIcons/DayIcon";
 
@@ -58,7 +58,7 @@ const Navbar = ({ disabled }: INavbar) => {
         <div className={styles.find_icon_container}>
           <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
         </div>
-        <input placeholder="Search" />
+        <input placeholder="Search" className={styles.search_field} />
         <button>FIND</button>
       </div>
 
@@ -77,14 +77,18 @@ const Navbar = ({ disabled }: INavbar) => {
           </div>
         </div>
 
+        <Link href="/profile/favorites">
+          <a className={styles.icon_container}>
+            <HeartIcon className={styles.icon} style={{ strokeWidth: "2" }} />
+          </a>
+        </Link>
+
         <Link href="/sellItem">
           <a className={styles.icon_text}>
             <ShopIcon className={styles.icon} />
             <p>Sell</p>
           </a>
         </Link>
-
-        {/* <CartIcon className={styles.icon} /> */}
 
         <ProfileComponent />
 

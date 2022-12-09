@@ -6,19 +6,21 @@ import {
   useRemoveAllFavoritesMutation,
 } from "../../store/services/FavoritesService";
 
+import { useAppSelector } from "../../store/hooks";
+
 import ItemCard from "../../components/Item/ItemCard";
 import TopBlock from "../../components/Favorites/TopBlock";
 import ListLookBlock from "../../components/Favorites/ListLookBlock";
 
 import ItemSkeleton, { templatesFn } from "../../components/Item/ItemSkeleton";
 import ItemSkeletonWide from "../../components/Item/ItemSkeletonWide";
-
 import EmptyList from "../../public/assets/favoritePageIcons/EmptyListIcon";
 
 import styles from "../../styles/item/Favorites.module.scss";
 import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 
 const Favorites: NextPage = () => {
+  const { isMobile } = useAppSelector((state) => state.mobile);
   const [isItemWide, setIsItemWide] = useState(true);
   const [disableWideItemOption, setDisableWideItemOption] = useState(false);
   const [removeAllFavorite, { isLoading: areItemsDeleting }] =
@@ -29,16 +31,15 @@ const Favorites: NextPage = () => {
   const itemTemplates = templatesFn();
 
   useEffect(() => {
-    if (!data || !window) return;
-    if (data.length < 4 && window.innerWidth >= 650) {
-      setDisableWideItemOption(true);
-      setIsItemWide(true);
-      return;
-    }
-    if (window.innerWidth <= 650) {
+    if (isMobile) {
       setDisableWideItemOption(true);
       setIsItemWide(false);
       return;
+    }
+    if (!data) return;
+    if (data.length < 4 && !isMobile) {
+      setDisableWideItemOption(true);
+      setIsItemWide(true);
     } else {
       setDisableWideItemOption(false);
     }

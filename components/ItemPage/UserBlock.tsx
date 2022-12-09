@@ -1,5 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/router";
+
+import { useAppDispatch } from "../../store/hooks";
+import { setSuccessText } from "../../store/reducers/PopupSlice";
 
 import { IUser } from "../../types/index";
 import Link from "next/link";
@@ -37,6 +41,8 @@ const countRating = (rating: number) => {
 };
 
 const UserBlock = ({ user, phone_number, location }: IUserBlock) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const [isNumberShown, setIsNumberShown] = useState(false);
   const rating = 4;
 
@@ -50,7 +56,7 @@ const UserBlock = ({ user, phone_number, location }: IUserBlock) => {
   return (
     <div className={styles.user_block}>
       <b>SELLER</b>
-      <Link href="profile">
+      <Link href={"/profile"} replace={true}>
         <a>
           <div className={styles.user_container}>
             {user.image ? (
@@ -113,7 +119,7 @@ const UserBlock = ({ user, phone_number, location }: IUserBlock) => {
               setIsNumberShown(true);
               if (isNumberShown) {
                 navigator.clipboard.writeText(phone_number);
-                alert("number copied to clipboard");
+                dispatch(setSuccessText("Number copied to clipboard"));
               }
             }}
           />
@@ -126,6 +132,7 @@ const UserBlock = ({ user, phone_number, location }: IUserBlock) => {
           height={50}
           fontSize="1rem"
           fontWeight={600}
+          onClick={() => router.push("/profile")}
         />
       </div>
     </div>
