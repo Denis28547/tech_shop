@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { NextPage } from "next/types";
 
 import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
 import {
@@ -12,10 +13,9 @@ import UserBlock from "../../components/ItemPage/UserBlock";
 import UserItemsBlock from "../../components/ItemPage/UserItemsBlock";
 
 import styles from "../../styles/itemPage/itemPage.module.scss";
-import skeletonStyles from "../../styles/itemPage/SkeletonItemPage.module.scss";
 import ItemPageSkeleton from "../../components/ItemPage/ItemPageSkeleton";
 
-const ItemPage = () => {
+const ItemPage: NextPage = () => {
   const router = useRouter();
   const item_id = router.query.item_id;
 
@@ -66,11 +66,7 @@ const ItemPage = () => {
       </div>
       {itemsData && itemsData.length > 0 && (
         <div className={styles.user_items_block}>
-          <UserItemsBlock
-            isItemsLoading={false}
-            itemsData={itemsData}
-            favoritesData={favoritesData}
-          />
+          <UserItemsBlock itemsData={itemsData} favoritesData={favoritesData} />
         </div>
       )}
     </div>

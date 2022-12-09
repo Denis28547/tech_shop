@@ -1,16 +1,17 @@
 import Link from "next/link";
+import { NextPage } from "next/types";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-
-import styles from "../../styles/smallPages/redirect.module.scss";
 
 import TickIcon from "../../public/assets/redirect/TickIcon";
 import CrossIcon from "../../public/assets/redirect/CrossIcon";
 
-const Redirect = () => {
+import styles from "../../styles/smallPages/redirect.module.scss";
+
+const Redirect: NextPage = () => {
   const [mainText, setMainText] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [redirectSeconds, setRedirectSeconds] = useState(5);
+  const [redirectSeconds, setRedirectSeconds] = useState(10);
 
   const router = useRouter();
 

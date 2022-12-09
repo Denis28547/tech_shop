@@ -15,8 +15,7 @@ export default async function handler(
       try {
         const session = await unstable_getServerSession(req, res, authOptions);
 
-        if (!session)
-          return res.status(400).json({ message: "you are not logged in" });
+        if (!session) return res.status(200).json([]);
 
         const user = await User.findByPk(session?.user?.id);
 

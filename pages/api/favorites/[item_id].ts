@@ -21,7 +21,9 @@ export default async function handler(
         const session = await unstable_getServerSession(req, res, authOptions);
 
         if (!session)
-          return res.status(400).json({ message: "you are not logged in" });
+          return res
+            .status(400)
+            .json({ message: "please log in to add to favorites" });
 
         const user = await User.findByPk(session?.user?.id);
         const item = await Item.findByPk(item_id);
@@ -50,7 +52,9 @@ export default async function handler(
         const session = await unstable_getServerSession(req, res, authOptions);
 
         if (!session)
-          return res.status(400).json({ message: "you are not logged in" });
+          return res
+            .status(400)
+            .json({ message: "please log in to remove from favorites" });
 
         const user = await User.findByPk(session?.user?.id);
         const item = await Item.findByPk(item_id);

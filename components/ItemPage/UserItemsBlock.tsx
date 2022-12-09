@@ -6,28 +6,24 @@ import { IItem, IItemWithCategory } from "../../types/index";
 import styles from "../../styles/itemPage/UserItemsBlock.module.scss";
 
 interface IUserItemsBlock {
-  isItemsLoading: boolean;
   itemsData: IItem[] | IItemWithCategory[] | [];
   favoritesData: string[];
 }
 
-const UserItemsBlock = ({
-  isItemsLoading,
-  itemsData,
-  favoritesData,
-}: IUserItemsBlock) => {
+const UserItemsBlock = ({ itemsData, favoritesData }: IUserItemsBlock) => {
   return (
     <>
       <div className={styles.user_items_top_flex}>
         <h2>Other items from this user</h2>
-        <Link href="/profile">
+        <Link href={"/profile"} replace={true}>
           <a>all items</a>
         </Link>
       </div>
 
       <ItemsGridCard
-        isItemsLoading={isItemsLoading}
+        isItemsLoading={false}
         itemsData={itemsData}
+        isFavoritesLoading={false}
         favoritesData={favoritesData}
         gridLayout="overflow"
       />

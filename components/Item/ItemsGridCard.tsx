@@ -7,7 +7,7 @@ import styles from "../../styles/item/ItemWrapper.module.scss";
 interface IItemsGridCard {
   isItemsLoading: boolean;
   itemsData: IItem[] | IItemWithCategory[] | [] | undefined;
-
+  isFavoritesLoading: boolean;
   favoritesData: string[] | undefined;
   gridLayout?: "overflow" | "normal";
 }
@@ -15,13 +15,13 @@ interface IItemsGridCard {
 const ItemsGridCard = ({
   isItemsLoading,
   itemsData,
-
+  isFavoritesLoading,
   favoritesData,
   gridLayout = "normal",
 }: IItemsGridCard) => {
   const itemTemplates = templatesFn();
 
-  if (isItemsLoading || !itemsData) {
+  if (isFavoritesLoading || isItemsLoading || !itemsData) {
     return (
       <div
         className={`${
