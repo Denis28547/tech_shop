@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import LogoIcon from "../../public/assets/navbarIcons/Logo_WhiteIcon";
 import SearchIcon from "../../public/assets/navbarIcons/SearchIcon";
@@ -16,6 +17,7 @@ interface INavbar {
 }
 
 const Navbar = ({ disabled }: INavbar) => {
+  const router = useRouter();
   const [theme, setTheme] = useState("light");
 
   const nextTheme = theme === "light" ? "dark" : "light";
@@ -34,6 +36,15 @@ const Navbar = ({ disabled }: INavbar) => {
     }
   }, [theme]);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      searchInput: { value: string };
+    };
+
+    router.push(`/search/${target.searchInput.value}`);
+  };
+
   return (
     <nav
       className={styles.navbar}
@@ -46,21 +57,19 @@ const Navbar = ({ disabled }: INavbar) => {
             <p className={styles.logo_name}>TechShop</p>
           </a>
         </Link>
-        {/* <Link href="/sell">
-          <div className={styles.icon_text}>
-            <ShopIcon className={styles.icon} />
-            <p>Sell</p>
-          </div>
-        </Link> */}
       </div>
-
-      <div className={styles.middle_container}>
+      <form className={styles.middle_container} onSubmit={handleSubmit}>
         <div className={styles.find_icon_container}>
           <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
         </div>
-        <input placeholder="Search" className={styles.search_field} />
+        <input
+          placeholder="Search"
+          className={styles.search_field}
+          name="searchInput"
+          autoComplete="off"
+        />
         <button>FIND</button>
-      </div>
+      </form>
 
       <div className={styles.right_container}>
         <div

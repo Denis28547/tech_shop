@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 
 import { useAppDispatch } from "../../store/hooks";
-import { openPopup } from "../../store/reducers/PopupSlice";
+import { setFailedText } from "../../store/reducers/PopupSlice";
 
 const Profile: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +9,9 @@ const Profile: NextPage = () => {
   return (
     <div>
       Profile
-      <button onClick={() => dispatch(openPopup())}>AAAAAAAAAAAAAAAA</button>
+      <button onClick={() => dispatch(setFailedText("sss"))}>
+        AAAAAAAAAAAAAAAA
+      </button>
     </div>
   );
 };
