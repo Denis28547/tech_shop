@@ -23,7 +23,6 @@ interface IItemCard {
 
 const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
   const dispatch = useAppDispatch();
-
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
   const item_image = `/Content/${item.images[0]}`;
   const date = new Date(item.createdAt);
@@ -39,26 +38,26 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
     e.stopPropagation();
 
     if (isFavorite) {
-      setIsFavorite(false);
       removeFavorite(item.id)
         .unwrap()
         .then(() => {
           dispatch(setSuccessText("Item removed from favorites"));
+          setIsFavorite(false);
         })
         .catch(() => {
           dispatch(setFailedText("Something unexpected happened"));
           setIsFavorite(true);
         });
     } else {
-      setIsFavorite(true);
       addFavorite(item.id)
         .unwrap()
         .then(() => {
           dispatch(setSuccessText("Item added to favorites"));
+          setIsFavorite(true);
         })
         .catch((error) => {
           dispatch(setFailedText(error.data.message));
-          setIsFavorite(true);
+          setIsFavorite(false);
         });
     }
   };

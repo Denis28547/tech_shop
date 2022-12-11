@@ -52,7 +52,11 @@ const Redirect: NextPage = () => {
           You will be automatically redirected to main page in {redirectSeconds}{" "}
           seconds
         </p>
-        {isSuccess ? <TickIcon /> : <CrossIcon />}
+        {isSuccess ? (
+          <TickIcon className={styles.icon} />
+        ) : (
+          <CrossIcon className={styles.icon} />
+        )}
         <Link href="/">
           <a className={styles.link_text}>To main page</a>
         </Link>

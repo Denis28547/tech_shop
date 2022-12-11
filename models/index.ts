@@ -162,7 +162,7 @@ export const Item = sequelize.define<IItemModel>(
       allowNull: false,
     },
     price: {
-      type: DataTypes.STRING(7),
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     images: {

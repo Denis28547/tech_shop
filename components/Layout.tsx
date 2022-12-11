@@ -21,6 +21,7 @@ const Layout = ({ children }: { children: ReactElement }) => {
 
   useEffect(() => {
     if (window.innerWidth <= 650) {
+      console.log(window.innerWidth);
       dispatch(setIsMobile(true));
     }
   }, []);

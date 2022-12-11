@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { Op } from "sequelize";
 
-import { Item } from "../../../models";
+import { Category, Item } from "../../../models";
 
 interface IReq {
   query: {
@@ -29,16 +30,26 @@ export default async function handler(
   const { method } = req;
 
   switch (method) {
+    //finds all items with search params, category is an id
     case "GET":
       try {
-        const queryArr = removeEmptyQuery(req.query);
-        const { searchText, category, priceFrom, priceTo } = queryArr;
+        const {
+          searchText,
+          category,
+          priceFrom = "0",
+          priceTo = "9999999",
+        } = req.query;
 
-        const searchedItems = await Item.findAll({
-          // where: { name: searchText, price:  },
+        const whereStatement: any = {
+          price: { [Op.between]: [priceFrom, priceTo] },
+        };
+        if (searchText)
+          whereStatement.name = { [Op.iLike]: "%" + searchText + "%" };
+        if (category) whereStatement.category_id = category;
+
+        const searchedItems = await Item.findAndCountAll({
+          where: whereStatement,
         });
-        console.log(searchedItems);
-        // const searchedItems = await Item.findAndCountAll({});
 
         res.status(200).json(searchedItems);
       } catch (error: any) {
@@ -50,6 +61,6 @@ export default async function handler(
     default:
       res
         .status(500)
-        .json({ message: "SERVER DOES NOT  HANDLE THIS HTTP REQUEST" });
+        .json({ message: "SERVER DOES NOT HANDLE THIS HTTP REQUEST" });
   }
 }

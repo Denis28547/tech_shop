@@ -41,7 +41,6 @@ const Navbar = ({ disabled }: INavbar) => {
     const target = e.target as typeof e.target & {
       searchInput: { value: string };
     };
-
     router.push(`/search/${target.searchInput.value}`);
   };
 
