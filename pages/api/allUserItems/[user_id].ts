@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { User } from "../../../models";
-import { IItem } from "../../../types/index";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +10,7 @@ export default async function handler(
 
   type ReqType = {
     user_id: string;
-    limit?: string;
+    limit: string;
     excludeItemId?: string;
   };
 
@@ -25,10 +24,8 @@ export default async function handler(
 
         if (!user) return res.status(500).json({ message: "no user" });
 
-        const limitToUse = typeof limit === "string" ? parseInt(limit) : limit;
-
         const itemsData = await user.getItems({
-          limit: limitToUse,
+          limit: parseInt(limit),
         });
 
         if (!itemsData)

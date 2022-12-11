@@ -29,8 +29,9 @@ export const itemAPI = createApi({
       IItem[] | [],
       { user_id?: string; limit?: number; excludeItemId?: string }
     >({
-      query: ({ user_id, limit, excludeItemId }) => ({
-        url: `/api/allUserItems/${user_id}?limit=${limit}&excludeItemId=${excludeItemId}`,
+      query: ({ user_id, limit = 8, excludeItemId }) => ({
+        url: `/api/allUserItems/${user_id}`,
+        params: { user_id, limit, excludeItemId },
       }),
       providesTags: ["Items"],
     }),

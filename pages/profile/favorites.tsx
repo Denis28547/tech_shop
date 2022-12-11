@@ -98,11 +98,11 @@ const Favorites: NextPage = () => {
             />
           )}
           <div
-            className={`${
+            className={
               isItemWide
                 ? wrapperStyle.item_wrapper_wide
                 : wrapperStyle.item_wrapper_grid
-            }`}
+            }
           >
             {data.map((item) => {
               return (

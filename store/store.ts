@@ -16,18 +16,18 @@ import { searchAPI } from "./services/SearchService";
 //     [searchAPI.reducerPath]: searchAPI.reducer,
 //   },
 
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat([
-//       itemAPI.middleware,
-//       favoritesAPI.middleware,
-//       searchAPI.middleware,
-//     ]),
+// middleware: (getDefaultMiddleware) =>
+//   getDefaultMiddleware().concat([
+//     itemAPI.middleware,
+//     favoritesAPI.middleware,
+//     searchAPI.middleware,
+//   ]),
 // });
 
 // export type RootState = ReturnType<typeof store.getState>;
 // export type AppDispatch = typeof store.dispatch;
 
-export const makeStore = () =>
+const makeStore = () =>
   configureStore({
     reducer: {
       popup: popupReducer,
@@ -36,8 +36,8 @@ export const makeStore = () =>
       [favoritesAPI.reducerPath]: favoritesAPI.reducer,
       [searchAPI.reducerPath]: searchAPI.reducer,
     },
-    middleware: (gDM) =>
-      gDM().concat([
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat([
         itemAPI.middleware,
         favoritesAPI.middleware,
         searchAPI.middleware,
@@ -49,3 +49,4 @@ export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
 
 export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
+export const store = makeStore();
