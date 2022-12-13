@@ -23,7 +23,7 @@ const BottomPopUp = () => {
   }, [isOpen]);
 
   return (
-    <div className={`${styles.popup} ${isOpen && styles.open}`}>
+    <div className={`${styles.popup} ${isOpen ? styles.open : ""}`}>
       {isSuccess ? (
         <TickIcon className={styles.icon} />
       ) : (

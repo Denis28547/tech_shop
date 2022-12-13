@@ -81,10 +81,7 @@ $favorites-top-height: 144px;
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
-
-  // @media all and (max-width: 650px) {
-  //   display: none;
-  // }
+  margin: 16px 0;
 
   .icon_container {
     height: 34px;
