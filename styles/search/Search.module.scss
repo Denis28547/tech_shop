@@ -1,6 +1,18 @@
 .search_wrapper {
-  max-width: 1200px;
+  max-width: 1230px;
   width: 100%;
+
   margin: 0 auto;
   padding: 0 15px;
+
+  .count_header {
+    // line-height: 4rem;
+    font-size: 2rem;
+    display: inline-block;
+  }
+}
+
+.content_container {
+  display: flex;
+  gap: 16px;
 }

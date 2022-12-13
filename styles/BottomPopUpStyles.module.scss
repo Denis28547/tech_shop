@@ -4,7 +4,7 @@
   position: fixed;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 100%);
   border-radius: 6px;
   background-color: $clickable-color;
   color: $text-color;
@@ -34,7 +34,7 @@
 }
 
 .open {
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -50%);
   opacity: 100%;
 
   @media all and (max-width: 530px) {
