@@ -2,7 +2,8 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import { useGetSearchedItemsQuery } from "../../store/services/SearchService";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { clearAllFilters } from "../../store/reducers/SearchSlice";
 
 import { FilterBlock } from "../../components/Search/FilterBlock";
 import ItemCard from "../../components/Item/ItemCard";
@@ -22,8 +23,16 @@ interface IQuery {
 
 const Search: NextPage<IQuery> = ({ query }) => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const {
+    currencyFrom,
+    currencyTo,
+    category: categoryState,
+    queryArr,
+  } = useAppSelector((state) => state.search);
   const { isMobile } = useAppSelector((state) => state.mobile);
   const { searchText, category, priceFrom, priceTo } = query;
+  // console.log(queryArr);
 
   const {
     isLoading: isItemsLoading,
@@ -40,32 +49,18 @@ const Search: NextPage<IQuery> = ({ query }) => {
   const applyFilters = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const target = e.target as typeof e.target & {
-      currencyFrom: { value: string };
-      currencyTo: { value: string };
-    };
-
-    let routerUrl = "/search";
-
-    if (searchText) {
-      routerUrl += `/${searchText}?`;
-    } else {
-      routerUrl += `?`;
-    }
-
-    if (target.currencyFrom.value && target.currencyFrom.value !== "0") {
-      routerUrl += `&priceFrom=${target.currencyFrom.value}`;
-    }
-
-    if (target.currencyTo.value && target.currencyTo.value !== "0") {
-      routerUrl += `&priceTo=${target.currencyTo.value}`;
-    }
-
-    router.push(routerUrl);
+    let newRouterUrl = "/search";
+    if (searchText) newRouterUrl += `/${searchText}?`;
+    else newRouterUrl += "?";
+    if (currencyFrom) newRouterUrl += `&priceFrom=${currencyFrom}`;
+    if (currencyTo) newRouterUrl += `&priceTo=${currencyTo}`;
+    if (categoryState.id) newRouterUrl += `&category=${categoryState.id}`;
+    router.push(newRouterUrl);
   };
 
   const clearFilters = () => {
     if (searchText) {
+      dispatch(clearAllFilters());
       router.push(`/search/${searchText}`);
       return;
     }
@@ -86,6 +81,13 @@ const Search: NextPage<IQuery> = ({ query }) => {
         <h2 className={styles.count_header}>
           We found {itemsData.count} items
         </h2>
+        <div>
+          {Object.keys(queryArr).map((key, index) => {
+            return (
+              queryArr[key] && <p key={index}>{`${key}: ${queryArr[key]}`}</p>
+            );
+          })}
+        </div>
 
         <CustomButton
           fontSize="1rem"
