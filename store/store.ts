@@ -3,6 +3,7 @@ import { createWrapper } from "next-redux-wrapper";
 
 import popupReducer from "./reducers/PopupSlice";
 import mobileReducer from "./reducers/MobileSlice";
+import searchReducer from "./reducers/SearchSlice";
 import { itemAPI } from "./services/ItemService";
 import { favoritesAPI } from "./services/FavoritesService";
 import { searchAPI } from "./services/SearchService";
@@ -32,6 +33,7 @@ const makeStore = () =>
     reducer: {
       popup: popupReducer,
       mobile: mobileReducer,
+      search: searchReducer,
       [itemAPI.reducerPath]: itemAPI.reducer,
       [favoritesAPI.reducerPath]: favoritesAPI.reducer,
       [searchAPI.reducerPath]: searchAPI.reducer,
