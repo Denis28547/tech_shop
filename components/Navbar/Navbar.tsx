@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+import { useAppDispatch } from "../../store/hooks";
+import { clearAllFilters } from "../../store/reducers/SearchSlice";
 import LogoIcon from "../../public/assets/navbarIcons/Logo_WhiteIcon";
 import SearchIcon from "../../public/assets/navbarIcons/SearchIcon";
 import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
@@ -17,6 +19,7 @@ interface INavbar {
 }
 
 const Navbar = ({ disabled }: INavbar) => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [theme, setTheme] = useState("light");
 
@@ -41,6 +44,7 @@ const Navbar = ({ disabled }: INavbar) => {
     const target = e.target as typeof e.target & {
       searchInput: { value: string };
     };
+    dispatch(clearAllFilters());
     router.push(`/search/${target.searchInput.value}`);
   };
 

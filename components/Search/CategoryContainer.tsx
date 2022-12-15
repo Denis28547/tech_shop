@@ -1,15 +1,11 @@
-import { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateCategoryId } from "../../store/reducers/SearchSlice";
 
 import styles from "../../styles/search/FilterBlock.module.scss";
 
-const initialState = { id: "", name: "" };
-
 export const CategoryContainer = () => {
   const dispatch = useAppDispatch();
-  const { category } = useAppSelector((state) => state.search);
-  const [selected, setSelected] = useState(initialState);
+  const { category: categoryState } = useAppSelector((state) => state.search);
 
   const categories = [
     { id: "97832ad9-bc97-4c11-bca7-05fe34cd4e5f", name: "phone" },
@@ -17,32 +13,20 @@ export const CategoryContainer = () => {
     { id: "ad65d97c-1fd5-4c86-9e11-29df410355df", name: "cups" },
   ];
 
-  const handleChangeSelection = (category: typeof initialState) => {
-    setSelected(category);
-  };
-
-  useEffect(() => {
-    dispatch(updateCategoryId(selected));
-  }, [selected]);
-
-  useEffect(() => {
-    if (!category) setSelected(initialState);
-  }, [category]);
-
   return (
-    <div className={styles.categories_block}>
+    <div>
       <h3>Category</h3>
       {categories.map((category) => (
         <div className={styles.input_container} key={category.id}>
           <input
             id={category.name}
             name="category"
-            value={category.id}
+            value={category.name}
             type="radio"
-            onChange={() => handleChangeSelection(category)}
-            checked={category.id === selected.id ? true : false}
+            onChange={() => dispatch(updateCategoryId(category.name))}
+            checked={category.name === categoryState ? true : false}
             className={styles.radio_input}
-            data-active={category.id === selected.id ? true : false}
+            data-active={category.name === categoryState ? true : false}
           />
           <label htmlFor={category.name} className={styles.input_label}>
             {category.name}
