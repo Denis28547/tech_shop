@@ -57,31 +57,29 @@
   }
 }
 
-.categories_block {
-  .input_container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
+.input_container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 
-    .radio_input {
-      appearance: none;
-      background-color: $border-color;
-      font: inherit;
-      width: 18px;
-      height: 18px;
-      border: 2.5px solid $clickable-hover-color;
-      border-radius: 50%;
-      margin-right: 5px;
+  .radio_input {
+    appearance: none;
+    background-color: $border-color;
+    font: inherit;
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid $clickable-hover-color;
+    border-radius: 50%;
+    margin-right: 5px;
 
-      &[data-active="true"] {
-        background-color: $text-color;
-        border-width: 4px;
-      }
+    &[data-active="true"] {
+      background-color: $text-color;
+      border-width: 4px;
     }
-    .input_label {
-      &::first-letter {
-        text-transform: capitalize;
-      }
+  }
+  .input_label {
+    &::first-letter {
+      text-transform: capitalize;
     }
   }
 }

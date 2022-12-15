@@ -9,6 +9,7 @@ interface ICustomButton {
   height: number;
   width: string | number;
   margin?: string | number;
+  borderColor?: string;
   fontSize: string;
   fontWeight: number;
   onClick?: (e: any) => void;
@@ -21,6 +22,7 @@ const CustomButton = ({
   height,
   width,
   margin,
+  borderColor,
   fontSize,
   fontWeight,
   onClick,
@@ -36,6 +38,7 @@ const CustomButton = ({
         height,
         width,
         margin,
+        borderColor,
         fontSize,
         fontWeight,
       }}

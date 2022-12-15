@@ -35,7 +35,7 @@ export default async function handler(
       try {
         const {
           searchText,
-          category,
+          category, //here will be name of the category
           priceFrom = "0",
           priceTo = "9999999",
         } = req.query;
@@ -45,7 +45,14 @@ export default async function handler(
         };
         if (searchText)
           whereStatement.name = { [Op.iLike]: "%" + searchText + "%" };
-        if (category) whereStatement.category_id = category;
+        if (category) {
+          const categoryData = await Category.findOne({
+            //finding id of the category
+            where: { name: category },
+          });
+          if (!categoryData) return;
+          whereStatement.category_id = categoryData.id;
+        }
 
         const searchedItems = await Item.findAndCountAll({
           where: whereStatement,
