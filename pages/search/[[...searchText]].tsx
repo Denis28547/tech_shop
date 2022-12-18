@@ -1,21 +1,18 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
+import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
 import { useGetSearchedItemsQuery } from "../../store/services/SearchService";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  clearAllFilters,
-  clearOneFilter,
-} from "../../store/reducers/SearchSlice";
+import { useAppSelector } from "../../store/hooks";
 
+import ItemSkeletonCard from "../../components/Item/ItemSkeletonCard";
+import TopBlock from "../../components/Search/TopBlock";
 import { FilterBlock } from "../../components/Search/FilterBlock";
 import ItemCard from "../../components/Item/ItemCard";
-import CustomButton from "../../components/CustomButton";
 
 import styles from "../../styles/search/Search.module.scss";
 import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
-import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
 
 interface IQuery {
   query: {
@@ -23,112 +20,77 @@ interface IQuery {
   };
 }
 
+// isItemsLoading || !itemsData ||  isFavoritesLoading || !favoritesData ?
+
 const Search: NextPage<IQuery> = ({ query }) => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
+  const { searchText, category, from, to } = query;
+
   const {
-    currencyFrom,
-    currencyTo,
+    from: priceFromState,
+    to: priceToState,
     category: categoryState,
   } = useAppSelector((state) => state.search);
   const { isMobile } = useAppSelector((state) => state.mobile);
-  const { searchText, category, priceFrom, priceTo } = query;
 
   const {
-    isLoading: isItemsLoading,
+    isLoading: areItemsLoading,
     data: itemsData,
     error,
   } = useGetSearchedItemsQuery({
     searchText: searchText ? searchText : undefined,
     category: category ? category : undefined,
-    priceFrom: priceFrom ? priceFrom : undefined,
-    priceTo: priceTo ? priceTo : undefined,
+    priceFrom: from ? from : undefined,
+    priceTo: to ? to : undefined,
   });
 
-  const { isLoading: isFavoritesLoading, data: favoritesData } =
+  const { isLoading: areFavoritesLoading, data: favoritesData } =
     useGetAllUserFavoritesIdsQuery();
 
-  if (isItemsLoading || !itemsData || isFavoritesLoading || !favoritesData)
-    return <div>loading</div>;
-
-  const applyFilters = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  useEffect(() => {
     let newRouterUrl = "/search";
     if (searchText) newRouterUrl += `/${searchText}?`;
     else newRouterUrl += "?";
-    if (currencyFrom) newRouterUrl += `&priceFrom=${currencyFrom}`;
-    if (currencyTo) newRouterUrl += `&priceTo=${currencyTo}`;
+    if (priceFromState) newRouterUrl += `&priceFrom=${priceFromState}`;
+    if (priceToState) newRouterUrl += `&priceTo=${priceToState}`;
     if (categoryState) newRouterUrl += `&category=${categoryState}`;
     router.push(newRouterUrl);
-  };
+  }, [priceFromState, priceToState, categoryState]);
 
-  const clearFilters = () => {
-    if (searchText) {
-      dispatch(clearAllFilters());
-      router.push(`/search/${searchText}`);
-      return;
-    }
-    dispatch(clearAllFilters());
-    router.push("/search");
-  };
+  const isLoading =
+    areItemsLoading || !itemsData || areFavoritesLoading || !favoritesData;
 
-  const deleteOneFilter = (key: any) => {
-    console.log("ran");
-    let newRouterUrl = "/search";
-    if (searchText) newRouterUrl += `/${searchText}?`;
-    else newRouterUrl += "?";
-    if (currencyFrom) newRouterUrl += `&priceFrom=${currencyFrom}`;
-    if (currencyTo) newRouterUrl += `&priceTo=${currencyTo}`;
-    if (categoryState) newRouterUrl += `&category=${categoryState}`;
-    router.push(newRouterUrl);
-    dispatch(clearOneFilter(key));
-  };
+  if (isLoading) {
+    return (
+      <div className={styles.search_wrapper} style={{ marginTop: "20px" }}>
+        <div className={styles.content_container}>
+          <FilterBlock />
+          <div style={{ flexGrow: "1" }}>
+            <div
+              className={
+                isMobile
+                  ? wrapperStyle.item_wrapper_grid
+                  : wrapperStyle.item_wrapper_wide
+              }
+            >
+              <ItemSkeletonCard isMobile={isMobile} />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.search_wrapper}>
-      <div className={styles.top_box}>
-        <h2 className={styles.count_header}>
-          We found {itemsData.count} items
-        </h2>
-        <div className={styles.queries_container}>
-          {Object.keys(query).map((key, index) => {
-            return (
-              query[key] && (
-                <span
-                  key={index}
-                  className={styles.query}
-                  onClick={() => deleteOneFilter(key)}
-                >
-                  <p>{`${key}: ${query[key]}`}</p>
-                  <span> ✕</span>
-                </span>
-              )
-            );
-          })}
-        </div>
-
-        <div
-          style={{
-            marginLeft: "auto",
-          }}
-        >
-          <CustomButton
-            fontSize="1rem"
-            buttonType="outline"
-            fontWeight={600}
-            borderColor="#f43c3d"
-            width="200px"
-            loading={false}
-            text="Clear filters"
-            height={50}
-            onClick={clearFilters}
-          />
-        </div>
-      </div>
+      <TopBlock
+        item_count={itemsData ? itemsData.count : 0}
+        query={query}
+        searchText={searchText}
+      />
 
       <div className={styles.content_container}>
-        <FilterBlock handleSubmit={applyFilters} />
+        <FilterBlock />
 
         <div style={{ flexGrow: "1" }}>
           <div
@@ -168,8 +130,8 @@ export async function getServerSideProps(context: any) {
       query: {
         searchText: searchText ? searchText[0] : null,
         category: category || null,
-        priceFrom: priceFrom || null,
-        priceTo: priceTo || null,
+        from: priceFrom || null,
+        to: priceTo || null,
       },
     },
   };

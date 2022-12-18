@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface MobileState {
+interface IMobileState {
   isMobile: boolean;
 }
 
-const initialState: MobileState = {
+const initialState: IMobileState = {
   isMobile: false,
 };
 

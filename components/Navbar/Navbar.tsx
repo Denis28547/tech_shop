@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+import ProfileComponent from "./ProfileComponent";
 import { useAppDispatch } from "../../store/hooks";
 import { clearAllFilters } from "../../store/reducers/SearchSlice";
 import LogoIcon from "../../public/assets/navbarIcons/Logo_WhiteIcon";
@@ -10,9 +11,9 @@ import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
 import HeartIcon from "../../public/assets/HeartIcon";
 import NightIcon from "../../public/assets/navbarIcons/NightIcon";
 import DayIcon from "../../public/assets/navbarIcons/DayIcon";
+import { SearchField } from "./SearchField";
 
 import styles from "../../styles/navbar/Navbar.module.scss";
-import ProfileComponent from "./ProfileComponent";
 
 interface INavbar {
   disabled: boolean;
@@ -39,14 +40,16 @@ const Navbar = ({ disabled }: INavbar) => {
     }
   }, [theme]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const target = e.target as typeof e.target & {
-      searchInput: { value: string };
-    };
-    dispatch(clearAllFilters());
-    router.push(`/search/${target.searchInput.value}`);
-  };
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const target = e.target as typeof e.target & {
+  //     searchInput: { value: string };
+  //   };
+  //   dispatch(clearAllFilters());
+  //   console.log(target.searchInput.value);
+  //   router.push(`/search/${target.searchInput.value}`);
+  // };
+  console.log("render");
 
   return (
     <nav
@@ -61,7 +64,7 @@ const Navbar = ({ disabled }: INavbar) => {
           </a>
         </Link>
       </div>
-      <form className={styles.middle_container} onSubmit={handleSubmit}>
+      {/* <form className={styles.middle_container} onSubmit={handleSubmit}>
         <div className={styles.find_icon_container}>
           <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
         </div>
@@ -72,7 +75,8 @@ const Navbar = ({ disabled }: INavbar) => {
           autoComplete="off"
         />
         <button>FIND</button>
-      </form>
+      </form> */}
+      <SearchField />
 
       <div className={styles.right_container}>
         <div

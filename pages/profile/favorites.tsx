@@ -5,15 +5,12 @@ import {
   useGetAllFavoritesQuery,
   useRemoveAllFavoritesMutation,
 } from "../../store/services/FavoritesService";
-
 import { useAppSelector } from "../../store/hooks";
 
 import ItemCard from "../../components/Item/ItemCard";
 import TopBlock from "../../components/Favorites/TopBlock";
+import ItemSkeletonCard from "../../components/Item/ItemSkeletonCard";
 import ListLookBlock from "../../components/Favorites/ListLookBlock";
-
-import ItemSkeleton, { templatesFn } from "../../components/Item/ItemSkeleton";
-import ItemSkeletonWide from "../../components/Item/ItemSkeletonWide";
 import EmptyList from "../../public/assets/favoritePageIcons/EmptyListIcon";
 
 import styles from "../../styles/item/Favorites.module.scss";
@@ -23,12 +20,11 @@ const Favorites: NextPage = () => {
   const { isMobile } = useAppSelector((state) => state.mobile);
   const [isItemWide, setIsItemWide] = useState(true);
   const [disableWideItemOption, setDisableWideItemOption] = useState(false);
+
   const [removeAllFavorite, { isLoading: areItemsDeleting }] =
     useRemoveAllFavoritesMutation();
 
-  const { isLoading, data } = useGetAllFavoritesQuery();
-
-  const itemTemplates = templatesFn();
+  const { isLoading: areItemsLoading, data } = useGetAllFavoritesQuery();
 
   useEffect(() => {
     if (isMobile) {
@@ -45,7 +41,9 @@ const Favorites: NextPage = () => {
     }
   }, [data]);
 
-  if (isLoading || !data) {
+  const isLoading = areItemsLoading || !data;
+
+  if (isLoading) {
     return (
       <div className={styles.favorites_wrapper}>
         <div className={styles.favorites_top_block} />
@@ -55,19 +53,16 @@ const Favorites: NextPage = () => {
           isDataEmpty={true}
           removeAllFavorite={removeAllFavorite}
         />
-        {isItemWide ? (
-          <div className={wrapperStyle.item_wrapper_wide}>
-            {itemTemplates.map((_, index) => (
-              <ItemSkeletonWide key={index} />
-            ))}
-          </div>
-        ) : (
-          <div className={wrapperStyle.item_wrapper_grid}>
-            {itemTemplates.map((_, index) => (
-              <ItemSkeleton key={index} />
-            ))}
-          </div>
-        )}
+
+        <div
+          className={
+            isMobile
+              ? wrapperStyle.item_wrapper_grid
+              : wrapperStyle.item_wrapper_wide
+          }
+        >
+          <ItemSkeletonCard isMobile={isMobile} />
+        </div>
       </div>
     );
   }
