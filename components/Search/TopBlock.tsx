@@ -41,7 +41,6 @@ const TopBlock = ({ item_count, query, searchText }: ITopBlock) => {
       </h2>
       <div className={styles.queries_container}>
         {Object.keys(query).map((key, index) => {
-          if (key === "searchText") return;
           return (
             query[key] && (
               <span
