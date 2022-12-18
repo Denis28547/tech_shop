@@ -24,9 +24,10 @@ interface IQuery {
 
 const Search: NextPage<IQuery> = ({ query }) => {
   const router = useRouter();
-  const { searchText, category, from, to } = query;
+  const { search, category, from, to } = query;
 
   const {
+    search: searchState,
     from: priceFromState,
     to: priceToState,
     category: categoryState,
@@ -38,7 +39,7 @@ const Search: NextPage<IQuery> = ({ query }) => {
     data: itemsData,
     error,
   } = useGetSearchedItemsQuery({
-    searchText: searchText ? searchText : undefined,
+    searchText: search ? search : undefined,
     category: category ? category : undefined,
     priceFrom: from ? from : undefined,
     priceTo: to ? to : undefined,
@@ -49,13 +50,13 @@ const Search: NextPage<IQuery> = ({ query }) => {
 
   useEffect(() => {
     let newRouterUrl = "/search";
-    if (searchText) newRouterUrl += `/${searchText}?`;
+    if (searchState) newRouterUrl += `/${searchState}?`;
     else newRouterUrl += "?";
     if (priceFromState) newRouterUrl += `&priceFrom=${priceFromState}`;
     if (priceToState) newRouterUrl += `&priceTo=${priceToState}`;
     if (categoryState) newRouterUrl += `&category=${categoryState}`;
     router.push(newRouterUrl);
-  }, [priceFromState, priceToState, categoryState]);
+  }, [searchState, priceFromState, priceToState, categoryState]);
 
   const isLoading =
     areItemsLoading || !itemsData || areFavoritesLoading || !favoritesData;
@@ -86,7 +87,7 @@ const Search: NextPage<IQuery> = ({ query }) => {
       <TopBlock
         item_count={itemsData ? itemsData.count : 0}
         query={query}
-        searchText={searchText}
+        searchText={search}
       />
 
       <div className={styles.content_container}>
@@ -123,12 +124,12 @@ const Search: NextPage<IQuery> = ({ query }) => {
 };
 
 export async function getServerSideProps(context: any) {
-  const { searchText, category, priceFrom, priceTo } = context.query;
+  const { search, category, priceFrom, priceTo } = context.query;
 
   return {
     props: {
       query: {
-        searchText: searchText ? searchText[0] : null,
+        search: search ? search[0] : null,
         category: category || null,
         from: priceFrom || null,
         to: priceTo || null,

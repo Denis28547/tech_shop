@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ISearchState {
+  search: string;
   from: string;
   to: string;
   category: string;
 }
 
 const initialState: ISearchState = {
+  search: "",
   from: "",
   to: "",
   category: "",
@@ -16,6 +18,15 @@ export const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
+    updateSearchAndClearFiltersState: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.from = "";
+      state.to = "";
+      state.category = "";
+      state.search = action.payload;
+    },
     updatePricesState: (
       state,
       action: PayloadAction<{ from: string; to: string }>
@@ -34,6 +45,7 @@ export const searchSlice = createSlice({
 });
 
 export const {
+  updateSearchAndClearFiltersState,
   updatePricesState,
   updateCategoryIdState,
   clearAllFilters,

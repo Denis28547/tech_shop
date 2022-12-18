@@ -1,17 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 import ProfileComponent from "./ProfileComponent";
-import { useAppDispatch } from "../../store/hooks";
-import { clearAllFilters } from "../../store/reducers/SearchSlice";
+import { SearchField } from "./SearchField";
 import LogoIcon from "../../public/assets/navbarIcons/Logo_WhiteIcon";
-import SearchIcon from "../../public/assets/navbarIcons/SearchIcon";
 import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
 import HeartIcon from "../../public/assets/HeartIcon";
 import NightIcon from "../../public/assets/navbarIcons/NightIcon";
 import DayIcon from "../../public/assets/navbarIcons/DayIcon";
-import { SearchField } from "./SearchField";
 
 import styles from "../../styles/navbar/Navbar.module.scss";
 
@@ -20,8 +16,6 @@ interface INavbar {
 }
 
 const Navbar = ({ disabled }: INavbar) => {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
   const [theme, setTheme] = useState("light");
 
   const nextTheme = theme === "light" ? "dark" : "light";
@@ -40,17 +34,6 @@ const Navbar = ({ disabled }: INavbar) => {
     }
   }, [theme]);
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const target = e.target as typeof e.target & {
-  //     searchInput: { value: string };
-  //   };
-  //   dispatch(clearAllFilters());
-  //   console.log(target.searchInput.value);
-  //   router.push(`/search/${target.searchInput.value}`);
-  // };
-  console.log("render");
-
   return (
     <nav
       className={styles.navbar}
@@ -64,18 +47,7 @@ const Navbar = ({ disabled }: INavbar) => {
           </a>
         </Link>
       </div>
-      {/* <form className={styles.middle_container} onSubmit={handleSubmit}>
-        <div className={styles.find_icon_container}>
-          <SearchIcon className={`${styles.icon} ${styles.find_icon}`} />
-        </div>
-        <input
-          placeholder="Search"
-          className={styles.search_field}
-          name="searchInput"
-          autoComplete="off"
-        />
-        <button>FIND</button>
-      </form> */}
+
       <SearchField />
 
       <div className={styles.right_container}>
