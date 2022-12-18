@@ -12,7 +12,7 @@ import DescriptionBlock from "../../components/ItemPage/DescriptionBlock";
 import UserBlock from "../../components/ItemPage/UserBlock";
 import UserItemsBlock from "../../components/ItemPage/UserItemsBlock";
 
-import styles from "../../styles/itemPage/itemPage.module.scss";
+import styles from "../../styles/itemPage/ItemPage.module.scss";
 import ItemPageSkeleton from "../../components/ItemPage/ItemPageSkeleton";
 
 const ItemPage: NextPage = () => {
