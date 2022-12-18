@@ -1,4 +1,4 @@
-import styles from "../../styles/itemPage/itemPage.module.scss";
+import styles from "../../styles/itemPage/ItemPage.module.scss";
 import skeletonStyles from "../../styles/itemPage/SkeletonItemPage.module.scss";
 
 const ItemPageSkeleton = () => {
