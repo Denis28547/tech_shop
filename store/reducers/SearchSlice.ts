@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface PopupState {
-  currencyFrom: string;
-  currencyTo: string;
+interface ISearchState {
+  from: string;
+  to: string;
   category: string;
 }
 
-const initialState: PopupState = {
-  currencyFrom: "",
-  currencyTo: "",
+const initialState: ISearchState = {
+  from: "",
+  to: "",
   category: "",
 };
 //persist info if url already includes something
@@ -16,26 +16,26 @@ export const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
-    updateCurrencyFrom: (state, action: PayloadAction<string>) => {
-      state.currencyFrom = action.payload;
+    updatePricesState: (
+      state,
+      action: PayloadAction<{ from: string; to: string }>
+    ) => {
+      state.from = action.payload.from;
+      state.to = action.payload.to;
     },
-    updateCurrencyTo: (state, action: PayloadAction<string>) => {
-      state.currencyTo = action.payload;
-    },
-    updateCategoryId: (state, action: PayloadAction<string>) => {
+    updateCategoryIdState: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
     },
     clearAllFilters: () => initialState,
-    clearOneFilter: (state, action: PayloadAction<keyof PopupState>) => {
+    clearOneFilter: (state, action: PayloadAction<keyof ISearchState>) => {
       state[action.payload] = "";
     },
   },
 });
 
 export const {
-  updateCurrencyFrom,
-  updateCurrencyTo,
-  updateCategoryId,
+  updatePricesState,
+  updateCategoryIdState,
   clearAllFilters,
   clearOneFilter,
 } = searchSlice.actions;

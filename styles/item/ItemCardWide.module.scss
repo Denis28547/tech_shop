@@ -18,6 +18,10 @@
   &:hover {
     transform: scale(1.01);
   }
+
+  .image {
+    @include no_copy;
+  }
 }
 
 .item_info {

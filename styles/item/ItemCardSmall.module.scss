@@ -53,6 +53,7 @@
 
   .image {
     border-radius: 2px;
+    @include no_copy;
   }
 }
 

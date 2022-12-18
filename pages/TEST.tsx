@@ -7,10 +7,11 @@ import {
 } from "../store/services/ItemService";
 import { wrapper } from "../store/store";
 
-const TEST = (data: any) => {
-  console.log(data);
-  console.log(data.product.data);
-  const name = data.product.data[0].name;
+const TEST = ({ product }: any) => {
+  if (!product) return <div>NOOOOOOOOOOOOOOOO</div>;
+  console.log(product);
+  console.log(product.data);
+  const name = product.data[0].name;
 
   return (
     <div>

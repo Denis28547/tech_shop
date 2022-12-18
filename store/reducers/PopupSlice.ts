@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface PopupState {
+interface IPopupState {
   text: string;
   isSuccess: boolean;
   secondsToShow: number;
   isOpen: boolean;
 }
 
-const initialState: PopupState = {
+const initialState: IPopupState = {
   text: "",
   isSuccess: true,
   secondsToShow: 2000,

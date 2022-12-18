@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { updateCategoryId } from "../../store/reducers/SearchSlice";
+import { updateCategoryIdState } from "../../store/reducers/SearchSlice";
 
 import styles from "../../styles/search/FilterBlock.module.scss";
 
@@ -23,7 +23,7 @@ export const CategoryContainer = () => {
             name="category"
             value={category.name}
             type="radio"
-            onChange={() => dispatch(updateCategoryId(category.name))}
+            onChange={() => dispatch(updateCategoryIdState(category.name))}
             checked={category.name === categoryState ? true : false}
             className={styles.radio_input}
             data-active={category.name === categoryState ? true : false}
