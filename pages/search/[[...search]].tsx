@@ -1,18 +1,15 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
-import { useGetSearchedItemsQuery } from "../../store/services/SearchService";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { updateAllStates } from "../../store/reducers/SearchSlice";
 
-import ItemSkeletonCard from "../../components/Item/ItemSkeletonCard";
 import TopBlock from "../../components/Search/TopBlock";
 import { FilterBlock } from "../../components/Search/FilterBlock";
-import ItemCard from "../../components/Item/ItemCard";
+import SearchedItemsContainer from "../../components/Search/SearchedItemsContainer";
 
 import styles from "../../styles/search/Search.module.scss";
-import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 
 interface IQuery {
   query: {
@@ -20,11 +17,11 @@ interface IQuery {
   };
 }
 
-// isItemsLoading || !itemsData ||  isFavoritesLoading || !favoritesData ?
-
 const Search: NextPage<IQuery> = ({ query }) => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { search, category, from, to } = query;
+  const [itemCount, setItemCount] = useState(0);
 
   const {
     search: searchState,
@@ -32,21 +29,10 @@ const Search: NextPage<IQuery> = ({ query }) => {
     to: priceToState,
     category: categoryState,
   } = useAppSelector((state) => state.search);
-  const { isMobile } = useAppSelector((state) => state.mobile);
 
-  const {
-    isLoading: areItemsLoading,
-    data: itemsData,
-    error,
-  } = useGetSearchedItemsQuery({
-    searchText: search ? search : undefined,
-    category: category ? category : undefined,
-    priceFrom: from ? from : undefined,
-    priceTo: to ? to : undefined,
-  });
-
-  const { isLoading: areFavoritesLoading, data: favoritesData } =
-    useGetAllUserFavoritesIdsQuery();
+  useEffect(() => {
+    dispatch(updateAllStates(query));
+  }, []);
 
   useEffect(() => {
     let newRouterUrl = "/search";
@@ -58,66 +44,22 @@ const Search: NextPage<IQuery> = ({ query }) => {
     router.push(newRouterUrl);
   }, [searchState, priceFromState, priceToState, categoryState]);
 
-  const isLoading =
-    areItemsLoading || !itemsData || areFavoritesLoading || !favoritesData;
-
-  if (isLoading) {
-    return (
-      <div className={styles.search_wrapper} style={{ marginTop: "20px" }}>
-        <div className={styles.content_container}>
-          <FilterBlock />
-          <div style={{ flexGrow: "1" }}>
-            <div
-              className={
-                isMobile
-                  ? wrapperStyle.item_wrapper_grid
-                  : wrapperStyle.item_wrapper_wide
-              }
-            >
-              <ItemSkeletonCard isMobile={isMobile} />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    console.log(router.asPath);
+  }, []);
 
   return (
     <div className={styles.search_wrapper}>
-      <TopBlock
-        item_count={itemsData ? itemsData.count : 0}
-        query={query}
-        searchText={search}
-      />
+      <TopBlock item_count={itemCount} query={query} searchText={search} />
 
       <div className={styles.content_container}>
         <FilterBlock />
-
-        <div style={{ flexGrow: "1" }}>
-          <div
-            className={
-              isMobile
-                ? wrapperStyle.item_wrapper_grid
-                : wrapperStyle.item_wrapper_wide
-            }
-          >
-            {itemsData.rows.map((item) => {
-              let isFavorite: boolean;
-              favoritesData.includes(item.id)
-                ? (isFavorite = true)
-                : (isFavorite = false);
-
-              return (
-                <ItemCard
-                  key={item.id}
-                  item={item}
-                  isWide={!isMobile}
-                  isFavoriteData={isFavorite}
-                />
-              );
-            })}
-          </div>
-        </div>
+        <SearchedItemsContainer
+          search={search}
+          from={from}
+          to={to}
+          category={category}
+        />
       </div>
     </div>
   );
@@ -125,6 +67,7 @@ const Search: NextPage<IQuery> = ({ query }) => {
 
 export async function getServerSideProps(context: any) {
   const { search, category, priceFrom, priceTo } = context.query;
+  if (context.res) context.res.setHeader("Cache-Control", "no-store");
 
   return {
     props: {
