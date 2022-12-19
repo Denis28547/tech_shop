@@ -1,22 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { HYDRATE } from "next-redux-wrapper";
 
-import { IItemWithCategory } from "../../types/index";
+import { IItem } from "../../types/index";
 
-export interface IGetSearchedItems {
+interface IGetSearchedItems {
   count: number;
-  rows: IItemWithCategory[] | [];
+  rows: IItem[] | [];
 }
 
 export const searchAPI = createApi({
   reducerPath: "searchAPI",
   tagTypes: ["SearchItems"],
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
   endpoints: (build) => ({
     getSearchedItems: build.query<
       IGetSearchedItems,
@@ -29,12 +23,7 @@ export const searchAPI = createApi({
     >({
       query: ({ searchText, category, priceFrom, priceTo }) => ({
         url: "/api/search",
-        params: {
-          searchText,
-          category,
-          priceFrom,
-          priceTo,
-        },
+        params: { searchText, category, priceFrom, priceTo },
       }),
       providesTags: ["SearchItems"],
     }),
@@ -42,5 +31,3 @@ export const searchAPI = createApi({
 });
 
 export const { useGetSearchedItemsQuery } = searchAPI;
-
-export const { getSearchedItems } = searchAPI.endpoints;
