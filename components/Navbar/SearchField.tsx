@@ -2,19 +2,16 @@ import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import SearchIcon from "../../public/assets/navbarIcons/SearchIcon";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  clearAllFilters,
-  updateSearchAndClearFiltersState,
-} from "../../store/reducers/SearchSlice";
+import { updateSearchAndClearFiltersState } from "../../store/reducers/SearchSlice";
 
 import styles from "../../styles/navbar/Navbar.module.scss";
 
 export const SearchField = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const searchRef = useRef<HTMLInputElement>(null);
   const { search: searchState } = useAppSelector((state) => state.search);
-
-  const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +19,8 @@ export const SearchField = () => {
       searchInput: { value: string };
     };
     dispatch(updateSearchAndClearFiltersState(target.searchInput.value));
-    router.push("/search");
+    if (!router.asPath.includes("/search"))
+      router.replace(`/search/${target.searchInput.value}`);
   };
 
   useEffect(() => {

@@ -17,7 +17,7 @@ const ItemWideStyle = ({
   return (
     <div className={styles.item_wide}>
       <Link href={`/itemPage/${item.id}`}>
-        <a>
+        <a style={{ position: "relative" }}>
           <Image
             src={item_image}
             alt="item_image"

@@ -56,6 +56,9 @@ export default async function handler(
 
         const searchedItems = await Item.findAndCountAll({
           where: whereStatement,
+          include: {
+            model: Category,
+          },
         });
 
         res.status(200).json(searchedItems);
