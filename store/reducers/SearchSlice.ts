@@ -7,13 +7,19 @@ interface ISearchState {
   category: string;
 }
 
+interface ISearchStateWNull {
+  [key: string]: string | null;
+}
+
 const initialState: ISearchState = {
   search: "",
   from: "",
   to: "",
   category: "",
 };
-//persist info if url already includes something
+
+//globalThis
+
 export const searchSlice = createSlice({
   name: "search",
   initialState,
@@ -41,6 +47,12 @@ export const searchSlice = createSlice({
     clearOneFilter: (state, action: PayloadAction<keyof ISearchState>) => {
       state[action.payload] = "";
     },
+    updateAllStates: (state, action: PayloadAction<ISearchStateWNull>) => {
+      state.search = action.payload.search ? action.payload.search : "";
+      state.from = action.payload.from ? action.payload.from : "";
+      state.to = action.payload.to ? action.payload.to : "";
+      state.category = action.payload.category ? action.payload.category : "";
+    },
   },
 });
 
@@ -50,6 +62,7 @@ export const {
   updateCategoryIdState,
   clearAllFilters,
   clearOneFilter,
+  updateAllStates,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;
