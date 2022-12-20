@@ -57,8 +57,6 @@ const SearchedItemsContainer = ({
       </div>
     );
 
-  // console.log(itemsData);
-
   return (
     <div
       className={
