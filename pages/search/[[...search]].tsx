@@ -20,7 +20,6 @@ interface IQuery {
 const Search: NextPage<IQuery> = ({ query }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { search, category, from, to } = query;
   const [itemCount, setItemCount] = useState(0);
 
   const {
@@ -28,38 +27,35 @@ const Search: NextPage<IQuery> = ({ query }) => {
     from: priceFromState,
     to: priceToState,
     category: categoryState,
+    isStateInitial,
   } = useAppSelector((state) => state.search);
 
   useEffect(() => {
     dispatch(updateAllStates(query));
-  }, []);
+  }, [query]);
 
   useEffect(() => {
-    let newRouterUrl = "/search";
-    if (searchState) newRouterUrl += `/${searchState}?`;
-    else newRouterUrl += "?";
-    if (priceFromState) newRouterUrl += `&priceFrom=${priceFromState}`;
-    if (priceToState) newRouterUrl += `&priceTo=${priceToState}`;
-    if (categoryState) newRouterUrl += `&category=${categoryState}`;
-    router.push(newRouterUrl);
+    const makeNewUrl = () => {
+      if (isStateInitial) return;
+      let newRouterUrl = "/search";
+      if (searchState) newRouterUrl += `/${searchState}?`;
+      else newRouterUrl += "?";
+      if (priceFromState) newRouterUrl += `&priceFrom=${priceFromState}`;
+      if (priceToState) newRouterUrl += `&priceTo=${priceToState}`;
+      if (categoryState) newRouterUrl += `&category=${categoryState}`;
+      router.push(newRouterUrl);
+    };
+
+    makeNewUrl();
   }, [searchState, priceFromState, priceToState, categoryState]);
-
-  useEffect(() => {
-    console.log(router.asPath);
-  }, []);
 
   return (
     <div className={styles.search_wrapper}>
-      <TopBlock item_count={itemCount} query={query} searchText={search} />
+      <TopBlock item_count={itemCount} query={query} searchText={searchState} />
 
       <div className={styles.content_container}>
         <FilterBlock />
-        <SearchedItemsContainer
-          search={search}
-          from={from}
-          to={to}
-          category={category}
-        />
+        <SearchedItemsContainer query={query} setItemCount={setItemCount} />
       </div>
     </div>
   );
@@ -67,7 +63,6 @@ const Search: NextPage<IQuery> = ({ query }) => {
 
 export async function getServerSideProps(context: any) {
   const { search, category, priceFrom, priceTo } = context.query;
-  if (context.res) context.res.setHeader("Cache-Control", "no-store");
 
   return {
     props: {

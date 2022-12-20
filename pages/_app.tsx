@@ -1,12 +1,12 @@
-import "../styles/globals.scss";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
-import { store } from "../store/store";
 import { Provider } from "react-redux";
 
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { store } from "../store/store";
+
+import Layout from "../components/Layout";
+
+import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,5 +1,6 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import { useAppDispatch } from "../store/hooks";
 import { setIsMobile } from "../store/reducers/MobileSlice";
@@ -10,7 +11,6 @@ import BottomPopUp from "./BottomPopUp";
 import styles from "../styles/Main.module.scss";
 
 const Layout = ({ children }: { children: ReactElement }) => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const disableNavbarForRoutes = {
@@ -18,6 +18,8 @@ const Layout = ({ children }: { children: ReactElement }) => {
     "/oautherror": true,
     "/redirect": true,
   };
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (window.innerWidth <= 650) {

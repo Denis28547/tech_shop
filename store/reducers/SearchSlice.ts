@@ -5,9 +5,10 @@ interface ISearchState {
   from: string;
   to: string;
   category: string;
+  isStateInitial: boolean;
 }
 
-interface ISearchStateWNull {
+interface ISearchStateWithNull {
   [key: string]: string | null;
 }
 
@@ -16,9 +17,8 @@ const initialState: ISearchState = {
   from: "",
   to: "",
   category: "",
+  isStateInitial: true,
 };
-
-//globalThis
 
 export const searchSlice = createSlice({
   name: "search",
@@ -43,15 +43,24 @@ export const searchSlice = createSlice({
     updateCategoryIdState: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
     },
-    clearAllFilters: () => initialState,
+    clearAllFilters: (state) => {
+      return {
+        ...initialState,
+        search: state.search,
+        isStateInitial: !state.isStateInitial ? false : true,
+      };
+    },
     clearOneFilter: (state, action: PayloadAction<keyof ISearchState>) => {
+      if (action.payload === "isStateInitial") return;
       state[action.payload] = "";
     },
-    updateAllStates: (state, action: PayloadAction<ISearchStateWNull>) => {
-      state.search = action.payload.search ? action.payload.search : "";
-      state.from = action.payload.from ? action.payload.from : "";
-      state.to = action.payload.to ? action.payload.to : "";
-      state.category = action.payload.category ? action.payload.category : "";
+    updateAllStates: (state, action: PayloadAction<ISearchStateWithNull>) => {
+      const { search, from, to, category } = action.payload;
+      state.search = search ? search : "";
+      state.from = from ? from : "";
+      state.to = to ? to : "";
+      state.category = category ? category : "";
+      state.isStateInitial = false;
     },
   },
 });
