@@ -1,24 +1,27 @@
+import { useEffect } from "react";
+
 import { useAppSelector } from "../../store/hooks";
 import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
 import { useGetSearchedItemsQuery } from "../../store/services/SearchService";
 
 import ItemCard from "../Item/ItemCard";
 
-import styles from "../../styles/search/Search.module.scss";
 import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 import ItemSkeletonCard from "../Item/ItemSkeletonCard";
 
 interface ISearchedItemsContainer {
-  [key: string]: string | null;
+  query: {
+    [key: string]: string | null;
+  };
+  setItemCount: (itemCount: number) => void;
 }
 
 const SearchedItemsContainer = ({
-  search,
-  category,
-  from,
-  to,
+  query,
+  setItemCount,
 }: ISearchedItemsContainer) => {
   const { isMobile } = useAppSelector((state) => state.mobile);
+  const { search, category, from, to } = query;
 
   const { isLoading: areFavoritesLoading, data: favoritesData } =
     useGetAllUserFavoritesIdsQuery();
@@ -37,6 +40,10 @@ const SearchedItemsContainer = ({
   const isLoading =
     areItemsLoading || !itemsData || areFavoritesLoading || !favoritesData;
 
+  useEffect(() => {
+    if (itemsData) setItemCount(itemsData.count);
+  }, [itemsData]);
+
   if (isLoading)
     return (
       <div
@@ -49,7 +56,8 @@ const SearchedItemsContainer = ({
         <ItemSkeletonCard isMobile={isMobile} />
       </div>
     );
-  console.log(itemsData);
+
+  // console.log(itemsData);
 
   return (
     <div

@@ -23,11 +23,11 @@ const TopBlock = ({ item_count, query, searchText }: ITopBlock) => {
   const clearFilters = () => {
     if (searchText) {
       dispatch(clearAllFilters());
-      router.push(`/search/${searchText}`);
+      // router.push(`/search/${searchText}`);
       return;
     }
     dispatch(clearAllFilters());
-    router.push("/search");
+    // router.push("/search");
   };
 
   const deleteOneFilter = (key: any) => {
