@@ -10,6 +10,9 @@ import { FilterBlock } from "../../components/Search/FilterBlock";
 import SearchedItemsContainer from "../../components/Search/SearchedItemsContainer";
 
 import styles from "../../styles/search/Search.module.scss";
+import { TopBlockMobile } from "../../components/Search/TopBlockMobile";
+import Modal from "../../components/Modal";
+import { changeFilterSidebarState } from "../../store/reducers/SidebarSlice";
 
 interface IQuery {
   query: {
@@ -18,6 +21,8 @@ interface IQuery {
 }
 
 const Search: NextPage<IQuery> = ({ query }) => {
+  const { isMobile } = useAppSelector((state) => state.mobile);
+  const { filterSidebar } = useAppSelector((state) => state.sidebars);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [itemCount, setItemCount] = useState(0);
@@ -45,13 +50,37 @@ const Search: NextPage<IQuery> = ({ query }) => {
     router.push(newRouterUrl);
   }, [searchState, priceFromState, priceToState, categoryState]);
 
+  const modalHandler = () => dispatch(changeFilterSidebarState(false));
+
   return (
     <div className={styles.search_wrapper}>
-      <TopBlock item_count={itemCount} query={query} searchText={searchState} />
+      {!isMobile && (
+        <TopBlock
+          item_count={itemCount}
+          query={query}
+          searchText={searchState}
+        />
+      )}
+
+      {isMobile && <TopBlockMobile />}
 
       <div className={styles.content_container}>
-        <FilterBlock />
-        <SearchedItemsContainer query={query} setItemCount={setItemCount} />
+        {isMobile ? (
+          <Modal
+            active={filterSidebar}
+            setActive={modalHandler}
+            putChildrenInContainer={false}
+          >
+            <FilterBlock isMobile={isMobile} />
+          </Modal>
+        ) : (
+          <FilterBlock isMobile={false} />
+        )}
+        <SearchedItemsContainer
+          query={query}
+          setItemCount={setItemCount}
+          isMobile={isMobile}
+        />
       </div>
     </div>
   );

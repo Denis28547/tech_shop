@@ -17,9 +17,11 @@ const ItemStyle = ({
   return (
     <div className={styles.item}>
       <div className={styles.image_name}>
-        <div style={{ width: "100%", height: "250px", position: "relative" }}>
-          <Link href={`/itemPage/${item.id}`}>
-            <a>
+        <Link href={`/itemPage/${item.id}`}>
+          <a>
+            <div
+              style={{ width: "100%", height: "250px", position: "relative" }}
+            >
               <Image
                 src={item_image}
                 alt="item_image"
@@ -28,9 +30,9 @@ const ItemStyle = ({
                 className={styles.image}
                 style={{ marginBottom: "10px", cursor: "pointer" }}
               />
-            </a>
-          </Link>
-        </div>
+            </div>
+          </a>
+        </Link>
 
         <Link href={`/itemPage/${item.id}`}>
           <a title={item.name} className={styles.name}>

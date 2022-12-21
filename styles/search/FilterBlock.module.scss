@@ -26,6 +26,28 @@
   }
 }
 
+.filters_mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 150;
+  height: 100%;
+  width: 300px;
+  border-radius: 0;
+  transition: 0.2s;
+  transform: translateX(-100%);
+}
+
+.open_filter_sidebar {
+  transform: translateX(0);
+}
+
+.filters_computer {
+  @media all and (max-width: 650px) {
+    display: none;
+  }
+}
+
 .currency_block {
   background-color: $clickable-color;
   padding: 10px 10px;
