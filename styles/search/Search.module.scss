@@ -24,6 +24,10 @@
   height: 64px;
   justify-content: space-between;
 
+  @media all and (max-width: 650px) {
+    display: none;
+  }
+
   .queries_container {
     display: flex;
     gap: 16px;
@@ -47,5 +51,30 @@
         color: $error-color;
       }
     }
+  }
+}
+
+.top_block_mobile {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+
+  button {
+    width: 50%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: $accent-color;
+    color: $text-color;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter_icon {
+    width: 24px;
+    stroke-width: 2.2;
+    margin-right: 5px;
   }
 }

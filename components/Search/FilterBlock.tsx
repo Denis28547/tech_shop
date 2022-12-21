@@ -2,10 +2,25 @@ import { PriceContainer } from "./PriceContainer";
 import { CategoryContainer } from "./CategoryContainer";
 
 import styles from "../../styles/search/FilterBlock.module.scss";
+import { useAppSelector } from "../../store/hooks";
 
-export const FilterBlock = () => {
+interface IFilterBlock {
+  isMobile: boolean;
+}
+
+export const FilterBlock = ({ isMobile }: IFilterBlock) => {
+  const { filterSidebar } = useAppSelector((state) => state.sidebars);
+  // console.log(filterSidebar);
+  console.log(isMobile);
+
   return (
-    <div className={styles.filter_block} id="filterForm">
+    <div
+      className={`${styles.filter_block} ${
+        isMobile ? styles.filters_mobile : styles.filters_computer
+      } ${filterSidebar && styles.open_filter_sidebar}`}
+      id="filterForm"
+      onClick={(e) => e.stopPropagation()}
+    >
       <h2>Filters</h2>
       <hr />
 

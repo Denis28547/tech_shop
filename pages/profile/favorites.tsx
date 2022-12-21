@@ -56,12 +56,12 @@ const Favorites: NextPage = () => {
 
         <div
           className={
-            isMobile
+            isItemWide
               ? wrapperStyle.item_wrapper_grid
               : wrapperStyle.item_wrapper_wide
           }
         >
-          <ItemSkeletonCard isMobile={isMobile} />
+          <ItemSkeletonCard isItemWide={isItemWide} />
         </div>
       </div>
     );

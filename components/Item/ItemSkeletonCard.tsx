@@ -2,16 +2,16 @@ import ItemSkeleton, { templatesFn } from "./ItemSkeleton";
 import ItemSkeletonWide from "./ItemSkeletonWide";
 
 interface IItemSkeletonCard {
-  isMobile: boolean;
+  isItemWide: boolean;
 }
 
-const ItemSkeletonCard = ({ isMobile }: IItemSkeletonCard) => {
+const ItemSkeletonCard = ({ isItemWide }: IItemSkeletonCard) => {
   const itemTemplates = templatesFn();
 
   return (
     <>
       {itemTemplates.map((_, index) =>
-        isMobile ? (
+        isItemWide ? (
           <ItemSkeleton key={index} />
         ) : (
           <ItemSkeletonWide key={index} />
@@ -22,4 +22,3 @@ const ItemSkeletonCard = ({ isMobile }: IItemSkeletonCard) => {
 };
 
 export default ItemSkeletonCard;
-// {isMobile ? <ItemSkeleton /> : <ItemSkeletonWide />}

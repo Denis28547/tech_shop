@@ -1,12 +1,11 @@
-import CustomButton from "../CustomButton";
-
-import styles from "../../styles/search/Search.module.scss";
 import { useAppDispatch } from "../../store/hooks";
-import { useRouter } from "next/router";
 import {
   clearAllFilters,
   clearOneFilter,
 } from "../../store/reducers/SearchSlice";
+import CustomButton from "../CustomButton";
+
+import styles from "../../styles/search/Search.module.scss";
 
 interface ITopBlock {
   item_count: number;
@@ -18,16 +17,13 @@ interface ITopBlock {
 
 const TopBlock = ({ item_count, query, searchText }: ITopBlock) => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const clearFilters = () => {
     if (searchText) {
       dispatch(clearAllFilters());
-      // router.push(`/search/${searchText}`);
       return;
     }
     dispatch(clearAllFilters());
-    // router.push("/search");
   };
 
   const deleteOneFilter = (key: any) => {

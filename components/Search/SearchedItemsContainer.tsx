@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useAppSelector } from "../../store/hooks";
 import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
@@ -14,13 +14,14 @@ interface ISearchedItemsContainer {
     [key: string]: string | null;
   };
   setItemCount: (itemCount: number) => void;
+  isMobile: boolean;
 }
 
 const SearchedItemsContainer = ({
   query,
   setItemCount,
+  isMobile,
 }: ISearchedItemsContainer) => {
-  const { isMobile } = useAppSelector((state) => state.mobile);
   const { search, category, from, to } = query;
 
   const { isLoading: areFavoritesLoading, data: favoritesData } =
@@ -53,7 +54,7 @@ const SearchedItemsContainer = ({
             : wrapperStyle.item_wrapper_wide
         }
       >
-        <ItemSkeletonCard isMobile={isMobile} />
+        <ItemSkeletonCard isItemWide={isMobile} />
       </div>
     );
 

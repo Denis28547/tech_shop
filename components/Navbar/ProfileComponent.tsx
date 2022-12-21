@@ -23,12 +23,6 @@ const ProfileComponent = () => {
       : modalHandler();
   };
 
-  useEffect(() => {
-    modalActive === true
-      ? (document.body.style.overflowY = "hidden")
-      : (document.body.style.overflowY = "scroll");
-  }, [modalActive]);
-
   return (
     <>
       <ProfileIcon
@@ -36,7 +30,11 @@ const ProfileComponent = () => {
         onClick={() => whichHandlerToUse()}
       />
 
-      <Modal active={modalActive} setActive={modalHandler}>
+      <Modal
+        active={modalActive}
+        setActive={modalHandler}
+        putChildrenInContainer={true}
+      >
         <Auth modalActive={modalActive} modalHandler={modalHandler} />
       </Modal>
 
