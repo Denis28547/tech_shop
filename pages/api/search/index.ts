@@ -9,20 +9,6 @@ interface IReq {
   };
 }
 
-const checkIfExists = (query: string): boolean => {
-  if (query.length > 0) return true;
-  return false;
-};
-
-const removeEmptyQuery = (queryArr: { [key: string]: string }) => {
-  for (const query in queryArr) {
-    if (!checkIfExists(queryArr[query])) {
-      delete queryArr[query];
-    }
-  }
-  return queryArr;
-};
-
 export default async function handler(
   req: NextApiRequest & IReq,
   res: NextApiResponse
@@ -38,6 +24,7 @@ export default async function handler(
           category, //here will be name of the category
           priceFrom = "0",
           priceTo = "9999999",
+          sortBy = undefined,
         } = req.query;
 
         const whereStatement: any = {
@@ -54,11 +41,29 @@ export default async function handler(
           whereStatement.category_id = categoryData.id;
         }
 
+        let sortByStatement: any = undefined;
+
+        switch (sortBy) {
+          case "name":
+            sortByStatement = [["name", "ASC"]];
+            break;
+          case "newest":
+            sortByStatement = [["createdAt", "DESC"]];
+            break;
+          case "priceLow":
+            sortByStatement = [["price", "ASC"]];
+            break;
+          case "priceHigh":
+            sortByStatement = [["price", "DESC"]];
+            break;
+        }
+
         const searchedItems = await Item.findAndCountAll({
           where: whereStatement,
           include: {
             model: Category,
           },
+          order: sortByStatement,
         });
 
         res.status(200).json(searchedItems);

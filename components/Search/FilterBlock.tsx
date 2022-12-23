@@ -1,30 +1,90 @@
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { clearAllFilters } from "../../store/reducers/SearchSlice";
+
+import { QueryContainer } from "./QueryContainer";
 import { PriceContainer } from "./PriceContainer";
 import { CategoryContainer } from "./CategoryContainer";
+import CustomButton from "../CustomButton";
+
+import { ICategory } from "../../types/index";
 
 import styles from "../../styles/search/FilterBlock.module.scss";
-import { useAppSelector } from "../../store/hooks";
 
 interface IFilterBlock {
   isMobile: boolean;
+  query?: {
+    [key: string]: string;
+  };
+  categories: ICategory[] | undefined;
 }
 
-export const FilterBlock = ({ isMobile }: IFilterBlock) => {
+export const FilterBlock = ({ isMobile, query, categories }: IFilterBlock) => {
+  const dispatch = useAppDispatch();
   const { filterSidebar } = useAppSelector((state) => state.sidebars);
-  // console.log(filterSidebar);
-  console.log(isMobile);
+
+  if (isMobile) {
+    return (
+      <div
+        className={`${styles.filter_block} ${styles.filters_block_mobile} ${
+          filterSidebar ? styles.open_filter_sidebar : ""
+        }`}
+        id="filterForm"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <h2>Filters</h2>
+          <CustomButton
+            fontSize="1rem"
+            buttonType="outline"
+            fontWeight={600}
+            borderColor="#f43c3d"
+            width="120px"
+            loading={false}
+            text="Clear filters"
+            height={32}
+            onClick={() => dispatch(clearAllFilters())}
+          />
+        </div>
+        {query &&
+          Object.keys(query).length !==
+            0 /*so it won't show unneeded div in filters if object is empty*/ && (
+            <QueryContainer query={query} isMobile={true} />
+          )}
+        <hr />
+
+        <CategoryContainer categories={categories} />
+
+        <hr />
+        <PriceContainer />
+      </div>
+    );
+  }
 
   return (
     <div
-      className={`${styles.filter_block} ${
-        isMobile ? styles.filters_mobile : styles.filters_computer
-      } ${filterSidebar && styles.open_filter_sidebar}`}
+      className={`${styles.filter_block} ${styles.filters_computer} `}
       id="filterForm"
       onClick={(e) => e.stopPropagation()}
     >
-      <h2>Filters</h2>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h2>Filters</h2>
+      </div>
+
       <hr />
 
-      <CategoryContainer />
+      <CategoryContainer categories={categories} />
 
       <hr />
       <PriceContainer />

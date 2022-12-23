@@ -22,7 +22,7 @@ const SearchedItemsContainer = ({
   setItemCount,
   isMobile,
 }: ISearchedItemsContainer) => {
-  const { search, category, from, to } = query;
+  const { search, category, from, to, sortBy } = query;
 
   const { isLoading: areFavoritesLoading, data: favoritesData } =
     useGetAllUserFavoritesIdsQuery();
@@ -36,6 +36,7 @@ const SearchedItemsContainer = ({
     category: category ? category : undefined,
     priceFrom: from ? from : undefined,
     priceTo: to ? to : undefined,
+    sortBy: sortBy ? sortBy : undefined,
   });
 
   const isLoading =

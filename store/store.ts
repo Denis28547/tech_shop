@@ -5,9 +5,11 @@ import popupReducer from "./reducers/PopupSlice";
 import mobileReducer from "./reducers/MobileSlice";
 import searchReducer from "./reducers/SearchSlice";
 import sideBarReducer from "./reducers/SidebarSlice";
+
 import { itemAPI } from "./services/ItemService";
 import { favoritesAPI } from "./services/FavoritesService";
 import { searchAPI } from "./services/SearchService";
+import { categoryAPI } from "./services/CategoryService";
 
 // export const store = configureStore({
 //   reducer: {
@@ -39,12 +41,14 @@ const makeStore = () =>
       [itemAPI.reducerPath]: itemAPI.reducer,
       [favoritesAPI.reducerPath]: favoritesAPI.reducer,
       [searchAPI.reducerPath]: searchAPI.reducer,
+      [categoryAPI.reducerPath]: categoryAPI.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat([
         itemAPI.middleware,
         favoritesAPI.middleware,
         searchAPI.middleware,
+        categoryAPI.middleware,
       ]),
   });
 

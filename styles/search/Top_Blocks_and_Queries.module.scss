@@ -1,0 +1,91 @@
+@use "../variables" as *;
+
+.top_block {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  margin: 5px 0;
+  justify-content: space-between;
+
+  .count_header {
+    min-width: 266px;
+    line-height: 64px;
+    align-self: flex-start;
+
+    @media all and (max-width: 1100px) {
+      min-width: fit-content;
+      margin-right: 16px;
+    }
+  }
+
+  @media all and (max-width: 800px) {
+    display: none;
+  }
+}
+
+.top_block_mobile {
+  margin-top: 16px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2::first-letter {
+      text-transform: uppercase;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
+  .button_container {
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+
+    .filter_icon {
+      width: 24px;
+      stroke-width: 2.2;
+      margin-right: 5px;
+    }
+  }
+}
+
+.queries_container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  white-space: nowrap;
+
+  .query {
+    border: 3px solid $border-color;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $clickable-color;
+    }
+
+    p {
+      display: inline-block;
+    }
+
+    span {
+      color: $error-color;
+    }
+  }
+}
+
+.queries_container_computer {
+  @media all and (max-width: 1000px) {
+    display: none;
+  }
+}
+
+.queries_container_mobile {
+  gap: 5px;
+}

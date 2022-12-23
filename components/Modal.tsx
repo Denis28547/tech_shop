@@ -34,10 +34,7 @@ const Modal = ({
           {children}
         </div>
       ) : (
-        <>
-          <span className={styles.close_modal} onClick={setActive} />
-          {children}
-        </>
+        <>{children}</>
       )}
     </div>
   );

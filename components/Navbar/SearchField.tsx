@@ -38,6 +38,8 @@ export const SearchField = () => {
         className={styles.search_field}
         name="searchInput"
         autoComplete="off"
+        title="use only letters and numbers"
+        pattern="^[a-zA-Z0-9_.-]*$"
       />
       <button>FIND</button>
     </form>
