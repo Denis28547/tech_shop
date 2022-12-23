@@ -1,60 +1,35 @@
 import { useAppDispatch } from "../../store/hooks";
-import {
-  clearAllFilters,
-  clearOneFilter,
-} from "../../store/reducers/SearchSlice";
-import CustomButton from "../CustomButton";
+import { clearAllFilters } from "../../store/reducers/SearchSlice";
 
-import styles from "../../styles/search/Search.module.scss";
+import CustomButton from "../CustomButton";
+import { QueryContainer } from "./QueryContainer";
+
+import styles from "../../styles/search/Top_Blocks_and_Queries.module.scss";
 
 interface ITopBlock {
-  item_count: number;
+  item_count: number | null;
   query: {
-    [key: string]: string | null;
+    [key: string]: string;
   };
-  searchText: string | null;
 }
 
-const TopBlock = ({ item_count, query, searchText }: ITopBlock) => {
+const TopBlock = ({ item_count, query }: ITopBlock) => {
   const dispatch = useAppDispatch();
 
-  const clearFilters = () => {
-    if (searchText) {
-      dispatch(clearAllFilters());
-      return;
-    }
-    dispatch(clearAllFilters());
-  };
-
-  const deleteOneFilter = (key: any) => {
-    dispatch(clearOneFilter(key));
-  };
-
   return (
-    <div className={styles.top_box}>
-      <h2 className={styles.count_header}>
-        We found {item_count} item{item_count === 1 ? "" : "s"}
-      </h2>
-      <div className={styles.queries_container}>
-        {Object.keys(query).map((key, index) => {
-          return (
-            query[key] && (
-              <span
-                key={index}
-                className={styles.query}
-                onClick={() => deleteOneFilter(key)}
-              >
-                <p>{`${key}: ${query[key]}`}</p>
-                <span> ✕</span>
-              </span>
-            )
-          );
-        })}
-      </div>
+    <div className={styles.top_block}>
+      {item_count !== null && (
+        <h2 className={styles.count_header}>
+          We found {item_count} good{item_count === 1 ? "" : "s"}
+        </h2>
+      )}
+
+      <QueryContainer query={query} isMobile={false} />
 
       <div
         style={{
           marginLeft: "auto",
+          alignSelf: "flex-start",
         }}
       >
         <CustomButton
@@ -66,7 +41,8 @@ const TopBlock = ({ item_count, query, searchText }: ITopBlock) => {
           loading={false}
           text="Clear filters"
           height={50}
-          onClick={clearFilters}
+          margin="7px 0 7px 10px"
+          onClick={() => dispatch(clearAllFilters())}
         />
       </div>
     </div>

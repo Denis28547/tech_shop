@@ -25,15 +25,17 @@ export const searchAPI = createApi({
         category?: string;
         priceFrom?: string;
         priceTo?: string;
+        sortBy?: string;
       }
     >({
-      query: ({ searchText, category, priceFrom, priceTo }) => ({
+      query: ({ searchText, category, priceFrom, priceTo, sortBy }) => ({
         url: "/api/search",
         params: {
           searchText,
           category,
           priceFrom,
           priceTo,
+          sortBy,
         },
       }),
       providesTags: ["SearchItems"],

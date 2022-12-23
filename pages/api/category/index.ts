@@ -29,10 +29,13 @@ export default async function handler(
             .json({ message: "you didn't provide category name" });
 
         await Category.create({ name });
+        // await Category.bulkCreate([{ name: "biba" }, { name: "boba" }]); make bulkcreate
 
         res.status(201).json({ message: "successfully created" });
       } catch (error: any) {
-        res.status(500).json({ message: "something unexpected happened" });
+        res
+          .status(500)
+          .json({ message: "something unexpected happened", error });
       }
       break;
 

@@ -22,7 +22,7 @@ const Layout = ({ children }: { children: ReactElement }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (window.innerWidth <= 650) {
+    if (window.innerWidth <= 800) {
       dispatch(setIsMobile(true));
     }
   }, []);

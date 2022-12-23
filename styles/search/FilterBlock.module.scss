@@ -1,7 +1,7 @@
 @use "../variables" as *;
 
 .filter_block {
-  width: 250px;
+  width: 100%;
   height: fit-content;
   background-color: $secondary-color;
   border-radius: 6px;
@@ -26,13 +26,13 @@
   }
 }
 
-.filters_mobile {
+.filters_block_mobile {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 150;
   height: 100%;
-  width: 300px;
+  width: 340px;
   border-radius: 0;
   transition: 0.2s;
   transform: translateX(-100%);
@@ -43,7 +43,7 @@
 }
 
 .filters_computer {
-  @media all and (max-width: 650px) {
+  @media all and (max-width: 800px) {
     display: none;
   }
 }

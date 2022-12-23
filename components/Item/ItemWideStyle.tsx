@@ -25,11 +25,6 @@ const ItemWideStyle = ({
             height={200}
             objectFit="cover"
             className={styles.image}
-            style={{
-              marginBottom: "10px",
-              borderRadius: "2px",
-              cursor: "pointer",
-            }}
           />
         </a>
       </Link>
