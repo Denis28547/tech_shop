@@ -1,0 +1,27 @@
+@use "./variables" as *;
+
+$texts_padding: 10px 15px;
+
+.dropdown_container {
+  width: fit-content;
+  display: inline-block;
+  position: relative;
+
+  input[type="checkbox"] {
+    // display: none;
+  }
+
+  .dropdown_main_text {
+    background-color: $clickable-color;
+    padding: $texts_padding;
+  }
+
+  .options_container {
+    // margin-top: 10px;
+    top: 150%;
+    position: absolute;
+
+    background-color: $clickable-color;
+    padding: $texts_padding;
+  }
+}
