@@ -1,32 +1,53 @@
+import { useState } from "react";
+import { ArrowIcon } from "../public/assets/ArrowIcon";
+
 import styles from "../styles/CustomDropdown.module.scss";
 
 interface IDropdown {
   labelText: string;
   dropDownOptions: string[];
-  chosenOption: string;
-  setOption: (optionName: string) => void;
+  selectedOption: string;
+  setSelectedOption: (optionName: string) => void;
+  min_width: string;
 }
 
 export const Dropdown = ({
   labelText,
   dropDownOptions,
-  chosenOption,
-  setOption,
+  selectedOption,
+  setSelectedOption,
+  min_width,
 }: IDropdown) => {
-  return (
-    <div className={styles.dropdown_container}>
-      <label htmlFor="dropdown_checkbox" className={styles.dropdown_main_text}>
-        {chosenOption ? chosenOption : labelText}
-      </label>
-      <input type="checkbox" id="dropdown_checkbox" />
+  const [isActive, setIsActive] = useState(false);
 
-      <div className={styles.options_container}>
-        {dropDownOptions.map((option, index) => (
-          <div key={index} onClick={() => setOption(option)}>
-            {option}
-          </div>
-        ))}
+  return (
+    <div className={styles.dropdown_container} style={{ minWidth: min_width }}>
+      <div
+        className={styles.dropdown_button}
+        onClick={() => setIsActive(!isActive)}
+      >
+        <p>{selectedOption ? selectedOption : labelText}</p>
+        <ArrowIcon
+          className={`${styles.arrow} ${isActive && styles.close_arrow}`}
+        />
       </div>
+
+      {isActive && (
+        <div className={styles.options_container}>
+          {dropDownOptions.map((option, index) => (
+            <option
+              key={index}
+              onClick={() => {
+                setSelectedOption(option);
+                setIsActive(false);
+              }}
+              className={styles.option}
+            >
+              {option}
+            </option>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

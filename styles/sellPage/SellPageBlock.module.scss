@@ -78,7 +78,7 @@
   }
 
   .select_container {
-    max-width: 300px;
+    max-width: 200px;
     position: relative;
 
     select {
@@ -96,21 +96,15 @@
 
     .arrow {
       position: absolute;
-      top: 50%;
+      width: 26px;
       right: 20px;
-      border-width: 14px;
-      border-style: solid;
-      border-radius: 2px;
-      border-top-color: $text-color;
-      border-bottom-color: transparent;
-      border-right-color: transparent;
-      border-left-color: transparent;
-      transform: translateY(-25%);
+      top: 50%;
+      transform: translateY(-50%);
       pointer-events: none;
     }
 
     .close_arrow {
-      transform: rotate(-180deg) translateY(75%);
+      transform: rotate(-180deg) translateY(50%);
     }
   }
 
