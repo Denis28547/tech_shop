@@ -1,27 +1,64 @@
 @use "./variables" as *;
 
-$texts_padding: 10px 15px;
+$texts_padding: 12px 16px;
+$border-radius: 4px;
 
 .dropdown_container {
   width: fit-content;
-  display: inline-block;
+  min-width: 120px;
   position: relative;
+  @include no_copy;
 
-  input[type="checkbox"] {
-    // display: none;
-  }
-
-  .dropdown_main_text {
+  .dropdown_button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
     background-color: $clickable-color;
     padding: $texts_padding;
+    width: 100%;
+    border-radius: $border-radius;
+    white-space: nowrap;
+    font-size: 1.05rem;
+    border: 2px solid $border-color;
+
+    p::first-letter {
+      text-transform: capitalize;
+    }
+
+    .arrow {
+      margin-left: 6px;
+      width: 26px;
+      pointer-events: none;
+    }
+
+    .close_arrow {
+      transform: rotate(-180deg);
+    }
+
+    .arrow_open {
+      transform: rotate(180deg);
+    }
   }
 
   .options_container {
-    // margin-top: 10px;
-    top: 150%;
+    border: 3px solid $border-color;
+    width: 100%;
     position: absolute;
-
     background-color: $clickable-color;
-    padding: $texts_padding;
+    top: 120%;
+    border-radius: $border-radius;
+    z-index: 1;
+    text-align: center;
+
+    .option {
+      @include no_copy;
+      padding: $texts_padding;
+      cursor: pointer;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useGetAllCategoriesQuery } from "../../store/services/CategoryService";
+import { ArrowIcon } from "../../public/assets/ArrowIcon";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
@@ -78,7 +78,9 @@ const DropdownComponent = () => {
             </option>
           ))}
         </select>
-        <span className={`${styles.arrow} ${isOpen && styles.close_arrow}`} />
+        <ArrowIcon
+          className={`${styles.arrow} ${isOpen && styles.close_arrow}`}
+        />
       </div>
 
       {!isValid && isDirty && (

@@ -5,7 +5,7 @@ import styles from "../styles/ErrorPage.module.scss";
 
 const ErrorPage: FC = () => {
   const dropDownOptions = ["option 1", "option 2", "option 3"];
-  const [chosenOption, setOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
 
   return (
     <div>
@@ -13,8 +13,8 @@ const ErrorPage: FC = () => {
       <Dropdown
         labelText="test text"
         dropDownOptions={dropDownOptions}
-        chosenOption={chosenOption}
-        setOption={setOption}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
       />
       <p className={styles.test}>sssss</p>
       <a className={styles.test}>sssss</a>
