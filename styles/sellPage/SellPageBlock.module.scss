@@ -137,23 +137,10 @@
 
   .files_grid {
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     flex-wrap: wrap;
     gap: 20px;
     width: 100%;
     justify-content: flex-start;
-
-    @media all and (max-width: 924px) {
-      grid-template-columns: repeat(3, auto);
-    }
-
-    @media all and (max-width: 682px) {
-      grid-template-columns: repeat(2, auto);
-    }
-
-    @media all and (max-width: 472px) {
-      grid-template-columns: auto;
-      justify-content: center;
-    }
   }
 }

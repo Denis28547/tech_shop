@@ -12,9 +12,9 @@ const ItemSkeletonCard = ({ isItemWide }: IItemSkeletonCard) => {
     <>
       {itemTemplates.map((_, index) =>
         isItemWide ? (
-          <ItemSkeleton key={index} />
-        ) : (
           <ItemSkeletonWide key={index} />
+        ) : (
+          <ItemSkeleton key={index} />
         )
       )}
     </>

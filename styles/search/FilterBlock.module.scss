@@ -23,6 +23,7 @@
   p,
   label {
     font-size: 1.05rem;
+    @include no_copy;
   }
 }
 

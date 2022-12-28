@@ -50,10 +50,10 @@ export default async function handler(
           case "newest":
             sortByStatement = [["createdAt", "DESC"]];
             break;
-          case "priceLow":
+          case "cheap":
             sortByStatement = [["price", "ASC"]];
             break;
-          case "priceHigh":
+          case "expensive":
             sortByStatement = [["price", "DESC"]];
             break;
         }
