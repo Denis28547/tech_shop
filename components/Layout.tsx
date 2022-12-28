@@ -25,6 +25,19 @@ const Layout = ({ children }: { children: ReactElement }) => {
     if (window.innerWidth <= 800) {
       dispatch(setIsMobile(true));
     }
+
+    const handleResize = () => {
+      if (window.innerWidth <= 800) {
+        dispatch(setIsMobile(true));
+      } else {
+        dispatch(setIsMobile(false));
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (

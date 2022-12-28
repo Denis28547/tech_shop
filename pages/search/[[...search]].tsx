@@ -38,7 +38,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
     from: priceFromState,
     to: priceToState,
     category: categoryState,
-    sortBy: sortState,
+    sort: sortState,
     isStateInitial,
   } = useAppSelector((state) => state.search);
 
@@ -54,7 +54,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
     if (priceFromState) newRouterUrl += `&from=${priceFromState}`;
     if (priceToState) newRouterUrl += `&to=${priceToState}`;
     if (categoryState) newRouterUrl += `&category=${categoryState}`;
-    if (sortState) newRouterUrl += `&sortBy=${sortState}`;
+    if (sortState) newRouterUrl += `&sort=${sortState}`;
     router.push(newRouterUrl);
   }, [searchState, priceFromState, priceToState, categoryState, sortState]);
 
@@ -68,14 +68,14 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
           search={searchState}
         />
 
-        <div style={{ display: "flex" }}>
+        <div>
           <Modal
             active={filterSidebar}
             setActive={modalHandler}
             putChildrenInContainer={false}
           >
             <FilterBlock
-              isMobile={isMobile}
+              isMobile={true}
               query={query}
               categories={categories}
             />
@@ -84,7 +84,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
           <SearchedItemsContainer
             query={query}
             setItemCount={setItemCount}
-            isMobile={isMobile}
+            isMobile={true}
           />
         </div>
       </div>
@@ -109,7 +109,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
 };
 
 export async function getServerSideProps(context: any) {
-  const { search, category, from, to, sortBy } = context.query;
+  const { search, category, from, to, sort } = context.query;
 
   const data = await store.dispatch(getAllCategories.initiate());
   await Promise.all(getRunningOperationPromises());
@@ -122,7 +122,7 @@ export async function getServerSideProps(context: any) {
         ...(category && { category: category }),
         ...(from && { from: from }),
         ...(to && { to: to }),
-        ...(sortBy && { sortBy: sortBy }),
+        ...(sort && { sort: sort }),
       },
       categories,
     },

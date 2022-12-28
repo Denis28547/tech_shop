@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import ImageComponent from "./ImageComponent";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";

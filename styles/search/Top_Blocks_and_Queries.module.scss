@@ -42,7 +42,7 @@
 
   .button_container {
     display: flex;
-    gap: 14px;
+    gap: 10px;
     margin-top: 16px;
 
     .filter_icon {
@@ -81,11 +81,23 @@
 }
 
 .queries_container_computer {
-  @media all and (max-width: 1000px) {
-    display: none;
-  }
+  // @media all and (max-width: 1000px) {
+  //   display: none;
+  // }
 }
 
 .queries_container_mobile {
   gap: 5px;
+}
+
+.top_bar_items {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+
+  @media all and (max-width: 800px) {
+    display: none;
+  }
 }

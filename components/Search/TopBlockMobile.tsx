@@ -3,6 +3,7 @@ import { changeFilterSidebarState } from "../../store/reducers/SidebarSlice";
 
 import FilterIcon from "../../public/assets/searchIcons/FilterIcon";
 import CustomButton from "../CustomButton";
+import { SortDropDown } from "./SortDropDown";
 
 import styles from "../../styles/search/Top_Blocks_and_Queries.module.scss";
 
@@ -41,21 +42,13 @@ export const TopBlockMobile = ({
           width="50%"
           loading={false}
           text="Filters"
-          height={50}
+          height={54}
           onClick={() => dispatch(changeFilterSidebarState(true))}
         >
           <FilterIcon className={styles.filter_icon} />
         </CustomButton>
 
-        <CustomButton
-          fontSize="1rem"
-          buttonType="outline"
-          fontWeight={600}
-          width="50%"
-          loading={false}
-          text="Sort by"
-          height={50}
-        />
+        <SortDropDown width={"50%"} />
       </div>
     </div>
   );

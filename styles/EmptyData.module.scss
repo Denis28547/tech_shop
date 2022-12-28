@@ -1,0 +1,22 @@
+@use "./variables" as *;
+
+.empty_data {
+  text-align: center;
+  width: 1200px;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .emptyListIcon {
+    color: $small-things-color;
+    width: 100%;
+    max-width: 450px;
+  }
+
+  h1 {
+    max-width: 500px;
+    margin-bottom: 10px;
+  }
+}

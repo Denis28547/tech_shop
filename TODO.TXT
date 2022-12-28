@@ -1,4 +1,4 @@
-SKELETON WORKS WRONGLY ON PHONE SCREEN IN FAVORITES PAGE
+//--SKELETON WORKS WRONGLY ON PHONE SCREEN IN FAVORITES PAGE
 
 //--MAKE ONE TYPE FOR EVERYTHING IN PROJECT
 //--WRAP ALL LINKS CONTAINS WITH <a></a>
@@ -9,21 +9,21 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 1) sidebar on phones
 //--2) normal responsive item page
 3) do something with landing page
-4) search feature
+//--4) search feature
 5) footer
 6) profile page
 7) text seller functionality
-8) appearing box on the bottom of the site, telling that something was successful/unsuccessful ( add this when adding favorites, and when copying number on item page)
+//--8) appearing box on the bottom of the site, telling that something was successful/unsuccessful ( add this when adding favorites, and when copying number on item page)
 //--9) adding number and city to user (NUMBER CAN BE ADDED IN ITEM FORM) (((((--number added--)))))
 10) ability to choose currency
 11) add tags for items on item sell page
-12) add all author items on itempage bottom
+//--12) add all author items on itempage bottom
 13) mb delete ability to import .png when sell items, cause they can be transparent and loader can be seen
-14) if ur not logged in u shouldn't be able to add favorites
+//--14) if ur not logged in u shouldn't be able to add favorites
 15) save preferred list style in favorites to local storage
 
 *** small things
 1) styles for category when sell item
-2) mb fix photos grid on sell page
+//--2) mb fix photos grid on sell page
 3) ERROR page
-4) loading images after components mounts in ItemCard
+4) loader for all nextjs images

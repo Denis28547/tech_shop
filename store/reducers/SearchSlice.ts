@@ -5,7 +5,7 @@ interface ISearchState {
   from: string;
   to: string;
   category: string;
-  sortBy: string;
+  sort: string;
   isStateInitial: boolean;
 }
 
@@ -18,7 +18,7 @@ const initialState: ISearchState = {
   from: "",
   to: "",
   category: "",
-  sortBy: "",
+  sort: "",
   isStateInitial: true,
 };
 
@@ -33,7 +33,7 @@ export const searchSlice = createSlice({
       state.from = "";
       state.to = "";
       state.category = "";
-      state.sortBy = "";
+      state.sort = "";
       state.search = action.payload;
     },
     updatePricesState: (
@@ -45,6 +45,9 @@ export const searchSlice = createSlice({
     },
     updateCategoryIdState: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
+    },
+    updateSortBy: (state, action: PayloadAction<string>) => {
+      state.sort = action.payload;
     },
     clearAllFilters: (state) => {
       return {
@@ -58,12 +61,12 @@ export const searchSlice = createSlice({
       state[action.payload] = "";
     },
     updateAllStates: (state, action: PayloadAction<ISearchStateWithNull>) => {
-      const { search, from, to, category, sortBy } = action.payload;
+      const { search, from, to, category, sort } = action.payload;
       state.search = search ? search : "";
       state.from = from ? from : "";
       state.to = to ? to : "";
       state.category = category ? category : "";
-      state.sortBy = sortBy ? sortBy : "";
+      state.sort = sort ? sort : "";
       state.isStateInitial = false;
     },
   },
@@ -73,6 +76,7 @@ export const {
   updateSearchAndClearFiltersState,
   updatePricesState,
   updateCategoryIdState,
+  updateSortBy,
   clearAllFilters,
   clearOneFilter,
   updateAllStates,
