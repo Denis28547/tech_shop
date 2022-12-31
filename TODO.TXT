@@ -27,3 +27,4 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 //--2) mb fix photos grid on sell page
 3) ERROR page
 4) loader for all nextjs images
+5) validate price in searchpage and check if list look doesn't reset when you add new filters

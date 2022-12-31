@@ -12,6 +12,7 @@
   &:disabled {
     cursor: not-allowed;
     background-color: $accent-color-disabled;
+    opacity: 60%;
   }
 }
 

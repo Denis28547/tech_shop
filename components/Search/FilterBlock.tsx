@@ -70,7 +70,6 @@ export const FilterBlock = ({ isMobile, query, categories }: IFilterBlock) => {
     <div
       className={`${styles.filter_block} ${styles.filters_computer} `}
       id="filterForm"
-      // onClick={(e) => e.stopPropagation()}
     >
       <div
         style={{
