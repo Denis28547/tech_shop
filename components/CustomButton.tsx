@@ -1,11 +1,11 @@
 import Loader from "./Loader";
 
 import styles from "../styles/CustomButton.module.scss";
-import { ButtonHTMLAttributes, FC } from "react";
 
 interface ICustomButton {
   text: string;
   loading: boolean;
+  isDisabled?: boolean;
   height: number;
   width: string | number;
   margin?: string | number;
@@ -20,6 +20,7 @@ interface ICustomButton {
 const CustomButton = ({
   text,
   loading,
+  isDisabled,
   height,
   width,
   margin,
@@ -54,7 +55,7 @@ const CustomButton = ({
   return (
     <button
       className={styles.custom_button}
-      disabled={loading}
+      disabled={loading || isDisabled}
       data-button_type={buttonType}
       onClick={onClick}
       style={{
