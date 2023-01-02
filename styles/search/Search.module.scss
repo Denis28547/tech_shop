@@ -1,11 +1,11 @@
 @use "../variables" as *;
 
 .search_wrapper {
-  max-width: 1230px;
+  max-width: $max-width;
   width: 100%;
 
   margin: 0 auto;
-  padding: 0 15px;
+  padding: $wrapper-padding;
 
   .count_header {
     font-size: 2rem;

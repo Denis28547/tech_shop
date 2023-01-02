@@ -68,7 +68,6 @@ export default async function handler(
 
         res.status(200).json(searchedItems);
       } catch (error: any) {
-        console.log(error);
         res.status(500).json({ message: "something unexpected happened" });
       }
       break;

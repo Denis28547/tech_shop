@@ -3,7 +3,6 @@
 
 .user_block {
   @include info_block;
-  // padding: 20px;
   overflow: hidden;
   word-wrap: break-word;
   display: flex;

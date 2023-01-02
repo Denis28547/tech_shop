@@ -24,7 +24,7 @@ const Redirect: NextPage = () => {
 
   useEffect(() => {
     if (redirectSeconds == 0) {
-      router.push("/");
+      router.replace("/");
       return;
     }
 

@@ -33,73 +33,44 @@ export const PriceContainer = () => {
     );
   };
 
-  const handleCurrencyFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!currencyToRef.current) return;
+  const checkIfInputNumberIsInRange = (num: string): boolean => {
+    const number = Number(num);
+    if (number < 0 || number > 9999999) return false;
+    return true;
+  };
 
-    if (Number(e.target.value) < 0 || Number(e.target.value) > 9999999) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!currencyFromRef.current || !currencyToRef.current) return;
+
+    if (
+      currencyFromRef.current.value !== "" &&
+      currencyToRef.current.value !== "" &&
+      Math.abs(Number(currencyFromRef.current.value)) >
+        Math.abs(Number(currencyToRef.current.value))
+    ) {
       setIsCurrencyFromValid(false);
+      setIsCurrencyToValid(false);
       return;
     }
 
-    if (
-      currencyToRef.current.value &&
-      Number(e.target.value) > Number(currencyToRef.current.value)
-    ) {
+    const isCurrencyFromValid = checkIfInputNumberIsInRange(
+      currencyFromRef.current.value
+    );
+    const isCurrencyToValid = checkIfInputNumberIsInRange(
+      currencyToRef.current.value
+    );
+
+    if (!isCurrencyFromValid) {
       setIsCurrencyFromValid(false);
     } else {
       setIsCurrencyFromValid(true);
     }
-  };
 
-  const handleCurrencyToChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!currencyFromRef.current) return;
-
-    if (Number(e.target.value) < 0 || Number(e.target.value) > 9999999) {
-      setIsCurrencyToValid(false);
-      return;
-    }
-
-    if (
-      currencyFromRef.current.value &&
-      Number(e.target.value) < Number(currencyFromRef.current.value)
-    ) {
+    if (!isCurrencyToValid) {
       setIsCurrencyToValid(false);
     } else {
       setIsCurrencyToValid(true);
     }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!currencyToRef.current || !currencyFromRef.current) return;
-
-    if (Number(e.target.value) < 0 || Number(e.target.value) > 9999999) {
-      if (e.target.name === "currencyFrom") setIsCurrencyFromValid(false);
-      if (e.target.name === "currencyTo") setIsCurrencyToValid(false);
-      return;
-    }
-
-    if (
-      currencyToRef.current.value &&
-      e.target.name === "currencyFrom" &&
-      Number(e.target.value) > Number(currencyToRef.current.value)
-    ) {
-      setIsCurrencyFromValid(false);
-      setIsCurrencyToValid(false);
-      return;
-    }
-
-    if (
-      currencyFromRef.current.value &&
-      e.target.name === "currencyTo" &&
-      Number(e.target.value) < Number(currencyFromRef.current.value)
-    ) {
-      setIsCurrencyFromValid(false);
-      setIsCurrencyToValid(false);
-      return;
-    }
-
-    setIsCurrencyFromValid(true);
-    setIsCurrencyToValid(true);
   };
 
   useEffect(() => {
@@ -126,16 +97,10 @@ export const PriceContainer = () => {
           name="currencyFrom"
           ref={currencyFromRef}
           data-isinvalid={!isCurrencyFromValid}
-          // onChange={handleCurrencyFromChange}
           onChange={handleChange}
         />
       </div>
-      {!isCurrencyFromValid && (
-        <div className={styles.input_invalid_text}>
-          *Not valid (field should be lesser than &quot;to&quot; field, less
-          than 9999999 and should be positive)
-        </div>
-      )}
+
       <div className={styles.currency_block}>
         <p>to&nbsp;&nbsp;&nbsp;&nbsp;</p>
         <input
@@ -146,14 +111,15 @@ export const PriceContainer = () => {
           name="currencyTo"
           ref={currencyToRef}
           data-isinvalid={!isCurrencyToValid}
-          // onChange={handleCurrencyToChange}
           onChange={handleChange}
         />
       </div>
-      {!isCurrencyToValid && (
-        <div className={styles.input_invalid_text}>
-          *Not valid (field should be bigger than &quot;from&quot; field, less
-          than 9999999 and should be positive)
+
+      {(!isCurrencyFromValid || !isCurrencyToValid) && (
+        <div className={styles.input_invalid_text} style={{ marginTop: "5px" }}>
+          *Not valid (field &quot;from&quot; should be lesser than field
+          &quot;to&quot;, and each should be lesser than 9999999 and should be
+          positive)
         </div>
       )}
       <CustomButton

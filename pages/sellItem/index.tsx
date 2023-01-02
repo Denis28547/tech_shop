@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 
+import { requireAuth } from "../../utils/requireAuth";
 import { useAddItemMutation } from "../../store/services/ItemService";
 import NameCategoryPriceComponent from "../../components/SellPage/NameCategoryPriceComponent";
 import PhotosComponent from "../../components/SellPage/PhotosComponent";
@@ -31,7 +31,6 @@ interface ITarget {
 const SellPage: NextPage = () => {
   const [addItem, { isLoading, isError, data, error }] = useAddItemMutation();
   const [photoError, setPhotoError] = useState("");
-  const { status } = useSession();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,14 +65,8 @@ const SellPage: NextPage = () => {
     await addItem(formData);
   };
 
-  if (status === "unauthenticated") {
-    router.push(
-      `/redirect?text=Please log in or register to sell an item&success=${false}`
-    );
-  }
-
   if (data) {
-    router.push(`/redirect?text=${data.message}&success=${true}`);
+    router.replace(`/redirect?text=${data.message}&success=${true}`);
   }
 
   return (
@@ -91,5 +84,19 @@ const SellPage: NextPage = () => {
     </form>
   );
 };
+
+export async function getServerSideProps(context: any) {
+  return await requireAuth(
+    context,
+    "/redirect?text=Please log in or register to sell an item&success=false",
+    ({ session }: any) => {
+      return {
+        props: {
+          session,
+        },
+      };
+    }
+  );
+}
 
 export default SellPage;

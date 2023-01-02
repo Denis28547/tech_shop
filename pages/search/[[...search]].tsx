@@ -49,13 +49,13 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
   useEffect(() => {
     if (isStateInitial) return;
     let newRouterUrl = "/search";
-    if (searchState) newRouterUrl += `/${searchState}?`;
+    if (searchState) newRouterUrl += `/${searchState}?&`;
     else newRouterUrl += "?";
-    if (priceFromState) newRouterUrl += `&from=${priceFromState}`;
-    if (priceToState) newRouterUrl += `&to=${priceToState}`;
-    if (categoryState) newRouterUrl += `&category=${categoryState}`;
-    if (sortState) newRouterUrl += `&sort=${sortState}`;
-    router.push(newRouterUrl);
+    if (priceFromState) newRouterUrl += `from=${priceFromState}&`;
+    if (priceToState) newRouterUrl += `to=${priceToState}&`;
+    if (categoryState) newRouterUrl += `category=${categoryState}&`;
+    if (sortState) newRouterUrl += `sort=${sortState}&`;
+    router.replace(newRouterUrl);
   }, [searchState, priceFromState, priceToState, categoryState, sortState]);
 
   if (isMobile) {

@@ -132,7 +132,7 @@ const UserBlock = ({ user, phone_number, location }: IUserBlock) => {
           height={50}
           fontSize="1rem"
           fontWeight={600}
-          onClick={() => router.push("/profile")}
+          onClick={() => router.replace("/profile")}
         />
       </div>
     </div>

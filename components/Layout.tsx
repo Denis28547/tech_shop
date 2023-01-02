@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -10,7 +9,7 @@ import BottomPopUp from "./BottomPopUp";
 
 import styles from "../styles/Main.module.scss";
 
-const Layout = ({ children }: { children: ReactElement }) => {
+const Layout = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   const router = useRouter();
 
   const disableNavbarForRoutes = {
