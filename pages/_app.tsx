@@ -7,6 +7,7 @@ import { store } from "../store/store";
 import Layout from "../components/Layout";
 
 import "../styles/globals.scss";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,38 +15,20 @@ function MyApp({ Component, pageProps }: AppProps) {
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
         <Layout>
-          <Component {...pageProps} />
+          <Head>
+            <title>TechShop</title>
+            <link
+              href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap"
+              rel="stylesheet"
+            />
+          </Head>
+          <main>
+            <Component {...pageProps} />
+          </main>
         </Layout>
       </Provider>
     </SessionProvider>
   );
 }
-
-// export default wrapper.withRedux(MyApp);
-
-// function MyApp({ Component, pageProps }: AppProps) {
-//   const [isLoading, setIsLoading] = useState(true);
-//   const router = useRouter();
-//   useEffect(() => {
-//     router.isReady && setIsLoading(false);
-//   }, []);
-
-//   return (
-//     <>
-//       {isLoading ? (
-//         <>loading...</>
-//       ) : (
-//         // @ts-ignore
-//         <SessionProvider session={pageProps.session}>
-//           <Provider store={makeStore()}>
-//             <Layout>
-//               <Component {...pageProps} />
-//             </Layout>
-//           </Provider>
-//         </SessionProvider>
-//       )}
-//     </>
-//   );
-// }
 
 export default MyApp;

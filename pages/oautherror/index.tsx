@@ -9,11 +9,11 @@ const OAthError: NextPage = () => {
     if (!router.isReady || !router.query) return;
 
     if (router.query.error && router.query.error === "OAuthAccountNotLinked") {
-      router.push(
+      router.replace(
         `/redirect?text=${"You already used this email to sign up, please, sign in with it again"}&success=${false}`
       );
     } else {
-      router.push(
+      router.replace(
         `/redirect?text=${"Something unexpected happened"}&success=${false}`
       );
     }

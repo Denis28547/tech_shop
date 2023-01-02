@@ -53,6 +53,7 @@ export interface IItemWithCategory extends IItem {
 export interface ICategory {
   id: string;
   name: string;
+  backgroundColor: string;
 }
 
 export interface ICategoryModel extends Model, ICategory {}

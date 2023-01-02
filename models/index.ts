@@ -143,6 +143,11 @@ export const Category = sequelize.define<ICategoryModel>(
       unique: true,
       allowNull: false,
     },
+    backgroundColor: {
+      type: DataTypes.STRING,
+      unique: false,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

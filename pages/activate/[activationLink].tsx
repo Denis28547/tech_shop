@@ -50,7 +50,7 @@ const Activate: NextPage = () => {
 
   useEffect(() => {
     if (responseMessage.message) {
-      router.push(
+      router.replace(
         `/redirect?text=${responseMessage.message}&success=${responseMessage.success}`
       );
     }

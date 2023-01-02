@@ -78,12 +78,9 @@
       margin: 0;
     }
 
-    &[data-isinvalid="true"] {
+    &[data-isinvalid="true"],
+    &:invalid {
       border-color: $error-color !important;
-    }
-
-    &:hover[data-isinvalid="true"] {
-      width: 2000px;
     }
 
     &:focus {
@@ -112,6 +109,8 @@
     border: 2.5px solid $clickable-hover-color;
     border-radius: 50%;
     margin-right: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
 
     &[data-active="true"] {
       background-color: $text-color;
@@ -119,6 +118,7 @@
     }
   }
   .input_label {
+    cursor: pointer;
     &::first-letter {
       text-transform: capitalize;
     }

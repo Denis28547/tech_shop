@@ -17,8 +17,8 @@ $favorites-top-height: 144px;
 .favorites_wrapper {
   margin: 0 auto;
   width: 100%;
-  max-width: 1230px;
-  padding: 0 15px;
+  max-width: $max-width;
+  padding: $wrapper-padding;
 }
 
 .favorites_top_info {
