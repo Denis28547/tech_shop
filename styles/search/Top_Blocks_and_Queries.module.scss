@@ -78,10 +78,15 @@
       color: $error-color;
     }
   }
+
+  @media all and (max-width: 1200px) {
+    display: none;
+  }
 }
 
 .queries_container_mobile {
   gap: 5px;
+  display: flex;
 }
 
 .top_bar_items {

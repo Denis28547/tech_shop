@@ -2,7 +2,7 @@
 
 @mixin border_bottom_colors {
   &[data-dirty="true"]:invalid {
-    border-bottom: 4px solid $error-color;
+    border-bottom: 4px solid $error-color !important;
   }
 
   &:focus {

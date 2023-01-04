@@ -25,6 +25,8 @@ export default async function handler(
           priceFrom = "0",
           priceTo = "9999999",
           sortBy = undefined,
+          limit,
+          offset,
         } = req.query;
 
         const whereStatement: any = {
@@ -58,15 +60,19 @@ export default async function handler(
             break;
         }
 
-        const searchedItems = await Item.findAndCountAll({
+        const searchedItems = await Item.findAll({
           where: whereStatement,
           include: {
             model: Category,
           },
           order: sortByStatement,
+          limit: limit ? Number(limit) : undefined,
+          offset: offset ? Number(offset) : undefined,
         });
 
-        res.status(200).json(searchedItems);
+        res
+          .status(200)
+          .json({ count: searchedItems.length, rows: searchedItems });
       } catch (error: any) {
         res.status(500).json({ message: "something unexpected happened" });
       }

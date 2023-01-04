@@ -29,7 +29,6 @@ interface IQuery {
 const Search: NextPage<IQuery> = ({ query, categories }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [itemCount, setItemCount] = useState<number | null>(null);
 
   const { isMobile } = useAppSelector((state) => state.mobile);
   const { filterSidebar } = useAppSelector((state) => state.sidebars);
@@ -39,6 +38,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
     to: priceToState,
     category: categoryState,
     sort: sortState,
+    page: pageState,
     isStateInitial,
   } = useAppSelector((state) => state.search);
 
@@ -55,18 +55,22 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
     if (priceToState) newRouterUrl += `to=${priceToState}&`;
     if (categoryState) newRouterUrl += `category=${categoryState}&`;
     if (sortState) newRouterUrl += `sort=${sortState}&`;
+    if (pageState) newRouterUrl += `page=${pageState}&`;
     router.replace(newRouterUrl);
-  }, [searchState, priceFromState, priceToState, categoryState, sortState]);
+  }, [
+    searchState,
+    priceFromState,
+    priceToState,
+    categoryState,
+    sortState,
+    pageState,
+  ]);
 
   if (isMobile) {
     const modalHandler = () => dispatch(changeFilterSidebarState(false));
     return (
       <div className={styles.search_wrapper}>
-        <TopBlockMobile
-          item_count={itemCount}
-          category={categoryState}
-          search={searchState}
-        />
+        <TopBlockMobile category={categoryState} search={searchState} />
 
         <div>
           <Modal
@@ -81,11 +85,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
             />
           </Modal>
 
-          <SearchedItemsContainer
-            query={query}
-            setItemCount={setItemCount}
-            isMobile={true}
-          />
+          <SearchedItemsContainer query={query} isMobile={true} />
         </div>
       </div>
     );
@@ -93,23 +93,19 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
 
   return (
     <div className={styles.search_wrapper}>
-      <TopBlock item_count={itemCount} query={query} />
+      <TopBlock query={query} />
 
       <div className={styles.content_container}>
         <FilterBlock isMobile={false} categories={categories} />
 
-        <SearchedItemsContainer
-          query={query}
-          setItemCount={setItemCount}
-          isMobile={isMobile}
-        />
+        <SearchedItemsContainer query={query} isMobile={isMobile} />
       </div>
     </div>
   );
 };
 
 export async function getServerSideProps(context: any) {
-  const { search, category, from, to, sort } = context.query;
+  const { search, category, from, to, sort, page } = context.query;
 
   const data = await store.dispatch(getAllCategories.initiate());
   await Promise.all(getRunningOperationPromises());
@@ -123,6 +119,7 @@ export async function getServerSideProps(context: any) {
         ...(from && { from: from }),
         ...(to && { to: to }),
         ...(sort && { sort: sort }),
+        ...(page && Number(page) > 1 && { page: page }),
       },
       categories,
     },

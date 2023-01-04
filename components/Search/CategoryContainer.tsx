@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { updateCategoryIdState } from "../../store/reducers/SearchSlice";
+import { updateCategoryState } from "../../store/reducers/SearchSlice";
 
 import { ICategory } from "../../types/index";
 
@@ -15,10 +15,10 @@ export const CategoryContainer = ({ categories }: ICategoryContainer) => {
 
   const handleChangeCategory = (name: string) => {
     if (name === categoryState) {
-      dispatch(updateCategoryIdState(""));
+      dispatch(updateCategoryState(""));
       return;
     }
-    dispatch(updateCategoryIdState(name));
+    dispatch(updateCategoryState(name));
   };
 
   return (
