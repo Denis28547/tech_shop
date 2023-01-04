@@ -6,7 +6,10 @@ interface ISearchState {
   to: string;
   category: string;
   sort: string;
+  page: string;
   isStateInitial: boolean;
+  item_count: string;
+  items_on_page: string;
 }
 
 interface ISearchStateWithNull {
@@ -19,7 +22,10 @@ const initialState: ISearchState = {
   to: "",
   category: "",
   sort: "",
+  page: "",
   isStateInitial: true,
+  item_count: "",
+  items_on_page: "1",
 };
 
 export const searchSlice = createSlice({
@@ -34,6 +40,7 @@ export const searchSlice = createSlice({
       state.to = "";
       state.category = "";
       state.sort = "";
+      state.page = "";
       state.search = action.payload;
     },
     updatePricesState: (
@@ -43,11 +50,14 @@ export const searchSlice = createSlice({
       state.from = action.payload.from;
       state.to = action.payload.to;
     },
-    updateCategoryIdState: (state, action: PayloadAction<string>) => {
+    updateCategoryState: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
     },
     updateSortBy: (state, action: PayloadAction<string>) => {
       state.sort = action.payload;
+    },
+    updatePage: (state, action: PayloadAction<string>) => {
+      state.page = action.payload;
     },
     clearAllFilters: (state) => {
       return {
@@ -61,13 +71,17 @@ export const searchSlice = createSlice({
       state[action.payload] = "";
     },
     updateAllStates: (state, action: PayloadAction<ISearchStateWithNull>) => {
-      const { search, from, to, category, sort } = action.payload;
+      const { search, from, to, category, sort, page } = action.payload;
       state.search = search ? search : "";
       state.from = from ? from : "";
       state.to = to ? to : "";
       state.category = category ? category : "";
       state.sort = sort ? sort : "";
+      state.page = page ? page : "";
       state.isStateInitial = false;
+    },
+    setItemCount: (state, action: PayloadAction<string>) => {
+      state.item_count = action.payload;
     },
   },
 });
@@ -75,11 +89,13 @@ export const searchSlice = createSlice({
 export const {
   updateSearchAndClearFiltersState,
   updatePricesState,
-  updateCategoryIdState,
+  updateCategoryState,
   updateSortBy,
+  updatePage,
   clearAllFilters,
   clearOneFilter,
   updateAllStates,
+  setItemCount,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;

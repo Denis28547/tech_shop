@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { clearAllFilters } from "../../store/reducers/SearchSlice";
 
 import CustomButton from "../CustomButton";
@@ -7,20 +7,21 @@ import { QueryContainer } from "./QueryContainer";
 import styles from "../../styles/search/Top_Blocks_and_Queries.module.scss";
 
 interface ITopBlock {
-  item_count: number | null;
   query: {
     [key: string]: string;
   };
 }
 
-const TopBlock = ({ item_count, query }: ITopBlock) => {
+const TopBlock = ({ query }: ITopBlock) => {
   const dispatch = useAppDispatch();
+
+  const { item_count } = useAppSelector((state) => state.search);
 
   return (
     <div className={styles.top_block}>
-      {item_count !== null && (
+      {item_count && (
         <h2 className={styles.count_header}>
-          We found {item_count} good{item_count === 1 ? "" : "s"}
+          We found {item_count} good{item_count === "1" ? "" : "s"}
         </h2>
       )}
 

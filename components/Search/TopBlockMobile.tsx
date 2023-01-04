@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { changeFilterSidebarState } from "../../store/reducers/SidebarSlice";
 
 import FilterIcon from "../../public/assets/searchIcons/FilterIcon";
@@ -8,17 +8,14 @@ import { SortDropDown } from "./SortDropDown";
 import styles from "../../styles/search/Top_Blocks_and_Queries.module.scss";
 
 interface ITopBlockMobile {
-  item_count: number | null;
   search: string;
   category: string;
 }
 
-export const TopBlockMobile = ({
-  item_count,
-  search,
-  category,
-}: ITopBlockMobile) => {
+export const TopBlockMobile = ({ search, category }: ITopBlockMobile) => {
   const dispatch = useAppDispatch();
+
+  const { item_count } = useAppSelector((state) => state.search);
 
   return (
     <div className={styles.top_block_mobile}>
@@ -28,9 +25,9 @@ export const TopBlockMobile = ({
             ? `${category} » ${search}`
             : `${category || search}`}
         </h2>
-        {item_count !== null && (
+        {item_count && (
           <p>
-            we found {item_count} good{item_count === 1 ? "" : "s"}
+            we found {item_count} good{item_count === "1" ? "" : "s"}
           </p>
         )}
       </div>

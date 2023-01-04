@@ -27,7 +27,10 @@ const saveFile = (file: File): string => {
   const fileType = file.originalFilename!.split(".").at(-1);
   const fileName = uuidv4() + "." + fileType;
   const data = fs.readFileSync(file.filepath);
-  fs.writeFileSync(`./public/Content/${fileName}`, data);
+  fs.writeFileSync(
+    `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES_BACKEND}${fileName}`,
+    data
+  );
   return fileName;
 };
 

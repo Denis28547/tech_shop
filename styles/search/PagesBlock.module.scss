@@ -1,0 +1,61 @@
+@use "../variables" as *;
+
+.pages_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.page {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  border: 2px solid $border-color;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow_container {
+  width: 62px;
+  height: 42px;
+  position: relative;
+  cursor: pointer;
+  background-color: $clickable-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid $border-color;
+
+  &:hover {
+    background-color: $clickable-hover-color;
+  }
+
+  .arrow {
+    border-top-left-radius: 2px;
+    border-top: 4px solid $small-things-color;
+    border-left: 4px solid $small-things-color;
+    height: 18px;
+    width: 18px;
+  }
+}
+
+.arrow_container_left {
+  margin-right: 20px;
+
+  .arrow {
+    transform: translateX(25%) rotate(-45deg);
+  }
+}
+
+.arrow_container_right {
+  margin-left: 20px;
+
+  .arrow {
+    transform: translateX(-25%) rotate(135deg);
+  }
+}

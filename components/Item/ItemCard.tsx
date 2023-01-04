@@ -24,7 +24,7 @@ interface IItemCard {
 const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
   const dispatch = useAppDispatch();
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
-  const item_image = `/Content/${item.images[0]}`;
+  const item_image = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}${item.images[0]}`;
   const date = new Date(item.createdAt);
 
   const fullDate = `${date.getDate()} ${date.toLocaleString("default", {
