@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
 import { useGetSearchedItemsQuery } from "../../store/services/SearchService";
 import { setItemCount } from "../../store/reducers/SearchSlice";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import ItemCard from "../Item/ItemCard";
 import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 import ItemSkeletonCard from "../Item/ItemSkeletonCard";
 import TopBar from "./TopBarInItemsList";
 import { EmptyData } from "../ItemPage/EmptyData";
-import { PageBlock } from "./PageBlock";
+import { PaginationBlock } from "./PaginationBlock";
 
 interface ISearchedItemsContainer {
   query: {
@@ -31,6 +31,7 @@ const SearchedItemsContainer = ({
   isMobile,
 }: ISearchedItemsContainer) => {
   const dispatch = useAppDispatch();
+  const { items_on_page } = useAppSelector((state) => state.search);
 
   const { search, category, from, to, sort, page } = query;
 
@@ -39,11 +40,9 @@ const SearchedItemsContainer = ({
   const { isLoading: areFavoritesLoading, data: favoritesData } =
     useGetAllUserFavoritesIdsQuery();
 
-  const limit = "2";
-
   let offset = undefined;
   const pageNumber = Number(page);
-  if (page && pageNumber > 1) offset = (pageNumber - 1) * Number(limit);
+  if (page && pageNumber > 1) offset = (pageNumber - 1) * Number(items_on_page);
 
   const { isLoading: areItemsLoading, data: itemsData } =
     useGetSearchedItemsQuery({
@@ -52,7 +51,7 @@ const SearchedItemsContainer = ({
       priceFrom: from ? from : undefined,
       priceTo: to ? to : undefined,
       sortBy: sort ? sortByMap.get(sort) : undefined,
-      limit: limit ? limit : undefined,
+      limit: items_on_page ? items_on_page : undefined,
       offset: offset,
     });
 
@@ -142,7 +141,7 @@ const SearchedItemsContainer = ({
         </div>
       )}
 
-      <PageBlock />
+      <PaginationBlock />
     </div>
   );
 };

@@ -16,6 +16,7 @@ import TopBlock from "../../components/Search/TopBlock";
 import { TopBlockMobile } from "../../components/Search/TopBlockMobile";
 import { FilterBlock } from "../../components/Search/FilterBlock";
 import SearchedItemsContainer from "../../components/Search/SearchedItemsContainer";
+import { PaginationBlock } from "../../components/Search/PaginationBlock";
 
 import styles from "../../styles/search/Search.module.scss";
 
@@ -87,6 +88,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
 
           <SearchedItemsContainer query={query} isMobile={true} />
         </div>
+        <PaginationBlock is_mobile={true} />
       </div>
     );
   }
