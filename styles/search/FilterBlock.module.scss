@@ -10,6 +10,8 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: sticky;
+  top: 80px;
 
   hr {
     border: 1px solid $border-color;

@@ -15,6 +15,7 @@
   transition: 0.2s;
   opacity: 0;
   white-space: nowrap;
+  pointer-events: none;
 
   @media all and (max-width: 530px) {
     left: 0;
