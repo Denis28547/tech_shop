@@ -10,7 +10,7 @@
   transition: 0.2s;
   position: relative;
   display: grid;
-  grid-template-columns: 260px calc(100% - 80px - 260px - 30px) 80px;
+  grid-template-columns: 260px minmax(180px, 1fr) 80px;
   column-gap: 15px;
   justify-content: flex-start;
   overflow-wrap: break-word;
@@ -27,10 +27,11 @@
 }
 
 .item_info {
-  width: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
+  word-break: break-all;
 
   .name {
     word-break: break-all;
