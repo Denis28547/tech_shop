@@ -29,5 +29,5 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 3) ERROR page
 4) loader for all nextjs images
 //--5) validate price in searchpage and check if list look doesn't reset when you add new filters
-6) pagination in searchpage
-7) count how many items are on the page and disable items look style
+//--6) pagination in searchpage
+//--7) count how many items are on the page and disable items look style
