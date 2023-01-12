@@ -40,6 +40,7 @@ export const SearchField = () => {
         autoComplete="off"
         title="use only letters and numbers"
         pattern="^[a-zA-Z0-9_.-]*$"
+        maxLength={90}
       />
       <button>FIND</button>
     </form>

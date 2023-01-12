@@ -60,7 +60,7 @@ const SearchedItemsContainer = ({
 
   useEffect(() => {
     if (itemsData) dispatch(setItemCount(itemsData.count.toString()));
-    if (itemsData && itemsData.rows.length < 4) setIsWide(true);
+    if (itemsData && itemsData.rows.length < 3) setIsWide(true);
   }, [itemsData]);
 
   if (isLoading)
@@ -110,7 +110,7 @@ const SearchedItemsContainer = ({
       <TopBar
         isWide={isWide}
         setIsWide={setIsWide}
-        enableListLookChange={itemsData.rows.length >= 4}
+        enableListLookChange={itemsData.rows.length >= 3}
       />
 
       {isDataEmpty ? (

@@ -6,9 +6,8 @@ import {
 } from "../../store/services/FavoritesService";
 import { useAppDispatch } from "../../store/hooks";
 import {
-  // openPopup,
-  setSuccessText,
-  setFailedText,
+  openPopupSuccess,
+  openPopupFailure,
 } from "../../store/reducers/PopupSlice";
 
 import ItemStyle from "./ItemStyle";
@@ -42,10 +41,10 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
       removeFavorite(item.id)
         .unwrap()
         .then(() => {
-          dispatch(setSuccessText("Item removed from favorites"));
+          dispatch(openPopupSuccess("Item removed from favorites"));
         })
         .catch(() => {
-          dispatch(setFailedText("Something unexpected happened"));
+          dispatch(openPopupFailure("Something unexpected happened"));
           setIsFavorite(true);
         });
     } else {
@@ -53,10 +52,10 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
       addFavorite(item.id)
         .unwrap()
         .then(() => {
-          dispatch(setSuccessText("Item added to favorites"));
+          dispatch(openPopupSuccess("Item added to favorites"));
         })
         .catch((error) => {
-          dispatch(setFailedText(error.data.message));
+          dispatch(openPopupFailure(error.data.message));
           setIsFavorite(false);
         });
     }

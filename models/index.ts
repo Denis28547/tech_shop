@@ -2,13 +2,29 @@ import { DataTypes, Sequelize } from "sequelize";
 
 import { ICategoryModel, IItemModel, IUserModel } from "../types/index";
 
+const PGUSER = process.env.PGUSER as string;
+const PGPASSWORD = process.env.PGPASSWORD as string;
+const PGDATABASE = process.env.PGDATABASE as string;
+const DATABASE_URL = process.env.DATABASE_URL as string;
+const PGPORT = process.env.PGPORT as string;
+
 const sequelize = new Sequelize({
-  username: "postgres",
-  password: "2562",
-  database: "tech_shop",
-  host: "127.0.0.1",
+  username: PGUSER!,
+  password: PGPASSWORD,
+  database: PGDATABASE,
+  host: DATABASE_URL,
+  port: Number(PGPORT),
   dialect: "postgres",
 });
+
+// const sequelize = new Sequelize({
+//   username: "postgres",
+//   password: "2562",
+//   database: "tech_shop",
+//   host: "127.0.0.1",
+//   port: 5432,
+//   dialect: "postgres",
+// });
 
 export const User = sequelize.define<IUserModel>(
   "user",
