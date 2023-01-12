@@ -64,6 +64,7 @@ export const searchSlice = createSlice({
         ...initialState,
         search: state.search,
         isStateInitial: state.isStateInitial,
+        item_count: state.item_count,
       };
     },
     clearOneFilter: (state, action: PayloadAction<keyof ISearchState>) => {

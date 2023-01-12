@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { useAppDispatch } from "../../store/hooks";
-import { setSuccessText } from "../../store/reducers/PopupSlice";
+import { openPopupSuccess } from "../../store/reducers/PopupSlice";
 
 import { IUser } from "../../types/index";
 import Link from "next/link";
@@ -119,7 +119,7 @@ const UserBlock = ({ user, phone_number, location }: IUserBlock) => {
               setIsNumberShown(true);
               if (isNumberShown) {
                 navigator.clipboard.writeText(phone_number);
-                dispatch(setSuccessText("Number copied to clipboard"));
+                dispatch(openPopupSuccess("Number copied to clipboard"));
               }
             }}
           />

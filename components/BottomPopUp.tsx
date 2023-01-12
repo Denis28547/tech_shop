@@ -1,26 +1,41 @@
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { closePopup } from "../store/reducers/PopupSlice";
+import { closePopup, setTimerId } from "../store/reducers/PopupSlice";
 import TickIcon from "../public/assets/redirect/TickIcon";
 import CrossIcon from "../public/assets/redirect/CrossIcon";
 
 import styles from "../styles/BottomPopUpStyles.module.scss";
 
 const BottomPopUp = () => {
-  const { isOpen, text, isSuccess, secondsToShow } = useAppSelector(
-    (state) => state.popup
-  );
+  const { isOpen, opensCount, text, isSuccess, secondsToShow, timerId } =
+    useAppSelector((state) => state.popup);
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        dispatch(closePopup());
-      }, secondsToShow);
+  function startTimer() {
+    const timer = window.setTimeout(() => {
+      dispatch(closePopup());
+    }, secondsToShow);
+    dispatch(setTimerId(timer));
+  }
+
+  function resetTimeout() {
+    if (timerId) {
+      clearTimeout(timerId);
+      startTimer();
     }
-  }, [isOpen]);
+  }
+
+  useEffect(() => {
+    if (isOpen && opensCount >= 2) {
+      resetTimeout();
+      return;
+    }
+    if (isOpen && opensCount === 1) {
+      startTimer();
+    }
+  }, [isOpen, opensCount]);
 
   return (
     <div className={`${styles.popup} ${isOpen ? styles.open : ""}`}>
