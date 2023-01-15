@@ -18,9 +18,10 @@ interface IItemCard {
   item: IItem | IItemWithCategory;
   isWide?: boolean;
   isFavoriteData: boolean;
+  isEditable?: boolean;
 }
 
-const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
+const ItemCard = ({ item, isWide, isFavoriteData, isEditable }: IItemCard) => {
   const dispatch = useAppDispatch();
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
   const item_image = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}${item.images[0]}`;
@@ -70,6 +71,7 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
           fullDate={fullDate}
           isFavorite={isFavorite}
           changeFavorite={changeFavorite}
+          isEditable={isEditable}
         />
       ) : (
         <ItemStyle
@@ -78,6 +80,7 @@ const ItemCard = ({ item, isWide, isFavoriteData }: IItemCard) => {
           fullDate={fullDate}
           isFavorite={isFavorite}
           changeFavorite={changeFavorite}
+          isEditable={isEditable}
         />
       )}
     </>

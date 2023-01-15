@@ -28,11 +28,17 @@ const Redirect: NextPage = () => {
       return;
     }
 
+    let interval: number | null = null;
+
     if (mainText) {
-      setTimeout(() => {
-        setRedirectSeconds(redirectSeconds - 1);
+      interval = window.setTimeout(() => {
+        setRedirectSeconds((prevSec) => prevSec - 1);
       }, 1000);
     }
+
+    return () => {
+      if (interval) clearTimeout(interval);
+    };
   }, [mainText, redirectSeconds]);
 
   if (!mainText)

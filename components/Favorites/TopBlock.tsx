@@ -1,6 +1,6 @@
 import CustomButton from "../CustomButton";
 
-import styles from "../../styles/item/Favorites.module.scss";
+import styles from "../../styles/profile/Favorites.module.scss";
 
 interface ITopBlock {
   length: number;
@@ -9,7 +9,7 @@ interface ITopBlock {
   removeAllFavorite: () => void;
 }
 
-const TopBlock = ({
+export const TopBlock = ({
   length,
   isDataEmpty,
   areItemsDeleting,
@@ -17,7 +17,6 @@ const TopBlock = ({
 }: ITopBlock) => {
   return (
     <div className={styles.favorites_top_info}>
-      <h1>Favorite items</h1>
       <div className={styles.favorites_top_info_button}>
         <h3>Added ({length}/50)</h3>
         {!isDataEmpty && (
@@ -37,5 +36,3 @@ const TopBlock = ({
     </div>
   );
 };
-
-export default TopBlock;

@@ -6,12 +6,12 @@ import { setItemCount } from "../../store/reducers/SearchSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import ItemCard from "../Item/ItemCard";
-import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 import ItemSkeletonCard from "../Item/ItemSkeletonCard";
 import TopBar from "./TopBarInItemsList";
 import { EmptyData } from "../ItemPage/EmptyData";
 import { PaginationBlock } from "./PaginationBlock";
 
+import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 interface ISearchedItemsContainer {
   query: {
     [key: string]: string | null;

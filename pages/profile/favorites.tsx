@@ -8,12 +8,12 @@ import {
 import { useAppSelector } from "../../store/hooks";
 
 import ItemCard from "../../components/Item/ItemCard";
-import TopBlock from "../../components/Favorites/TopBlock";
+import { TopBlock } from "../../components/Favorites/TopBlock";
 import ItemSkeletonCard from "../../components/Item/ItemSkeletonCard";
 import ListLookBlock from "../../components/Favorites/ListLookBlock";
 import { EmptyData } from "../../components/ItemPage/EmptyData";
 
-import styles from "../../styles/item/Favorites.module.scss";
+import styles from "../../styles/profile/Favorites.module.scss";
 import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 
 const Favorites: NextPage = () => {

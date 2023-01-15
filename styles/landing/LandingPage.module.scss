@@ -1,10 +1,7 @@
 @use "../variables" as *;
 
 .landing_pageWrapper {
-  max-width: $max-width;
-  width: 100%;
-  margin: 0 auto;
-  padding: $wrapper-padding;
+  @include global_wrapper;
 
   .landing_h1 {
     text-align: center;

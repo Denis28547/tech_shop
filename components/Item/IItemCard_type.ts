@@ -6,6 +6,7 @@ export interface IItemCard {
   fullDate: string;
   isFavorite: boolean;
   changeFavorite: (e: React.MouseEvent<Element, MouseEvent>) => void;
+  isEditable?: boolean;
 }
 export interface IItemCardWithCategory extends IItemCard {
   item: IItemWithCategory;

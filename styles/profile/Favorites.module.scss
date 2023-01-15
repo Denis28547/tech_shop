@@ -1,24 +1,9 @@
 @use "../variables" as *;
 
-$favorites-top-height: 144px;
-
-.favorites_top_block {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: $favorites-top-height;
-  background-color: $secondary-color;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 3px solid $border-color;
-  z-index: -1;
-}
+$favorites-top-height: 70px;
 
 .favorites_wrapper {
-  margin: 0 auto;
-  width: 100%;
-  max-width: $max-width;
-  padding: $wrapper-padding;
+  @include global_wrapper;
 }
 
 .favorites_top_info {
@@ -29,7 +14,6 @@ $favorites-top-height: 144px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 16px;
 
   @media all and (max-width: 530px) {
     align-items: center;
