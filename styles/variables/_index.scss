@@ -1,5 +1,8 @@
 @forward "./colors.scss";
 @forward "./no_copy.scss";
 
-$max-width: 1230px;
-$wrapper-padding: 0 15px;
+@mixin global_wrapper {
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+}

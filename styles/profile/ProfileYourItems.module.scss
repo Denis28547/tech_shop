@@ -1,9 +1,6 @@
 @use "../variables" as *;
 
-.wrapper {
+.your_items_content {
   @include global_wrapper;
-
-  .main_text {
-    margin: 30px 0;
-  }
+  margin-top: 50px;
 }

@@ -1,0 +1,49 @@
+@use "../variables" as *;
+
+$favorites-top-height: 144px;
+
+.profile_navbar_wrapper {
+  background-color: $secondary-color;
+}
+
+.profile_navbar_content {
+  @include global_wrapper;
+  padding: 15px;
+  color: $text-color;
+  padding-bottom: 0;
+}
+
+.profile_navbar_current_page {
+  font-size: 3rem;
+  margin-bottom: 50px;
+}
+
+.profile_navbar_links_container {
+  display: flex;
+  gap: 30px;
+
+  a {
+    font-size: 1.2rem;
+    position: relative;
+    padding: 14px 10px;
+    cursor: pointer;
+  }
+
+  @media all and (max-width: 530px) {
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+}
+
+.current_link {
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: $small-things-color;
+    top: 100%;
+    left: 0;
+  }
+}

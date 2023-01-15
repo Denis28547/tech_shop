@@ -13,6 +13,7 @@ const ItemStyle = ({
   fullDate,
   isFavorite,
   changeFavorite,
+  isEditable,
 }: IItemCard) => {
   return (
     <div className={styles.item}>

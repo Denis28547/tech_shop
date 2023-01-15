@@ -1,7 +1,7 @@
 import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
 import ItemWideIcon from "../../public/assets/favoritePageIcons/ItemWideIcon";
 
-import styles from "../../styles/item/Favorites.module.scss";
+import styles from "../../styles/profile/Favorites.module.scss";
 
 interface IListLookBlock {
   isItemWide: boolean;

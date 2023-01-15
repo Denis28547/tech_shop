@@ -25,7 +25,7 @@ const initialState: ISearchState = {
   page: "",
   isStateInitial: true,
   item_count: "",
-  items_on_page: "4",
+  items_on_page: "16",
 };
 
 export const searchSlice = createSlice({

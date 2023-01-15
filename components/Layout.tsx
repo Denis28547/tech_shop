@@ -5,6 +5,7 @@ import { useAppDispatch } from "../store/hooks";
 import { setIsMobile } from "../store/reducers/MobileSlice";
 
 import Navbar from "./Navbar/Navbar";
+import { ProfileNavbar } from "./Profile/ProfileNavbar";
 import BottomPopUp from "./BottomPopUp";
 
 import styles from "../styles/Main.module.scss";
@@ -44,6 +45,7 @@ const Layout = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
       <Navbar
         disabled={router.pathname in disableNavbarForRoutes ? true : false}
       />
+      {router.pathname.includes("profile") && <ProfileNavbar />}
       <main className={styles.main}>{children}</main>
       <BottomPopUp />
     </>

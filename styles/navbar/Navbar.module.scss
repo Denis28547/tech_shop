@@ -63,6 +63,7 @@ $background-transition: background-color 0.2s;
 
 .logo_container {
   @include flex_display;
+  @include no_copy;
   cursor: pointer;
   gap: 8px;
   font-size: 1.4rem;
@@ -75,6 +76,7 @@ $background-transition: background-color 0.2s;
 
 .icon_text {
   @include flex_display;
+  @include no_copy;
   background-color: $clickable-color;
   border-radius: 8px;
   padding: 0 4%;
@@ -91,7 +93,6 @@ $background-transition: background-color 0.2s;
 .middle_container {
   border-radius: 6px;
   overflow: hidden;
-  // flex-grow: 4;
   flex-grow: 1;
   max-width: 1200px;
   height: 44px;
