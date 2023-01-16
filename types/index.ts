@@ -30,7 +30,7 @@ export interface IUserModel extends IUser, Model {
 export interface IItem {
   id: string;
   name: string;
-  price: string;
+  price: number;
   images: string[];
   description: string;
   location: string;
@@ -42,8 +42,15 @@ export interface IItem {
 
 export interface IItemModel extends Model, IItem {}
 
+export interface ISafeUserInfo {
+  id: string;
+  name: string;
+  image: string | null;
+  createdAt: string;
+}
+
 export interface IItemWithUser extends IItem {
-  user: IUser;
+  user: ISafeUserInfo;
 }
 
 export interface IItemWithCategory extends IItem {

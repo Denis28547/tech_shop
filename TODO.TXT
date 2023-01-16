@@ -34,3 +34,4 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 8) fix naming of category images
 9) add swiper to itempage
 //--10) fix bottom popup ( it disappears after 2 sec no matter how many times you click )
+11) user that sells item can see his item and like it 

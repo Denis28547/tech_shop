@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useAppDispatch } from "../../store/hooks";
 import { openPopupSuccess } from "../../store/reducers/PopupSlice";
 
-import { IUser } from "../../types/index";
+import { ISafeUserInfo } from "../../types/index";
 import Link from "next/link";
 import CustomButton from "../CustomButton";
 import UserPicPlaceholderIcon from "../../public/assets/UserPicPlaceholderIcon";
@@ -13,7 +13,7 @@ import StarIcon from "../../public/assets/StarIcon";
 
 import styles from "../../styles/itemPage/UserBlock.module.scss";
 interface IUserBlock {
-  user: IUser;
+  user: ISafeUserInfo;
   phone_number: string | null;
   location: string;
 }

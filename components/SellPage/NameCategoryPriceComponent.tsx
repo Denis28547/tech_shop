@@ -1,22 +1,39 @@
 import { useState } from "react";
 
-import styles from "../../styles/sellPage/SellPageBlock.module.scss";
-
+import { ICategory } from "../../types/index";
 import Dropdown from "./DropdownComponent";
 
-const NameCategoryPriceComponent = () => {
+import styles from "../../styles/sellPage/SellPageBlock.module.scss";
+
+interface INameCategoryPriceComponent {
+  nameInitial?: string;
+  priceInitial?: number;
+  categoryInitial?: string;
+  categories: ICategory[];
+}
+
+const NameCategoryPriceComponent = ({
+  nameInitial,
+  priceInitial,
+  categoryInitial,
+  categories,
+}: INameCategoryPriceComponent) => {
+  const [nameState, setNameState] = useState(nameInitial || "");
   const [isNameDirty, setIsNameDirty] = useState(false);
   const [isNameValid, setIsNameValid] = useState(true);
 
+  const [priceState, setPriceStateState] = useState(priceInitial || "");
   const [isPriceDirty, setIsPriceDirty] = useState(false);
   const [isPriceValid, setIsPriceValid] = useState(true);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameState(e.target.value);
     if (e.target.checkValidity()) setIsNameValid(true);
     else setIsNameValid(false);
   };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPriceStateState(e.target.value);
     if (e.target.checkValidity()) setIsPriceValid(true);
     else setIsPriceValid(false);
   };
@@ -28,6 +45,7 @@ const NameCategoryPriceComponent = () => {
       <input
         id="name"
         type="text"
+        value={nameState}
         placeholder="Name you item"
         data-dirty={isNameDirty}
         onBlur={() => setIsNameDirty(true)}
@@ -45,12 +63,13 @@ const NameCategoryPriceComponent = () => {
         </span>
       )}
 
-      <Dropdown />
+      <Dropdown categoryInitial={categoryInitial} categories={categories} />
 
       <label htmlFor="price">Price</label>
       <input
         id="price"
         type="number"
+        value={priceState}
         placeholder="Price your item"
         data-dirty={isPriceDirty}
         onBlur={() => setIsPriceDirty(true)}

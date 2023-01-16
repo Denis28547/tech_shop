@@ -2,13 +2,23 @@ import { useState } from "react";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
-const DescriptionComponent = () => {
+interface IDescriptionComponent {
+  descriptionInitial?: string;
+}
+
+const DescriptionComponent = ({
+  descriptionInitial,
+}: IDescriptionComponent) => {
+  const [descriptionState, setDescriptionState] = useState(
+    descriptionInitial || ""
+  );
   const [isDescriptionDirty, setIsDescriptionDirty] = useState(false);
   const [isValid, setIsValid] = useState(true);
-  const [stringCount, setStringCount] = useState(0);
+  const [stringCount, setStringCount] = useState(descriptionState.length || 0);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStringCount(e.target.value.length);
+    setDescriptionState(e.target.value);
     if (e.target.checkValidity()) setIsValid(true);
     else setIsValid(false);
   };
@@ -19,6 +29,7 @@ const DescriptionComponent = () => {
       <textarea
         placeholder="Write some description of item you want to sell"
         id="description"
+        value={descriptionState}
         minLength={30}
         maxLength={2400}
         data-dirty={isDescriptionDirty}

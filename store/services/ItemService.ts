@@ -44,6 +44,20 @@ export const itemAPI = createApi({
       }),
       invalidatesTags: ["Items"],
     }),
+    editItem: build.mutation<void, string>({
+      query: (item_id) => ({
+        url: `/api/item/${item_id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["Items"],
+    }),
+    deleteItem: build.mutation<void, string>({
+      query: (item_id) => ({
+        url: `/api/item/${item_id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Items"],
+    }),
   }),
 });
 
@@ -52,6 +66,8 @@ export const {
   useGetItemByIdWithUserQuery,
   useGetAllUserItemsQuery,
   useAddItemMutation,
+  useEditItemMutation,
+  useDeleteItemMutation,
   util: { getRunningOperationPromises },
 } = itemAPI;
 

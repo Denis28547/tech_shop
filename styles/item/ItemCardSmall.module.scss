@@ -69,3 +69,46 @@
     }
   }
 }
+
+.edit_block {
+  margin-top: 20px;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 60px;
+  gap: 20px;
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: $border-color;
+    position: absolute;
+    top: -2px;
+    left: 0;
+  }
+
+  .delete_button {
+    width: 125px;
+    height: 40px;
+    background-color: transparent;
+    font-weight: 600;
+    position: relative;
+    font-size: 1rem;
+    transition: 0.2s ease-in-out;
+    color: $error-color;
+
+    &::after {
+      content: "";
+      width: 100%;
+      height: 2px;
+      background-color: $error-color;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
