@@ -1,11 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
+import { useDeleteItemMutation } from "../../store/services/ItemService";
 
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCardWithCategory } from "./IItemCard_type";
+import CustomButton from "../CustomButton";
 
-import styles from "../../styles/item/ItemCardWide.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
+import styles from "../../styles/item/ItemCardWide.module.scss";
 
 const ItemWideStyle = ({
   item_image,
@@ -15,6 +19,9 @@ const ItemWideStyle = ({
   changeFavorite,
   isEditable,
 }: IItemCardWithCategory) => {
+  const [deleteItem] = useDeleteItemMutation();
+  const router = useRouter();
+
   if (isEditable) {
     return (
       <div className={styles.item_wide}>
@@ -49,6 +56,26 @@ const ItemWideStyle = ({
 
         <div className={styles.price_heart_container}>
           <b>{item.price} $</b>
+        </div>
+
+        <div className={styles.edit_block}>
+          <button
+            className={styles.delete_button}
+            onClick={() => deleteItem(item.id)}
+          >
+            Delete
+          </button>
+          <CustomButton
+            fontSize="1rem"
+            buttonType="outline"
+            borderColor="#ffffff"
+            fontWeight={600}
+            width="125px"
+            loading={false}
+            text="Edit"
+            height={40}
+            onClick={() => router.replace(`/sellItem/${item.id}`)}
+          />
         </div>
       </div>
     );

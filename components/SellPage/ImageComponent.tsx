@@ -7,6 +7,8 @@ import TrashIcon from "../../public/assets/sellPageIcons/TrashIcon";
 import styles from "../../styles/sellPage/ImageComponent.module.scss";
 
 const ImageComponent = ({ id }: { id: string }) => {
+  const initialImage = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}4872ad66-c019-4cf5-8c83-72532d5afcaf.png`;
+
   const [image, setImage] = useState<File | null>();
   const [preview, setPreview] = useState<string | null>();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,6 +37,38 @@ const ImageComponent = ({ id }: { id: string }) => {
       setPreview(null);
     }
   }, [image]);
+
+  // if (initialImage) {
+  //   return (
+  //     <div className={styles.file_container}>
+  //       <>
+  //         <Image
+  //           src={initialImage}
+  //           alt="photo"
+  //           layout="fill"
+  //           objectFit="cover"
+  //         />
+  //         <div
+  //           className={styles.trash_icon_container}
+  //           onClick={() => {
+  //             if (inputRef?.current?.value) inputRef.current.value = "";
+  //             setImage(null);
+  //           }}
+  //         >
+  //           <TrashIcon className={styles.trash_icon} />
+  //         </div>
+  //       </>
+
+  //       <input
+  //         type="file"
+  //         id={id}
+  //         ref={inputRef}
+  //         onChange={handleSetImage}
+  //         accept=".png,.jpg,.jpeg"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={styles.file_container}>

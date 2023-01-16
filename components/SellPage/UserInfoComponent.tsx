@@ -2,19 +2,31 @@ import { useState } from "react";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
-const UserInfoComponent = () => {
+interface IUserInfoComponent {
+  locationInitial?: string;
+  numberInitial?: string | null;
+}
+
+const UserInfoComponent = ({
+  locationInitial,
+  numberInitial,
+}: IUserInfoComponent) => {
+  const [locationState, setLocationState] = useState(locationInitial || "");
   const [isLocationDirty, setIsLocationDirty] = useState(false);
   const [isLocationValid, setIsLocationValid] = useState(true);
 
+  const [numberState, setNumberState] = useState(numberInitial || "");
   const [isNumberDirty, setIsNumberDirty] = useState(false);
   const [isNumberValid, setIsNumberValid] = useState(true);
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocationState(e.target.value);
     if (e.target.checkValidity()) setIsLocationValid(true);
     else setIsLocationValid(false);
   };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNumberState(e.target.value);
     if (e.target.checkValidity()) setIsNumberValid(true);
     else setIsNumberValid(false);
   };
@@ -26,6 +38,7 @@ const UserInfoComponent = () => {
       <input
         type="text"
         id="location"
+        value={locationState}
         autoComplete="off"
         placeholder="Your location"
         data-dirty={isLocationDirty}
@@ -47,6 +60,7 @@ const UserInfoComponent = () => {
       <input
         type="tel"
         id="number"
+        value={numberState}
         autoComplete="off"
         placeholder="Contact number"
         data-dirty={isNumberDirty}

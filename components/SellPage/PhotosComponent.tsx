@@ -2,7 +2,12 @@ import ImageComponent from "./ImageComponent";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
-const PhotosComponent = ({ photoError }: { photoError: string }) => {
+interface IPhotosComponent {
+  photoError: string;
+  initialImages?: string[];
+}
+
+const PhotosComponent = ({ photoError, initialImages }: IPhotosComponent) => {
   let photoTemplates = [];
   for (let photoCount = 0; photoCount < 8; photoCount++) {
     photoTemplates.push(photoCount);
