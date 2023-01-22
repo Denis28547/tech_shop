@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
-import { File, Files, IncomingForm } from "formidable";
+import { File, Files, formidable } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
@@ -13,10 +13,12 @@ export const config = {
   },
 };
 
+type TFilePositionParsed = { name: string; indexOfImage: number };
+
 const checkFileType = (file: File): boolean => {
   if (file.originalFilename) {
     let fileType = file.originalFilename.split(".").at(-1) as string;
-    const validTypes = ["png", "jpg", "jpeg"];
+    const validTypes = ["jpg", "jpeg"];
     if (validTypes.includes(fileType)) return true;
     return false;
   }
@@ -32,6 +34,31 @@ const saveFile = (file: File): string => {
     data
   );
   return fileName;
+};
+
+const findImagePlace = (
+  name: string,
+  filePositionParsed: TFilePositionParsed[]
+): number => {
+  const foundFile = filePositionParsed.find((image) => {
+    return image.name === name;
+  });
+  return foundFile?.indexOfImage as number;
+};
+
+const makeArray = (itemToCheck: any): any[] | undefined => {
+  // to make sure that something is always an array
+  let newArray: any[] = [];
+
+  if (!itemToCheck) return undefined;
+
+  if (!Array.isArray(itemToCheck)) {
+    newArray.push(itemToCheck);
+  } else {
+    newArray = [...itemToCheck];
+  }
+
+  return newArray;
 };
 
 export default async function handler(
@@ -55,11 +82,13 @@ export default async function handler(
       }
       break;
 
-    //post one item
+    //create or edit one item
     case "POST":
       try {
         const response = await new Promise((resolve, reject) => {
-          const form = new IncomingForm({
+          const item_id = req.query.item_id as string;
+
+          const form = formidable({
             multiples: true,
             maxFileSize: 50 * 1024 * 1024,
           });
@@ -75,10 +104,18 @@ export default async function handler(
               authOptions
             );
 
-            if (!session) reject("please log in to sell an item");
+            if (!session) return reject("please log in to sell an item");
 
-            const { name, category, price, description, location, number } =
-              fields;
+            const {
+              name,
+              category,
+              price,
+              images: previousImages,
+              filePositionInArray,
+              description,
+              location,
+              number,
+            } = fields;
 
             const phone_number = number.length === 0 ? null : number;
 
@@ -92,27 +129,60 @@ export default async function handler(
             )
               return reject("no required fields");
 
-            let imagePaths: string[] = [];
+            let filePositionParsed: TFilePositionParsed[] = [];
+            if (Array.isArray(filePositionInArray)) {
+              filePositionInArray.forEach((position) => {
+                const parsedPosition = JSON.parse(position);
+                filePositionParsed.push(parsedPosition);
+              });
+            } else {
+              filePositionParsed.push(JSON.parse(filePositionInArray));
+            }
 
             const { images }: Files = files;
+            let imagesArray: File[] | undefined = [];
+            imagesArray = makeArray(images);
 
-            if (Array.isArray(images)) {
-              for (let index = 0; index < images.length; index++) {
-                const image = images[index];
+            let imagePaths: string[] = [];
+            filePositionParsed.forEach((_) => imagePaths.push("0")); // filling imagPaths array to use .splice on it after
+
+            const putImagePathInArray = (
+              imagePosition: number,
+              imagePath: string
+            ) => {
+              imagePaths.splice(imagePosition, 1, imagePath);
+            };
+
+            let previousImagesArray: string[] | undefined = [];
+            previousImagesArray = makeArray(previousImages);
+
+            if (previousImagesArray) {
+              // if we upload only new photos it will break because there won't be any previousImages
+              // array of original images and just putting them in paths
+              previousImagesArray.forEach((previousImage) => {
+                const imagePosition = findImagePlace(
+                  previousImage,
+                  filePositionParsed
+                );
+                putImagePathInArray(imagePosition, previousImage);
+              });
+            }
+
+            if (imagesArray) {
+              for (let index = 0; index < imagesArray.length; index++) {
+                const image = imagesArray[index];
                 const isValid = checkFileType(image);
                 if (!isValid) {
                   return reject("invalid file type");
                 }
+                const imageOriginalName = image.originalFilename as string;
+                const imagePosition = findImagePlace(
+                  imageOriginalName,
+                  filePositionParsed
+                );
                 const imagePath = saveFile(image);
-                imagePaths.push(imagePath);
+                putImagePathInArray(imagePosition, imagePath);
               }
-            } else {
-              const isValid = checkFileType(images);
-              if (!isValid) {
-                return reject("invalid file type");
-              }
-              const imagePath = saveFile(images);
-              imagePaths.push(imagePath);
             }
 
             const categoryModel = await Category.findOne({
@@ -121,6 +191,27 @@ export default async function handler(
 
             if (!categoryModel) reject("something unexpected happened");
 
+            if (item_id) {
+              // edit or add new item
+              const item = await Item.findByPk(item_id);
+              if (!item) return reject("no item with such id");
+              if (item.user_id !== session.user?.id)
+                return reject("you don't have permission to edit this item");
+
+              await item.update({
+                name,
+                category,
+                price,
+                images: imagePaths,
+                description,
+                location,
+                user_id: session?.user?.id,
+                phone_number,
+                category_id: categoryModel?.id,
+              });
+
+              return resolve("item edited successfully");
+            }
             await Item.create({
               name,
               category,
@@ -132,7 +223,6 @@ export default async function handler(
               phone_number,
               category_id: categoryModel?.id,
             });
-
             resolve("item created successfully");
           });
         });

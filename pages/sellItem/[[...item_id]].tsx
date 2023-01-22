@@ -1,9 +1,10 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 import { wrapper } from "../../store/store";
-import { requireAuth } from "../../utils/requireAuth";
+import { getAllCategories } from "../../store/services/CategoryService";
 import {
   getItemByIdWithUser,
   getRunningOperationPromises,
@@ -18,21 +19,19 @@ import UserInfoComponent from "../../components/SellPage/UserInfoComponent";
 import ButtonComponent from "../../components/SellPage/ButtonComponent";
 
 import styles from "../../styles/sellPage/SellPage.module.scss";
-import { getSession } from "next-auth/react";
-import { getAllCategories } from "../../store/services/CategoryService";
 
 interface ITarget {
   name: { value: string };
   category: { value: string };
   price: { value: string };
-  image0: { files: FileList };
-  image1: { files: FileList };
-  image2: { files: FileList };
-  image3: { files: FileList };
-  image4: { files: FileList };
-  image5: { files: FileList };
-  image6: { files: FileList };
-  image7: { files: FileList };
+  image0: { files: FileList; type: "text" | "file" };
+  image1: { files: FileList; type: "text" | "file" };
+  image2: { files: FileList; type: "text" | "file" };
+  image3: { files: FileList; type: "text" | "file" };
+  image4: { files: FileList; type: "text" | "file" };
+  image5: { files: FileList; type: "text" | "file" };
+  image6: { files: FileList; type: "text" | "file" };
+  image7: { files: FileList; type: "text" | "file" };
   description: { value: string };
   location: { value: string };
   number: { value: string };
@@ -44,7 +43,16 @@ interface ISellPage {
 }
 
 const SellPage: NextPage<ISellPage> = ({ item, categories }) => {
-  const [addItem, { isLoading, isError, data, error }] = useAddItemMutation();
+  const [
+    addItem,
+    {
+      isLoading: isAddItemLoading,
+      isError: isAddItemError,
+      data: addItemData,
+      error: addItemError,
+    },
+  ] = useAddItemMutation();
+
   const [photoError, setPhotoError] = useState("");
   const router = useRouter();
 
@@ -52,18 +60,35 @@ const SellPage: NextPage<ISellPage> = ({ item, categories }) => {
     e.preventDefault();
 
     const target = e.target as typeof e.target & ITarget;
-    if (target.image0.files.length === 0) {
+
+    if (target.image0.type === "file" && target.image0.files.length === 0) {
+      // check if main images is empty ( it can't be empty if type === "text" )
       alert("Please add main photo");
       setPhotoError("*Not valid (please add main photo)");
       return;
     }
 
-    let images: File[] = [];
+    let images: any[] = [];
+    let filePositionInArray: any[] = []; // to have correct image placement whenever you edit images array
+    let indexOfImage = 0;
 
     Object.values(target).forEach((value: any) => {
-      if (value.type !== "file") return;
-      if (!value.files[0]) return;
-      images.push(value.files[0]);
+      if (value.type === "file" || value.type === "text") {
+        if (typeof value.id === "string" && !value.id.includes("image")) return; //so values will be only those with id = image
+        if (value.files && value.files[0]) {
+          const imageObj = { name: value.files[0].name, indexOfImage };
+          filePositionInArray.push(JSON.stringify(imageObj));
+          images.push(value.files[0]);
+          indexOfImage++;
+          return;
+        }
+        if (value.value) {
+          const imageObj = { name: value.value, indexOfImage };
+          filePositionInArray.push(JSON.stringify(imageObj));
+          images.push(value.value);
+          indexOfImage++;
+        }
+      }
     });
 
     const formData = new FormData();
@@ -73,15 +98,18 @@ const SellPage: NextPage<ISellPage> = ({ item, categories }) => {
     images.forEach((image) => {
       formData.append("images", image);
     });
+    filePositionInArray.forEach((position) => {
+      formData.append("filePositionInArray", position);
+    });
     formData.append("description", target.description.value);
     formData.append("location", target.location.value);
     formData.append("number", target.number.value);
 
-    await addItem(formData);
+    await addItem({ item_id: item?.id || undefined, body: formData });
   };
 
-  if (data) {
-    router.replace(`/redirect?text=${data.message}&success=${true}`);
+  if (addItemData) {
+    router.replace(`/redirect?text=${addItemData.message}&success=${true}`);
   }
 
   return (
@@ -100,9 +128,12 @@ const SellPage: NextPage<ISellPage> = ({ item, categories }) => {
         numberInitial={item?.phone_number}
       />
       <ButtonComponent
-        //@ts-ignore idk how to handle data.message type
-        responseErrMessage={isError && error && error.data.message}
-        loadingResponse={isLoading}
+        responseErrMessage={
+          //@ts-ignore idk how to handle data.message type
+          isAddItemError && addItemError && addItemError.data.message
+        }
+        loadingResponse={isAddItemLoading}
+        buttonText={item ? "Edit item" : "Post item"}
       />
     </form>
   );

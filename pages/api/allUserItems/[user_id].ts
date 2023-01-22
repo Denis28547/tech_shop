@@ -26,6 +26,7 @@ export default async function handler(
 
         const itemsData = await user.getItems({
           limit: parseInt(limit),
+          order: [["updatedAt", "DESC"]],
         });
 
         if (!itemsData)

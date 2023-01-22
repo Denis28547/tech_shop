@@ -26,8 +26,13 @@ export const itemAPI = createApi({
       providesTags: ["Items"],
     }),
     getAllUserItems: build.query<
+      // sorts by updatedAt DESC
       IItem[] | [],
-      { user_id?: string; limit?: number; excludeItemId?: string }
+      {
+        user_id?: string;
+        limit?: number;
+        excludeItemId?: string;
+      }
     >({
       query: ({ user_id, limit = 8, excludeItemId }) => ({
         url: `/api/allUserItems/${user_id}`,
@@ -36,18 +41,21 @@ export const itemAPI = createApi({
       providesTags: ["Items"],
     }),
 
-    addItem: build.mutation({
-      query: (body) => ({
-        url: "/api/item",
+    addItem: build.mutation<any, { item_id?: string; body: any }>({
+      query: ({ item_id, body }) => ({
+        url: `/api/item`,
         method: "POST",
+        params: { item_id },
         body,
       }),
       invalidatesTags: ["Items"],
     }),
-    editItem: build.mutation<void, string>({
-      query: (item_id) => ({
-        url: `/api/item/${item_id}`,
+    editItem: build.mutation<any, { item_id?: string; body: any }>({
+      query: ({ item_id, body }) => ({
+        url: "/api/item",
         method: "PUT",
+        params: { item_id },
+        body,
       }),
       invalidatesTags: ["Items"],
     }),
