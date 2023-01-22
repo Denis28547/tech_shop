@@ -31,7 +31,8 @@
     }
   }
 
-  input[type="file"] {
+  input[type="file"],
+  input[type="text"] {
     position: absolute;
     background-color: transparent;
     appearance: none;

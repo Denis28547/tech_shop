@@ -72,7 +72,7 @@ const ItemStyle = ({
             loading={false}
             text="Edit"
             height={40}
-            onClick={() => router.replace(`/sellItem/${item.id}`)}
+            onClick={() => router.push(`/sellItem/${item.id}`)}
           />
         </div>
       </div>

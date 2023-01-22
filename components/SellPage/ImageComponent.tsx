@@ -6,9 +6,15 @@ import TrashIcon from "../../public/assets/sellPageIcons/TrashIcon";
 
 import styles from "../../styles/sellPage/ImageComponent.module.scss";
 
-const ImageComponent = ({ id }: { id: string }) => {
-  const initialImage = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}4872ad66-c019-4cf5-8c83-72532d5afcaf.png`;
+interface IImageComponent {
+  id: string;
+  initialImage?: string;
+}
 
+const ImageComponent = ({ id, initialImage }: IImageComponent) => {
+  const [initialImageState, setInitialImageState] = useState<
+    string | undefined
+  >(initialImage);
   const [image, setImage] = useState<File | null>();
   const [preview, setPreview] = useState<string | null>();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,7 +22,6 @@ const ImageComponent = ({ id }: { id: string }) => {
   const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files;
     if (
-      (file && file[0].type === "image/png") ||
       (file && file[0].type === "image/jpg") ||
       (file && file[0].type === "image/jpeg")
     ) {
@@ -38,37 +43,31 @@ const ImageComponent = ({ id }: { id: string }) => {
     }
   }, [image]);
 
-  // if (initialImage) {
-  //   return (
-  //     <div className={styles.file_container}>
-  //       <>
-  //         <Image
-  //           src={initialImage}
-  //           alt="photo"
-  //           layout="fill"
-  //           objectFit="cover"
-  //         />
-  //         <div
-  //           className={styles.trash_icon_container}
-  //           onClick={() => {
-  //             if (inputRef?.current?.value) inputRef.current.value = "";
-  //             setImage(null);
-  //           }}
-  //         >
-  //           <TrashIcon className={styles.trash_icon} />
-  //         </div>
-  //       </>
+  if (initialImageState) {
+    const initialImagePath = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}${initialImageState}`;
 
-  //       <input
-  //         type="file"
-  //         id={id}
-  //         ref={inputRef}
-  //         onChange={handleSetImage}
-  //         accept=".png,.jpg,.jpeg"
-  //       />
-  //     </div>
-  //   );
-  // }
+    return (
+      <div className={styles.file_container}>
+        <>
+          <Image
+            src={initialImagePath}
+            alt="photo"
+            layout="fill"
+            objectFit="cover"
+          />
+          <div
+            className={styles.trash_icon_container}
+            onClick={() => {
+              setInitialImageState(undefined);
+            }}
+          >
+            <TrashIcon className={styles.trash_icon} />
+          </div>
+          <input id={id} defaultValue={initialImageState} type="text" />
+        </>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.file_container}>
@@ -95,7 +94,7 @@ const ImageComponent = ({ id }: { id: string }) => {
         id={id}
         ref={inputRef}
         onChange={handleSetImage}
-        accept=".png,.jpg,.jpeg"
+        accept=".jpg,.jpeg"
       />
     </div>
   );

@@ -5,11 +5,13 @@ import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 interface IButtonComponent {
   responseErrMessage: string;
   loadingResponse: boolean;
+  buttonText: string;
 }
 
 const ButtonComponent = ({
   responseErrMessage,
   loadingResponse,
+  buttonText,
 }: IButtonComponent) => {
   return (
     <div className={styles.option_block}>
@@ -18,7 +20,7 @@ const ButtonComponent = ({
       )}
 
       <CustomButton
-        text={"Post"}
+        text={buttonText}
         loading={loadingResponse}
         height={61}
         width={"25%"}
