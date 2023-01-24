@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useDeleteItemMutation } from "../../store/services/ItemService";
+import { useAppDispatch } from "../../store/hooks";
+import { openModal } from "../../store/reducers/DeleteItemModalSlice";
 
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCardWithCategory } from "./IItemCard_type";
@@ -19,7 +20,7 @@ const ItemWideStyle = ({
   changeFavorite,
   isEditable,
 }: IItemCardWithCategory) => {
-  const [deleteItem] = useDeleteItemMutation();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   if (isEditable) {
@@ -61,7 +62,7 @@ const ItemWideStyle = ({
         <div className={styles.edit_block}>
           <button
             className={styles.delete_button}
-            onClick={() => deleteItem(item.id)}
+            onClick={() => dispatch(openModal(item.id))}
           >
             Delete
           </button>

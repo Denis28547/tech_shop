@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { useAppDispatch } from "../../store/hooks";
+import { openModal } from "../../store/reducers/DeleteItemModalSlice";
+
 import HeartIcon from "../../public/assets/HeartIcon";
 import { IItemCard } from "./IItemCard_type";
-
-import styles from "../../styles/item/ItemCardSmall.module.scss";
-import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 import CustomButton from "../CustomButton";
-import { useDeleteItemMutation } from "../../store/services/ItemService";
+
+import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
+import styles from "../../styles/item/ItemCardSmall.module.scss";
 
 const ItemStyle = ({
   item_image,
@@ -18,7 +20,7 @@ const ItemStyle = ({
   changeFavorite,
   isEditable,
 }: IItemCard) => {
-  const [deleteItem] = useDeleteItemMutation();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   if (isEditable) {
@@ -59,7 +61,7 @@ const ItemStyle = ({
         <div className={styles.edit_block}>
           <button
             className={styles.delete_button}
-            onClick={() => deleteItem(item.id)}
+            onClick={() => dispatch(openModal(item.id))}
           >
             Delete
           </button>

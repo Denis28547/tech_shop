@@ -47,7 +47,12 @@ const ImageComponent = ({ id, initialImage }: IImageComponent) => {
     const initialImagePath = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}${initialImageState}`;
 
     return (
-      <div className={styles.file_container}>
+      <div
+        className={styles.file_container}
+        onClick={() => {
+          setInitialImageState(undefined);
+        }}
+      >
         <>
           <Image
             src={initialImagePath}
@@ -57,9 +62,9 @@ const ImageComponent = ({ id, initialImage }: IImageComponent) => {
           />
           <div
             className={styles.trash_icon_container}
-            onClick={() => {
-              setInitialImageState(undefined);
-            }}
+            // onClick={() => {
+            //   setInitialImageState(undefined);
+            // }}
           >
             <TrashIcon className={styles.trash_icon} />
           </div>
@@ -70,31 +75,37 @@ const ImageComponent = ({ id, initialImage }: IImageComponent) => {
   }
 
   return (
-    <div className={styles.file_container}>
+    <div
+      className={styles.file_container}
+      onClick={() => {
+        if (inputRef?.current?.value) inputRef.current.value = "";
+        setImage(null);
+      }}
+    >
       {preview ? (
         <>
           <Image src={preview} alt="photo" layout="fill" objectFit="cover" />
           <div
             className={styles.trash_icon_container}
-            onClick={() => {
-              if (inputRef?.current?.value) inputRef.current.value = "";
-              setImage(null);
-            }}
+            // onClick={() => {
+            //   if (inputRef?.current?.value) inputRef.current.value = "";
+            //   setImage(null);
+            // }}
           >
             <TrashIcon className={styles.trash_icon} />
           </div>
         </>
       ) : (
-        <>
-          <CameraIcon className={styles.camera_icon} />
-        </>
+        <CameraIcon className={styles.camera_icon} />
       )}
+
       <input
         type="file"
         id={id}
         ref={inputRef}
         onChange={handleSetImage}
         accept=".jpg,.jpeg"
+        style={{ zIndex: preview ? -1 : 0 }}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
@@ -22,6 +22,10 @@ const DescriptionComponent = ({
     if (e.target.checkValidity()) setIsValid(true);
     else setIsValid(false);
   };
+
+  useEffect(() => {
+    if (!descriptionInitial) setDescriptionState("");
+  }, [descriptionInitial]);
 
   return (
     <div className={styles.option_block}>
