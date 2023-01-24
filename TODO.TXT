@@ -11,7 +11,7 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 //--3) do something with landing page
 //--4) search feature
 5) footer
-6) profile page
+//--6) user profile page
 7) text seller functionality
 //--8) appearing box on the bottom of the site, telling that something was successful/unsuccessful ( add this when adding favorites, and when copying number on item page)
 //--9) adding number and city to user (NUMBER CAN BE ADDED IN ITEM FORM) (((((--number added--)))))
@@ -21,6 +21,7 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 13) mb delete ability to import .png when sell items, cause they can be transparent and loader can be seen
 //--14) if ur not logged in u shouldn't be able to add favorites
 15) save preferred list style in favorites to local storage
+16) other's profile item list
 
 
 *** small things
@@ -35,3 +36,6 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 9) add swiper to itempage
 //--10) fix bottom popup ( it disappears after 2 sec no matter how many times you click )
 11) user that sells item can see his item and like it 
+//--12) add confirmation modal window when deleting item
+13) if you are editing item and clicking on sell button on navbar the fields are saved
+when going page back u can get on redirect page

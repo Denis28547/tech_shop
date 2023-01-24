@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ICategory } from "../../types/index";
 import Dropdown from "./DropdownComponent";
@@ -37,6 +37,11 @@ const NameCategoryPriceComponent = ({
     if (e.target.checkValidity()) setIsPriceValid(true);
     else setIsPriceValid(false);
   };
+
+  useEffect(() => {
+    if (!nameInitial) setNameState("");
+    if (!priceInitial) setPriceStateState("");
+  }, [nameInitial, priceInitial]);
 
   return (
     <div className={styles.option_block}>

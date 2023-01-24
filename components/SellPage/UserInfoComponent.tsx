@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "../../styles/sellPage/SellPageBlock.module.scss";
 
@@ -30,6 +30,11 @@ const UserInfoComponent = ({
     if (e.target.checkValidity()) setIsNumberValid(true);
     else setIsNumberValid(false);
   };
+
+  useEffect(() => {
+    if (!locationInitial) setLocationState("");
+    if (!numberInitial) setNumberState("");
+  }, [locationInitial, numberInitial]);
 
   return (
     <div className={styles.option_block}>

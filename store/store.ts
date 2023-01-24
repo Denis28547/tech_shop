@@ -5,31 +5,12 @@ import popupReducer from "./reducers/PopupSlice";
 import mobileReducer from "./reducers/MobileSlice";
 import searchReducer from "./reducers/SearchSlice";
 import sideBarReducer from "./reducers/SidebarSlice";
+import modalReducer from "./reducers/DeleteItemModalSlice";
 
 import { itemAPI } from "./services/ItemService";
 import { favoritesAPI } from "./services/FavoritesService";
 import { searchAPI } from "./services/SearchService";
 import { categoryAPI } from "./services/CategoryService";
-
-// export const store = configureStore({
-//   reducer: {
-//     popup: popupReducer,
-//     mobile: mobileReducer,
-//     [itemAPI.reducerPath]: itemAPI.reducer,
-//     [favoritesAPI.reducerPath]: favoritesAPI.reducer,
-//     [searchAPI.reducerPath]: searchAPI.reducer,
-//   },
-
-// middleware: (getDefaultMiddleware) =>
-//   getDefaultMiddleware().concat([
-//     itemAPI.middleware,
-//     favoritesAPI.middleware,
-//     searchAPI.middleware,
-//   ]),
-// });
-
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
 
 const makeStore = () =>
   configureStore({
@@ -38,6 +19,7 @@ const makeStore = () =>
       mobile: mobileReducer,
       search: searchReducer,
       sidebars: sideBarReducer,
+      modal: modalReducer,
       [itemAPI.reducerPath]: itemAPI.reducer,
       [favoritesAPI.reducerPath]: favoritesAPI.reducer,
       [searchAPI.reducerPath]: searchAPI.reducer,
@@ -57,5 +39,4 @@ export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
 
 export const wrapper = createWrapper<AppStore>(makeStore);
-// export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
 export const store = makeStore();
