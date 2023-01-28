@@ -54,10 +54,6 @@ $background-transition: background-color 0.2s;
     .right_container {
       min-width: 0;
     }
-
-    .burger {
-      display: block;
-    }
   }
 }
 
@@ -206,30 +202,5 @@ $background-transition: background-color 0.2s;
 
   .theme_bubble {
     transform: translateX(100%);
-  }
-}
-
-.burger {
-  display: none;
-  width: 34px;
-  height: 3px;
-  background-color: $text-color;
-  position: relative;
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    background-color: inherit;
-  }
-
-  &::before {
-    bottom: 8px;
-  }
-
-  &::after {
-    top: 8px;
   }
 }

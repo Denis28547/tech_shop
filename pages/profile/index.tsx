@@ -13,7 +13,7 @@ import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 import styles from "../../styles/profile/ProfileYourItems.module.scss";
 
 const Profile: NextPage = () => {
-  const { isMobile } = useAppSelector((state) => state.mobile);
+  const { isMobile } = useAppSelector((state) => state.smallThings);
   const { data: session } = useSession();
 
   const { isLoading: AreItemsLoading, data: itemsData } =

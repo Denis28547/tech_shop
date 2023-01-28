@@ -31,7 +31,7 @@ const Search: NextPage<IQuery> = ({ query, categories }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { isMobile } = useAppSelector((state) => state.mobile);
+  const { isMobile } = useAppSelector((state) => state.smallThings);
   const { filterSidebar } = useAppSelector((state) => state.sidebars);
   const {
     search: searchState,

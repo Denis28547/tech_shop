@@ -6,19 +6,19 @@
 !!!ADD ERROR PAGE, AND CHECK IF ERROR OCCURRED ON FETCHING
 ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 
-1) sidebar on phones
+//--1) sidebar on phones
 //--2) normal responsive item page
 //--3) do something with landing page
 //--4) search feature
 5) footer
 //--6) user profile page
-7) text seller functionality
+7) add chat
 //--8) appearing box on the bottom of the site, telling that something was successful/unsuccessful ( add this when adding favorites, and when copying number on item page)
 //--9) adding number and city to user (NUMBER CAN BE ADDED IN ITEM FORM) (((((--number added--)))))
 10) ability to choose currency
 11) add tags for items on item sell page (can add new block with fields for each category it will be somewhat unique, use MAP or smth)
 //--12) add all author items on itempage bottom
-13) mb delete ability to import .png when sell items, cause they can be transparent and loader can be seen
+//--13) mb delete ability to import .png when sell items, cause they can be transparent and loader can be seen
 //--14) if ur not logged in u shouldn't be able to add favorites
 15) save preferred list style in favorites to local storage
 16) other's profile item list
@@ -37,5 +37,6 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 //--10) fix bottom popup ( it disappears after 2 sec no matter how many times you click )
 11) user that sells item can see his item and like it 
 //--12) add confirmation modal window when deleting item
-13) if you are editing item and clicking on sell button on navbar the fields are saved
-when going page back u can get on redirect page
+//--13) if you are editing item and clicking on sell button on navbar the fields are saved
+14) when going page back u can get on redirect page
+//--15) make auth modal controlled by redux
