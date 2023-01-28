@@ -5,7 +5,7 @@ import { NextPage } from "next/types";
 import { useGetAllUserFavoritesIdsQuery } from "../../store/services/FavoritesService";
 import {
   useGetAllUserItemsQuery,
-  useGetItemByIdWithUserQuery,
+  useGetItemByIdWithUserAndCategoryQuery,
 } from "../../store/services/ItemService";
 import PhotoBlock from "../../components/ItemPage/PhotoBlock";
 import DescriptionBlock from "../../components/ItemPage/DescriptionBlock";
@@ -23,7 +23,7 @@ const ItemPage: NextPage = () => {
     useGetAllUserFavoritesIdsQuery();
 
   const { isLoading: isItemLoading, data: itemData } =
-    useGetItemByIdWithUserQuery(
+    useGetItemByIdWithUserAndCategoryQuery(
       typeof item_id === "string" ? item_id : skipToken,
       {
         skip: router.isFallback,

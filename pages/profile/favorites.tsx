@@ -17,7 +17,7 @@ import styles from "../../styles/profile/Favorites.module.scss";
 import wrapperStyle from "../../styles/item/ItemWrapper.module.scss";
 
 const Favorites: NextPage = () => {
-  const { isMobile } = useAppSelector((state) => state.mobile);
+  const { isMobile } = useAppSelector((state) => state.smallThings);
   const [isItemWide, setIsItemWide] = useState(true);
 
   const [removeAllFavorite, { isLoading: areItemsDeleting }] =

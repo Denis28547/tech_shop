@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 
 import popupReducer from "./reducers/PopupSlice";
-import mobileReducer from "./reducers/MobileSlice";
+import smallThingsReducer from "./reducers/SmallThingsSlice";
 import searchReducer from "./reducers/SearchSlice";
 import sideBarReducer from "./reducers/SidebarSlice";
 import modalReducer from "./reducers/DeleteItemModalSlice";
@@ -16,7 +16,7 @@ const makeStore = () =>
   configureStore({
     reducer: {
       popup: popupReducer,
-      mobile: mobileReducer,
+      smallThings: smallThingsReducer,
       search: searchReducer,
       sidebars: sideBarReducer,
       modal: modalReducer,

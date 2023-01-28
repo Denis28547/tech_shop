@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { IItem } from "../../types/index";
+import { IItemWithUserAndCategory } from "../../types/index";
 import HeartIcon from "../../public/assets/HeartIcon";
 import {
   useAddFavoriteMutation,
@@ -11,15 +11,15 @@ import styles from "../../styles/itemPage/DescriptionBlock.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
 
 interface IDescriptionBlock {
-  item: IItem;
+  item: IItemWithUserAndCategory;
   isFavoriteData: boolean;
 }
 
 const DescriptionBlock = ({ item, isFavoriteData }: IDescriptionBlock) => {
   const [isFavorite, setIsFavorite] = useState(isFavoriteData);
 
-  const [addFavorite, addThings] = useAddFavoriteMutation();
-  const [removeFavorite, removeThings] = useRemoveFavoriteMutation();
+  const [addFavorite] = useAddFavoriteMutation();
+  const [removeFavorite] = useRemoveFavoriteMutation();
 
   const changeFavorite = (e: MouseEvent) => {
     e.stopPropagation();
@@ -60,15 +60,7 @@ const DescriptionBlock = ({ item, isFavoriteData }: IDescriptionBlock) => {
       <hr />
 
       <ul className={styles.tags_container}>
-        <li>category</li>
-        <li>categorycategorycategory</li>
-        <li>categorycategory</li>
-        <li>category</li>
-        <li>categorycategorycategory</li>
-        <li>categorycategory</li>
-        <li>category</li>
-        <li>categorycategorycategory ass</li>
-        <li>categorycategory</li>
+        <li>category: {item.category.name}</li>
       </ul>
 
       <hr />

@@ -1,26 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
+import { useAppDispatch } from "../../store/hooks";
+import { setIsAuthModalOpen } from "../../store/reducers/SmallThingsSlice";
+
 import ProfileIcon from "../../public/assets/navbarIcons/ProfileIcon";
-import Modal from "../Modal";
-import Auth from "../Auth/Auth";
 
 import styles from "../../styles/navbar/ProfileComponent.module.scss";
 
 const ProfileComponent = () => {
+  const dispatch = useAppDispatch();
   const [authContainer, setAuthContainer] = useState(false);
-  const [modalActive, setModalActive] = useState(false);
-
-  const modalHandler = () => setModalActive(!modalActive);
 
   const { status, data } = useSession();
 
   const whichHandlerToUse = () => {
     status === "authenticated"
       ? setAuthContainer((prevState) => !prevState)
-      : modalHandler();
+      : dispatch(setIsAuthModalOpen(true));
   };
 
   return (
@@ -29,14 +28,6 @@ const ProfileComponent = () => {
         className={styles.icon}
         onClick={() => whichHandlerToUse()}
       />
-
-      <Modal
-        active={modalActive}
-        setActive={modalHandler}
-        putChildrenInContainer={true}
-      >
-        <Auth modalActive={modalActive} modalHandler={modalHandler} />
-      </Modal>
 
       {authContainer && (
         <>

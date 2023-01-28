@@ -6,7 +6,7 @@ import { getSession } from "next-auth/react";
 import { wrapper } from "../../store/store";
 import { getAllCategories } from "../../store/services/CategoryService";
 import {
-  getItemByIdWithUser,
+  getItemByIdWithUserAndCategory,
   getRunningOperationPromises,
   useAddItemMutation,
 } from "../../store/services/ItemService";
@@ -162,7 +162,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     if (item_id) {
       const result = await store.dispatch(
-        getItemByIdWithUser.initiate(item_id)
+        getItemByIdWithUserAndCategory.initiate(item_id)
       );
       if (result.status === "rejected")
         return {

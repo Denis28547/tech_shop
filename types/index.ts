@@ -57,6 +57,11 @@ export interface IItemWithCategory extends IItem {
   category: ICategory;
 }
 
+export interface IItemWithUserAndCategory extends IItem {
+  category: ICategory;
+  user: ISafeUserInfo;
+}
+
 export interface ICategory {
   id: string;
   name: string;

@@ -1,8 +1,12 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+
+import { useChangeThemeHook } from "./ChangeThemeHook";
 
 import ProfileComponent from "./ProfileComponent";
+import AuthModalComponents from "./AuthModalComponents";
+import { Burger } from "./Burger";
 import { SearchField } from "./SearchField";
+
 import LogoIcon from "../../public/assets/navbarIcons/Logo_WhiteIcon";
 import ShopIcon from "../../public/assets/navbarIcons/ShopIcon";
 import HeartIcon from "../../public/assets/HeartIcon";
@@ -10,29 +14,12 @@ import NightIcon from "../../public/assets/navbarIcons/NightIcon";
 import DayIcon from "../../public/assets/navbarIcons/DayIcon";
 
 import styles from "../../styles/navbar/Navbar.module.scss";
-
 interface INavbar {
   disabled: boolean;
 }
 
 const Navbar = ({ disabled }: INavbar) => {
-  const [theme, setTheme] = useState("light");
-
-  const nextTheme = theme === "light" ? "dark" : "light";
-
-  const handleClick = () => {
-    localStorage.setItem("theme", nextTheme);
-    setTheme(nextTheme);
-  };
-
-  useEffect(() => {
-    document.body.dataset.theme = theme;
-    const lcTheme = localStorage.getItem("theme");
-
-    if (lcTheme && lcTheme !== theme) {
-      setTheme(lcTheme);
-    }
-  }, [theme]);
+  const [theme, handleSetTheme] = useChangeThemeHook();
 
   return (
     <nav
@@ -54,7 +41,7 @@ const Navbar = ({ disabled }: INavbar) => {
         <div
           className={styles.change_theme_container}
           data-theme={theme}
-          onClick={handleClick}
+          onClick={handleSetTheme}
         >
           <div className={styles.icon_container}>
             <NightIcon className={`${styles.icon} ${styles.night_icon}`} />
@@ -80,7 +67,9 @@ const Navbar = ({ disabled }: INavbar) => {
 
         <ProfileComponent />
 
-        <span className={styles.burger} />
+        <Burger theme={theme} handleSetTheme={handleSetTheme} />
+
+        <AuthModalComponents />
       </div>
     </nav>
   );

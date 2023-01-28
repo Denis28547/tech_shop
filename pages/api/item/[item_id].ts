@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
-import { User, Item } from "../../../models";
+import { User, Item, Category } from "../../../models";
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,11 +20,17 @@ export default async function handler(
 
         const item = await Item.findOne({
           where: { id: item_id },
-          include: {
-            model: User,
-            attributes: ["id", "image", "name", "createdAt"],
-            // attributes: ["id", "image", "name", "createdAt", "rating"], need to add rating functionality
-          },
+          include: [
+            {
+              model: User,
+              attributes: ["id", "image", "name", "createdAt"],
+              // attributes: ["id", "image", "name", "createdAt", "rating"], need to add rating functionality
+            },
+            {
+              model: Category,
+              attributes: ["id", "name"],
+            },
+          ],
         });
 
         if (!item) return res.status(400).json({ message: "No such item" });

@@ -1,0 +1,144 @@
+@use "/styles/variables" as *;
+
+$padding: 20px;
+
+@mixin links_mixin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.burger {
+  display: none;
+  width: 34px;
+  height: 3px;
+  background-color: $text-color;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    background-color: inherit;
+  }
+
+  &::before {
+    bottom: 8px;
+  }
+
+  &::after {
+    top: 8px;
+  }
+
+  @media all and (max-width: 800px) {
+    display: block;
+  }
+}
+
+.mobile_navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 150;
+  height: 100%;
+  width: 340px;
+  border-radius: 0;
+  transition: 0.2s;
+  transform: translateX(-100%);
+  background-color: $secondary-color;
+  display: flex;
+  flex-direction: column;
+}
+
+.open_mobile_navbar {
+  transform: translateX(0);
+}
+
+.logo_and_profile {
+  background-color: $navbar-main;
+  padding: $padding;
+  border-bottom: 2px solid $border-color;
+}
+
+.logo_container {
+  @include links_mixin;
+
+  .logo_icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  p {
+    font-size: 1.4rem;
+  }
+}
+
+.close_modal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 2px;
+    background-color: $text-color;
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    transform: rotate(45deg);
+  }
+}
+
+.profile_container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  h4 {
+    font-size: 1.2rem;
+  }
+}
+
+.profile_and_theme_container {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  width: 46px;
+  height: 46px;
+  color: $small-things-color;
+  stroke: $text-color;
+}
+
+.theme_icon {
+  width: 30px;
+  height: 30px;
+}
+
+.link_container {
+  @include links_mixin;
+  justify-content: flex-start;
+  padding: 15px $padding;
+
+  p {
+    font-size: 1.2rem;
+  }
+  border-bottom: 1px solid $border-color;
+}

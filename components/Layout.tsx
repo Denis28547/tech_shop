@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 import { useAppDispatch } from "../store/hooks";
-import { setIsMobile } from "../store/reducers/MobileSlice";
+import { setIsMobile } from "../store/reducers/SmallThingsSlice";
 
 import Navbar from "./Navbar/Navbar";
 import { ProfileNavbar } from "./Profile/ProfileNavbar";

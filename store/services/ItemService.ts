@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
 
-import { IItem, IItemWithUser } from "../../types/index";
+import { IItem, IItemWithUserAndCategory } from "../../types/index";
 
 export const itemAPI = createApi({
   reducerPath: "itemAPI",
@@ -19,7 +19,10 @@ export const itemAPI = createApi({
       }),
       providesTags: ["Items"],
     }),
-    getItemByIdWithUser: build.query<IItemWithUser, string | string[]>({
+    getItemByIdWithUserAndCategory: build.query<
+      IItemWithUserAndCategory,
+      string | string[]
+    >({
       query: (item_id) => ({
         url: `/api/item/${item_id}`,
       }),
@@ -71,7 +74,7 @@ export const itemAPI = createApi({
 
 export const {
   useGetAllItemsQuery,
-  useGetItemByIdWithUserQuery,
+  useGetItemByIdWithUserAndCategoryQuery,
   useGetAllUserItemsQuery,
   useAddItemMutation,
   useEditItemMutation,
@@ -80,5 +83,5 @@ export const {
 } = itemAPI;
 
 // export endpoints for use in SSR
-export const { getAllItems, getItemByIdWithUser, getAllUserItems } =
+export const { getAllItems, getItemByIdWithUserAndCategory, getAllUserItems } =
   itemAPI.endpoints;
