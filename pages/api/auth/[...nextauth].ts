@@ -4,12 +4,14 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import SequelizeAdapter from "@next-auth/sequelize-adapter";
-import sequelize, { User } from "../../../models";
+import { sequelize, User } from "../../../models";
+// const adapter = SequelizeAdapter(sequelize);
 
-sequelize.sync();
+// sequelize.sync();
 
 export const authOptions: NextAuthOptions = {
   adapter: SequelizeAdapter(sequelize),
+  // adapter,
 
   providers: [
     GithubProvider({

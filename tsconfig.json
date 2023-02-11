@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "public/assets/navbarIcons/ProfileIcon.tsx",
-    "public/assets/navbarIcons/CartIcon.tsx"
+    "public/assets/navbarIcons/CartIcon.tsx",
+    "models/index.ts"
   ],
   "exclude": ["node_modules"]
 }
