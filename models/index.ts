@@ -9,11 +9,11 @@ const DATABASE_URL = process.env.DATABASE_URL as string;
 const PGPORT = process.env.PGPORT as string;
 
 export const sequelize = new Sequelize({
-  username: PGUSER!,
-  password: PGPASSWORD,
-  database: PGDATABASE,
-  host: DATABASE_URL,
-  port: Number(PGPORT),
+  username: "postgres",
+  password: "p9u7fnaouXyy6OwQDgPN",
+  database: "railway",
+  host: "containers-us-west-189.railway.app",
+  port: 5443,
   dialect: "postgres",
 });
 
