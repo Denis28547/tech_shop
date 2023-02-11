@@ -15,12 +15,6 @@ export const sequelize = new Sequelize({
   host: DATABASE_URL,
   port: Number(PGPORT),
   dialect: "postgres",
-  // username: "postgres",
-  // password: "p9u7fnaouXyy6OwQDgPN",
-  // database: "railway",
-  // host: "containers-us-west-189.railway.app",
-  // port: 5443,
-  // dialect: "postgres",
 });
 
 export const User = sequelize.define<IUserModel>(
