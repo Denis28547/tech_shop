@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Op } from "sequelize";
 
-import { Category, Item } from "../../../models";
+import { Category, Item } from "../../../models/index";
 
 interface IReq {
   query: {

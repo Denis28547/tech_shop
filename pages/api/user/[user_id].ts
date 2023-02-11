@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { User } from "../../../models";
+import { User } from "../../../models/index";
 
 interface IReq {
   query: {

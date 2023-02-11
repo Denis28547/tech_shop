@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 import { v4 as uuidv4 } from "uuid";
 import { sendActivationMail } from "../../../server/mailer";
 
-import { User } from "../../../models";
+import { User } from "../../../models/index";
 
 export default async function handler(
   req: NextApiRequest,

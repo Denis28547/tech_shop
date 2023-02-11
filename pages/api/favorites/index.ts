@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
-import { Category, User } from "../../../models";
+import { Category, User } from "../../../models/index";
 
 export default async function handler(
   req: NextApiRequest,

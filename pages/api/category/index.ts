@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { Category } from "../../../models";
+import { Category } from "../../../models/index";
 
 export default async function handler(
   req: NextApiRequest,

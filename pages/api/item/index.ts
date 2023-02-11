@@ -5,7 +5,7 @@ import { File, Files, formidable } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
-import { Item, Category } from "../../../models";
+import { Item, Category } from "../../../models/index";
 
 export const config = {
   api: {

@@ -22,6 +22,7 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 //--14) if ur not logged in u shouldn't be able to add favorites
 15) save preferred list style in favorites to local storage
 16) other's profile item list
+17) migrate database
 
 
 *** small things
