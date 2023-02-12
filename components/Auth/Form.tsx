@@ -78,7 +78,7 @@ const Form = ({
         setDisableButton(false);
         setResponse({
           success: true,
-          message: `${response.data.message}, check your email (${email}) to verify account`,
+          message: `${response.data.message}, check your email (${email}) to verify account ( if you can't find message, check spam folder )`,
         });
         handleChangePage();
       } catch (error: any) {

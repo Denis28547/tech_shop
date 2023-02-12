@@ -10,17 +10,11 @@ const PGHOST = process.env.PGHOST as string;
 const PGPORT = process.env.PGPORT as string;
 
 export const sequelize = new Sequelize({
-  // username: PGUSER!,
-  // password: PGPASSWORD,
-  // database: PGDATABASE,
-  // host: PGHOST,
-  // port: Number(PGPORT),
-  // dialect: "postgres",
-  username: "postgres",
-  password: "p9u7fnaouXyy6OwQDgPN",
-  database: "railway",
-  host: "containers-us-west-189.railway.app",
-  port: 5443,
+  username: PGUSER!,
+  password: PGPASSWORD,
+  database: PGDATABASE,
+  host: PGHOST,
+  port: Number(PGPORT),
   dialect: "postgres",
 });
 
