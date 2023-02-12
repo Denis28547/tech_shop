@@ -1,6 +1,7 @@
 import { DataTypes, Sequelize } from "sequelize";
 
 import { ICategoryModel, IItemModel, IUserModel } from "../types/index";
+require("pg");
 
 const PGUSER = process.env.PGUSER as string;
 const PGPASSWORD = process.env.PGPASSWORD as string;
