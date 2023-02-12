@@ -30,12 +30,12 @@ const saveFile = (file: File): string => {
   const fileType = file.originalFilename!.split(".").at(-1);
   const fileName = uuidv4() + "." + fileType;
   const data = fs.readFileSync(file.filepath);
-  const pathToFile = path.join(
-    __dirname,
-    `../../../../public/Content/items_images/${fileName}`
-  );
-  console.log("pathToFile", pathToFile);
-  fs.writeFileSync(pathToFile, data);
+  // const pathToFile = path.join(
+  //   __dirname,
+  //   `../../../../public/Content/items_images/${fileName}`
+  // );
+  // console.log("pathToFile", pathToFile);
+  fs.writeFileSync(`/public/Content/items_images/${fileName}`, data);
   return fileName;
 };
 
