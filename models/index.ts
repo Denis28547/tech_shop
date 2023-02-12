@@ -6,14 +6,14 @@ require("pg");
 const PGUSER = process.env.PGUSER as string;
 const PGPASSWORD = process.env.PGPASSWORD as string;
 const PGDATABASE = process.env.PGDATABASE as string;
-const DATABASE_URL = process.env.DATABASE_URL as string;
+const PGHOST = process.env.PGHOST as string;
 const PGPORT = process.env.PGPORT as string;
 
 export const sequelize = new Sequelize({
   username: PGUSER!,
   password: PGPASSWORD,
   database: PGDATABASE,
-  host: DATABASE_URL,
+  host: PGHOST,
   port: Number(PGPORT),
   dialect: "postgres",
 });
@@ -23,7 +23,7 @@ export const User = sequelize.define<IUserModel>(
   {
     id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     name: {

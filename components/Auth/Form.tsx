@@ -1,5 +1,5 @@
 import { signIn } from "next-auth/react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import CustomButton from "../CustomButton";
