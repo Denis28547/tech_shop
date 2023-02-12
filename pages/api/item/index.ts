@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
+import path from "path";
 import { File, Files, formidable } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
@@ -29,10 +30,11 @@ const saveFile = (file: File): string => {
   const fileType = file.originalFilename!.split(".").at(-1);
   const fileName = uuidv4() + "." + fileType;
   const data = fs.readFileSync(file.filepath);
-  fs.writeFileSync(
-    `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES_BACKEND}${fileName}`,
-    data
+  const pathToFile = path.join(
+    __dirname,
+    `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES_BACKEND}${fileName}`
   );
+  fs.writeFileSync(pathToFile, data);
   return fileName;
 };
 
