@@ -44,7 +44,7 @@ export default async function handler(
 
         const activationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/activate/${user.activationLink}`;
 
-        sendActivationMail(user.email, activationUrl);
+        await sendActivationMail(user.email, activationUrl);
 
         res.status(201).json({ message: "your account has been created" });
       } catch (error: any) {
