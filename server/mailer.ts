@@ -12,7 +12,7 @@ const sendActivationMail = async (email: string, link: string) => {
     });
 
     await transporter.sendMail({
-      from: "TechShop",
+      from: "sendmails256@gmail.com",
       to: email,
       subject: "Verification",
       text: "Hello world?",

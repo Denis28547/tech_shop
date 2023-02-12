@@ -41,3 +41,8 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 //--13) if you are editing item and clicking on sell button on navbar the fields are saved
 14) when going page back u can get on redirect page
 //--15) make auth modal controlled by redux
+
+PRODUCTION PROBLEMS
+
+1) need to host logo ( when sending verification mail logo does not appear )
+2) need to host all images somewhere local thing doesn't work :-( 
