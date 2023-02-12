@@ -37,7 +37,7 @@ const saveFile = (file: File): string => {
   // console.log("pathToFile", pathToFile);
   const pathToFile = path.join(
     process.cwd(),
-    `/public/Content/items_images/${fileName}`
+    `/Content/items_images/${fileName}`
   );
   console.log(pathToFile);
   fs.writeFileSync(pathToFile, data);
