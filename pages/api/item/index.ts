@@ -35,7 +35,12 @@ const saveFile = (file: File): string => {
   //   `../../../../public/Content/items_images/${fileName}`
   // );
   // console.log("pathToFile", pathToFile);
-  fs.writeFileSync(`/public/Content/items_images/${fileName}`, data);
+  const pathToFile = path.join(
+    process.cwd(),
+    `/public/Content/items_images/${fileName}`
+  );
+  console.log(pathToFile);
+  fs.writeFileSync(pathToFile, data);
   return fileName;
 };
 
