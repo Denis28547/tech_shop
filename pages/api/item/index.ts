@@ -32,8 +32,9 @@ const saveFile = (file: File): string => {
   const data = fs.readFileSync(file.filepath);
   const pathToFile = path.join(
     __dirname,
-    `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES_BACKEND}${fileName}`
+    `../../../../public/Content/items_images/${fileName}`
   );
+  console.log("pathToFile", pathToFile);
   fs.writeFileSync(pathToFile, data);
   return fileName;
 };
