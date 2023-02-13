@@ -44,7 +44,7 @@ const ImageComponent = ({ id, initialImage }: IImageComponent) => {
   }, [image]);
 
   if (initialImageState) {
-    const initialImagePath = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}${initialImageState}`;
+    const initialImagePath = `${process.env.NEXT_PUBLIC_BASE_URL}/api/image/${initialImageState}`;
 
     return (
       <div
@@ -60,12 +60,7 @@ const ImageComponent = ({ id, initialImage }: IImageComponent) => {
             layout="fill"
             objectFit="cover"
           />
-          <div
-            className={styles.trash_icon_container}
-            // onClick={() => {
-            //   setInitialImageState(undefined);
-            // }}
-          >
+          <div className={styles.trash_icon_container}>
             <TrashIcon className={styles.trash_icon} />
           </div>
           <input id={id} defaultValue={initialImageState} type="text" />
@@ -85,13 +80,7 @@ const ImageComponent = ({ id, initialImage }: IImageComponent) => {
       {preview ? (
         <>
           <Image src={preview} alt="photo" layout="fill" objectFit="cover" />
-          <div
-            className={styles.trash_icon_container}
-            // onClick={() => {
-            //   if (inputRef?.current?.value) inputRef.current.value = "";
-            //   setImage(null);
-            // }}
-          >
+          <div className={styles.trash_icon_container}>
             <TrashIcon className={styles.trash_icon} />
           </div>
         </>

@@ -1,12 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
-import path from "path";
 import { File, Files, formidable } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
 import { Item, Category } from "../../../models/index";
+
+import { uploadFile } from "../../../utils/s3";
 
 export const config = {
   api: {
@@ -24,24 +25,6 @@ const checkFileType = (file: File): boolean => {
     return false;
   }
   return false;
-};
-
-const saveFile = (file: File): string => {
-  const fileType = file.originalFilename!.split(".").at(-1);
-  const fileName = uuidv4() + "." + fileType;
-  const data = fs.readFileSync(file.filepath);
-  // const pathToFile = path.join(
-  //   __dirname,
-  //   `../../../../public/Content/items_images/${fileName}`
-  // );
-  // console.log("pathToFile", pathToFile);
-  const pathToFile = path.join(
-    process.cwd(),
-    `/Content/items_images/${fileName}`
-  );
-  console.log(pathToFile);
-  fs.writeFileSync(pathToFile, data);
-  return fileName;
 };
 
 const findImagePlace = (
@@ -188,7 +171,8 @@ export default async function handler(
                   imageOriginalName,
                   filePositionParsed
                 );
-                const imagePath = saveFile(image);
+                const imagePath = (await uploadFile(image)).Key;
+
                 putImagePathInArray(imagePosition, imagePath);
               }
             }
