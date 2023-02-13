@@ -11,7 +11,7 @@ interface IPhotoBlock {
 
 const PhotoBlock = ({ images }: IPhotoBlock) => {
   const [currentImage, setCurrentImage] = useState(0);
-  const image = `${process.env.NEXT_PUBLIC_FILEPATH_TO_USER_ITEM_IMAGES}${images[currentImage]}`;
+  const image = `${process.env.NEXT_PUBLIC_BASE_URL}/api/image/${images[currentImage]}`;
 
   const prevImage = () => {
     setCurrentImage((prevVal) => {
