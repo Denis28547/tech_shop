@@ -49,12 +49,15 @@ export const searchSlice = createSlice({
     ) => {
       state.from = action.payload.from;
       state.to = action.payload.to;
+      state.page = "";
     },
     updateCategoryState: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
+      state.page = "";
     },
     updateSortBy: (state, action: PayloadAction<string>) => {
       state.sort = action.payload;
+      state.page = "";
     },
     updatePage: (state, action: PayloadAction<string>) => {
       state.page = action.payload;
@@ -70,6 +73,7 @@ export const searchSlice = createSlice({
     clearOneFilter: (state, action: PayloadAction<keyof ISearchState>) => {
       if (action.payload === "isStateInitial") return;
       state[action.payload] = "";
+      state.page = "";
     },
     updateAllStates: (state, action: PayloadAction<ISearchStateWithNull>) => {
       const { search, from, to, category, sort, page } = action.payload;

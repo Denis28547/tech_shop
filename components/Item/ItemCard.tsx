@@ -1,18 +1,8 @@
-import { MouseEvent, useState } from "react";
-
-import {
-  useAddFavoriteMutation,
-  useRemoveFavoriteMutation,
-} from "../../store/services/FavoritesService";
-import { useAppDispatch } from "../../store/hooks";
-import {
-  openPopupSuccess,
-  openPopupFailure,
-} from "../../store/reducers/PopupSlice";
-
 import ItemStyle from "./ItemStyle";
 import ItemWideStyle from "./ItemWideStyle";
 import { IItem, IItemWithCategory } from "../../types/index";
+
+import { useChangeIsFavoriteHook } from "./ChangeIsFavoriteHook";
 
 interface IItemCard {
   item: IItem | IItemWithCategory;
@@ -22,8 +12,10 @@ interface IItemCard {
 }
 
 const ItemCard = ({ item, isWide, isFavoriteData, isEditable }: IItemCard) => {
-  const dispatch = useAppDispatch();
-  const [isFavorite, setIsFavorite] = useState(isFavoriteData);
+  const [isFavorite, changeFavorite] = useChangeIsFavoriteHook(
+    isFavoriteData,
+    item.id
+  );
 
   const item_image = `${process.env.NEXT_PUBLIC_BASE_URL}/api/image/${item.images[0]}`;
 
@@ -32,37 +24,6 @@ const ItemCard = ({ item, isWide, isFavoriteData, isEditable }: IItemCard) => {
   const fullDate = `${date.getDate()} ${date.toLocaleString("default", {
     month: "long",
   })} ${date.getFullYear()}`;
-
-  const [addFavorite] = useAddFavoriteMutation();
-  const [removeFavorite] = useRemoveFavoriteMutation();
-
-  const changeFavorite = (e: MouseEvent) => {
-    e.stopPropagation();
-
-    if (isFavorite) {
-      setIsFavorite(false);
-      removeFavorite(item.id)
-        .unwrap()
-        .then(() => {
-          dispatch(openPopupSuccess("Item removed from favorites"));
-        })
-        .catch(() => {
-          dispatch(openPopupFailure("Something unexpected happened"));
-          setIsFavorite(true);
-        });
-    } else {
-      setIsFavorite(true);
-      addFavorite(item.id)
-        .unwrap()
-        .then(() => {
-          dispatch(openPopupSuccess("Item added to favorites"));
-        })
-        .catch((error) => {
-          dispatch(openPopupFailure(error.data.message));
-          setIsFavorite(false);
-        });
-    }
-  };
 
   return (
     <>

@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { useChangeIsFavoriteHook } from "../Item/ChangeIsFavoriteHook";
 
 import { IItemWithUserAndCategory } from "../../types/index";
 import HeartIcon from "../../public/assets/HeartIcon";
-import {
-  useAddFavoriteMutation,
-  useRemoveFavoriteMutation,
-} from "../../store/services/FavoritesService";
 
 import styles from "../../styles/itemPage/DescriptionBlock.module.scss";
 import like_icon_style from "../../styles/item/LikeIconStyles.module.scss";
@@ -16,21 +12,10 @@ interface IDescriptionBlock {
 }
 
 const DescriptionBlock = ({ item, isFavoriteData }: IDescriptionBlock) => {
-  const [isFavorite, setIsFavorite] = useState(isFavoriteData);
-
-  const [addFavorite] = useAddFavoriteMutation();
-  const [removeFavorite] = useRemoveFavoriteMutation();
-
-  const changeFavorite = (e: MouseEvent) => {
-    e.stopPropagation();
-    if (isFavorite) {
-      removeFavorite(item.id);
-      setIsFavorite(false);
-    } else {
-      addFavorite(item.id);
-      setIsFavorite(true);
-    }
-  };
+  const [isFavorite, changeFavorite] = useChangeIsFavoriteHook(
+    isFavoriteData,
+    item.id
+  );
 
   const date = new Date(item.createdAt);
   const fullDate = `${date.getDate()} ${date.toLocaleString("default", {

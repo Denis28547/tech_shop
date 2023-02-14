@@ -5,10 +5,7 @@ import {
   useGetAllItemsQuery,
 } from "../store/services/ItemService";
 
-import {
-  getAllUserFavoritesIds,
-  useGetAllUserFavoritesIdsQuery,
-} from "../store/services/FavoritesService";
+import { useGetAllUserFavoritesIdsQuery } from "../store/services/FavoritesService";
 import { getAllCategories } from "../store/services/CategoryService";
 
 import { ICategory } from "../types/index";
@@ -31,7 +28,7 @@ const LandingPage: NextPage<ILandingPage> = ({ categoriesData }) => {
     <>
       <CategoriesPreview categoriesData={categoriesData} />
       <div className={styles.landing_pageWrapper}>
-        <h1 className={styles.landing_h1}>Items</h1>
+        <h1 className={styles.landing_h1}>Newest Advertisements</h1>
         <ItemsGridCard
           isItemsLoading={isItemsLoading}
           itemsData={itemsData}
