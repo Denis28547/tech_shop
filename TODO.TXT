@@ -44,5 +44,9 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 
 PRODUCTION PROBLEMS
 
-1) need to host logo ( when sending verification mail logo does not appear )
-2) need to host all images somewhere local thing doesn't work :-( 
+//--1) need to host logo ( when sending verification mail logo does not appear )
+//--2) need to host all images somewhere local thing doesn't work :-( 
+3) deleting images on host
+//--4) when ur on another page than 1 and add any filter it doesn't reset page
+//--5) popup doesn't work in itempage
+6) primary key for favorites table

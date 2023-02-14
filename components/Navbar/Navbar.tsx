@@ -30,7 +30,7 @@ const Navbar = ({ disabled }: INavbar) => {
         <Link href="/">
           <a className={styles.logo_container}>
             <LogoIcon className={styles.logo_icon} theme={theme} />
-            <p className={styles.logo_name}>TechShop</p>
+            <p className={styles.logo_name}>Sell IT</p>
           </a>
         </Link>
       </div>
