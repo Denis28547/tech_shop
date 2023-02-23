@@ -14,6 +14,7 @@ $background-transition: background-color 0.2s;
 
 .navbar {
   @include flex_display;
+  transition: 0.5s;
   justify-content: center;
   height: 70px;
   background-color: $navbar-main;
@@ -28,7 +29,6 @@ $background-transition: background-color 0.2s;
     @include flex_display;
     @include flex_container_evenly;
     flex: 0 1 22%;
-    // flex: 0 1 360px;
   }
 
   @media all and (max-width: 800px) {

@@ -9,7 +9,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <title>TechShop</title>
+      <title>Sell IT</title>
       <link rel="shortcut icon" href="/static/favicon.ico" />
       <body>
         <Main />

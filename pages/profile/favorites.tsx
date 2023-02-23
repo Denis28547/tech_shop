@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
+import { getSession, GetSessionParams } from "next-auth/react";
 
 import {
   useGetAllFavoritesQuery,
@@ -135,5 +136,26 @@ const Favorites: NextPage = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(context: GetSessionParams) {
+  const redirectDestination =
+    "/redirect?text=Please log in or register to open favorites&success=false";
+
+  const session = await getSession(context);
+
+  if (!session || !session.user)
+    return {
+      redirect: {
+        destination: redirectDestination,
+        permanent: false,
+      },
+    };
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
 
 export default Favorites;

@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setIsAuthModalOpen } from "../../store/reducers/SmallThingsSlice";
-import { useChangeThemeHook } from "./ChangeThemeHook";
 
 import Auth from "../Auth/Auth";
 import Modal from "../Modal";

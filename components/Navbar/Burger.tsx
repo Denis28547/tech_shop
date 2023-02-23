@@ -52,7 +52,7 @@ export const Burger = ({ theme, handleSetTheme }: IBurger) => {
             <Link href="/">
               <a className={styles.logo_container}>
                 <LogoIcon className={styles.logo_icon} theme={theme} />
-                <p>TechShop</p>
+                <p>Sell IT</p>
               </a>
             </Link>
             <span

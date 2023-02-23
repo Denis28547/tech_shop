@@ -68,7 +68,7 @@ const sendActivationMail = async (email: string, link: string) => {
                     <tr>
                       <td>
                         <h2 style="margin: 0; height: 28px; padding: 16px 0">
-                          TechShop
+                          Sell IT
                         </h2>
                       </td>
                     </tr>
@@ -146,7 +146,7 @@ const sendActivationMail = async (email: string, link: string) => {
                     <tr>
                       <td>
                         <h2 style="margin: 0; height: 28px; padding: 16px 0">
-                          TechShop
+                          Sell IT
                         </h2>
                       </td>
                     </tr>
