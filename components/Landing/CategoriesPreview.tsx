@@ -29,27 +29,24 @@ export const CategoriesPreview = ({ categoriesData }: ICategoriesPreview) => {
       <h1 className={styles.category_title}>Main Categories</h1>
       <ul className={styles.categories_container}>
         {categoriesData.map((category) => (
-          <li key={category.name} className={styles.category_styling}>
+          <li key={category.name}>
             <a
-              className={styles.image_container}
-              style={{ backgroundColor: category.backgroundColor }}
               onClick={() => findItemsByCategory(category.name)}
+              className={styles.category_styling}
             >
-              <Image
-                src={`/Content/categoriesPreview/${createPathForImage(
-                  category.name
-                )}.png`}
-                alt={category.name}
-                layout="fill"
-              />
-            </a>
-
-            <a
-              className={styles.category_name}
-              title={category.name}
-              onClick={() => findItemsByCategory(category.name)}
-            >
-              {category.name}
+              <div
+                className={styles.image_container}
+                style={{ backgroundColor: category.backgroundColor }}
+              >
+                <Image
+                  src={`/Content/categoriesPreview/${createPathForImage(
+                    category.name
+                  )}.png`}
+                  alt={category.name}
+                  layout="fill"
+                />
+              </div>
+              <p className={styles.category_name}>{category.name}</p>
             </a>
           </li>
         ))}

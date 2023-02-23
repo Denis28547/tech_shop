@@ -50,3 +50,4 @@ PRODUCTION PROBLEMS
 //--4) when ur on another page than 1 and add any filter it doesn't reset page
 //--5) popup doesn't work in itempage
 6) primary key for favorites table
+7) when user scrolls to footer navbar should hide

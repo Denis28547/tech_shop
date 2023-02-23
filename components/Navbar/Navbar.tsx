@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { useChangeThemeHook } from "./ChangeThemeHook";
@@ -19,12 +20,35 @@ interface INavbar {
 }
 
 const Navbar = ({ disabled }: INavbar) => {
+  const [isNavbarHidden, setIsNavbarHidden] = useState(false);
   const [theme, handleSetTheme] = useChangeThemeHook();
+
+  useEffect(() => {
+    let lastScrollTop = 0;
+    const navbar = document.getElementById("navbar") as HTMLElement;
+
+    function checkScroll() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop) {
+        navbar.style.top = "-80px";
+      } else {
+        navbar.style.top = "0";
+      }
+      lastScrollTop = scrollTop;
+    }
+
+    window.addEventListener("scroll", checkScroll);
+
+    () => {
+      window.removeEventListener("scroll", checkScroll);
+    };
+  }, []);
 
   return (
     <nav
       className={styles.navbar}
       style={{ display: disabled ? "none" : "flex" }}
+      id="navbar"
     >
       <div className={styles.left_container}>
         <Link href="/">
@@ -68,9 +92,8 @@ const Navbar = ({ disabled }: INavbar) => {
         <ProfileComponent />
 
         <Burger theme={theme} handleSetTheme={handleSetTheme} />
-
-        <AuthModalComponents />
       </div>
+      <AuthModalComponents />
     </nav>
   );
 };

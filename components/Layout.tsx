@@ -5,6 +5,7 @@ import { useAppDispatch } from "../store/hooks";
 import { setIsMobile } from "../store/reducers/SmallThingsSlice";
 
 import Navbar from "./Navbar/Navbar";
+import { Footer } from "./Footer/Footer";
 import { ProfileNavbar } from "./Profile/ProfileNavbar";
 import BottomPopUp from "./BottomPopUp";
 
@@ -40,14 +41,16 @@ const Layout = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
     };
   }, []);
 
+  const isLayoutDisabled =
+    router.pathname in disableNavbarForRoutes ? true : false;
+
   return (
     <>
-      <Navbar
-        disabled={router.pathname in disableNavbarForRoutes ? true : false}
-      />
+      <Navbar disabled={isLayoutDisabled} />
       {router.pathname.includes("profile") && <ProfileNavbar />}
       <main className={styles.main}>{children}</main>
       <BottomPopUp />
+      <Footer disabled={isLayoutDisabled} />
     </>
   );
 };
