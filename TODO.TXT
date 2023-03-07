@@ -52,3 +52,5 @@ PRODUCTION PROBLEMS
 6) primary key for favorites table
 //--7) when user scrolls down navbar should hide
 //--8) delete images in s3 bucket when deleting item
+//--9) when updating images it should update in s3
+10) images editing S3 endpoint is unsafe
