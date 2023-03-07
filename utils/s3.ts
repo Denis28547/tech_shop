@@ -32,3 +32,12 @@ export function getFileStream(fileKey: string) {
 
   return s3.getObject(downloadParams).createReadStream();
 }
+
+export function deleteFile(fileKey: string) {
+  const deleteParams = {
+    Key: fileKey,
+    Bucket: bucketName,
+  };
+
+  return s3.deleteObject(deleteParams).promise();
+}

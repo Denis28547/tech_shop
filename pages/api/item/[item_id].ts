@@ -1,9 +1,10 @@
+import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
 import { User, Item, Category } from "../../../models/index";
-
+2;
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -69,6 +70,12 @@ export default async function handler(
             message: "you don't have the permission to delete this item",
           });
 
+        //deletes images from s3 bucket
+        for (const imageKey of itemToDelete.images) {
+          await axios.delete(
+            `${process.env.NEXTAUTH_URL}/api/image/${imageKey}`
+          );
+        }
         await Item.destroy({
           where: {
             id: item_id,

@@ -10,7 +10,7 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 //--2) normal responsive item page
 //--3) do something with landing page
 //--4) search feature
-5) footer
+//--5) footer
 //--6) user profile page
 7) add chat
 //--8) appearing box on the bottom of the site, telling that something was successful/unsuccessful ( add this when adding favorites, and when copying number on item page)
@@ -22,7 +22,7 @@ ANYTIME SITE LOADS IT SHOULD CHANGE IT'S ICON IN TAB
 //--14) if ur not logged in u shouldn't be able to add favorites
 15) save preferred list style in favorites to local storage
 16) other's profile item list
-17) migrate database
+//--17) migrate database
 
 
 *** small things
@@ -50,4 +50,5 @@ PRODUCTION PROBLEMS
 //--4) when ur on another page than 1 and add any filter it doesn't reset page
 //--5) popup doesn't work in itempage
 6) primary key for favorites table
-7) when user scrolls to footer navbar should hide
+//--7) when user scrolls down navbar should hide
+//--8) delete images in s3 bucket when deleting item
