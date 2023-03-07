@@ -1,6 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { v4 as uuidv4 } from "uuid";
-import fs from "fs";
 import { File, Files, formidable } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
