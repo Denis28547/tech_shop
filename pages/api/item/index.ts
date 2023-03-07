@@ -187,8 +187,6 @@ export default async function handler(
               if (!item) return reject("no item with such id");
               if (item.user_id !== session.user?.id)
                 return reject("you don't have permission to edit this item");
-              console.log(item.images);
-              console.log(imagePaths);
 
               for (
                 let imageIndex = 0;
