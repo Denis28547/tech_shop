@@ -1,10 +1,10 @@
+import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { File, Files, formidable } from "formidable";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
 import { Item, Category } from "../../../models/index";
-
 import { uploadFile } from "../../../utils/s3";
 
 export const config = {
@@ -187,6 +187,21 @@ export default async function handler(
               if (!item) return reject("no item with such id");
               if (item.user_id !== session.user?.id)
                 return reject("you don't have permission to edit this item");
+              console.log(item.images);
+              console.log(imagePaths);
+
+              for (
+                let imageIndex = 0;
+                imageIndex < item.images.length;
+                imageIndex++
+              ) {
+                const oldImageEl = item.images[imageIndex];
+                if (!imagePaths.includes(oldImageEl)) {
+                  await axios.delete(
+                    `${process.env.NEXTAUTH_URL}/api/image/${oldImageEl}`
+                  );
+                }
+              }
 
               await item.update({
                 name,

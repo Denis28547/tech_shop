@@ -41,3 +41,11 @@ export function deleteFile(fileKey: string) {
 
   return s3.deleteObject(deleteParams).promise();
 }
+
+export function updateObject(fileKey: string) {
+  // const deleteParams = {
+  //   Key: fileKey,
+  //   Bucket: bucketName,
+  // };
+  // return s3.deleteObject(deleteParams).promise();
+}

@@ -28,7 +28,6 @@ export default async function handler(
     case "DELETE":
       try {
         const { image_key } = req.query;
-        console.log("image_key inside", image_key);
 
         if (typeof image_key !== "string")
           return res.status(400).send("wrong key of image");
